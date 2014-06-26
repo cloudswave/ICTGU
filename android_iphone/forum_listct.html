@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_slide.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<style>
+    .mswi{
+		-webkit-transition:-webkit-transform 0.1s ease-in;
+	}
+	input+h1>img.mswi{
+		-webkit-transform:rotate(0deg);
+	}
+	input:checked+h1>img.mswi{
+		-webkit-transform:rotate(180deg);
+	}
+	</style>
+</head>
+    <body class="um-vp c-gra5" ontouchstart="zy_cc(this);">
+        <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+            <!--header开始-->
+           <div id="header" class="uh">
+           		<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6 ub" id="hd1">
+            		<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">
+            			<div class="btn btn-l btn-a ub ub-ac">       
+							<div class="ulim">返回</div>
+						</div>
+            		</div>
+					<input class="uhide" type="checkbox" id="cbx">
+	                <h1 class="ut ulev0 ut-s tx-c ub-f1" style="padding:.6em 0 .8em;" tabindex="0" ontouchstart="zy_touch('')" onclick="openpop();">
+	                	<span id="title">普通帖子</span>
+						<img class="mswi" id="trans-pic" src="css/images/icons-18-white_down.png" style="width:.85em;" />	     
+					</h1>
+					<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="addThread();">
+						<div class="btn btn-r btn-n ub ub-ac">       
+				        	<div class="ulim">
+				        		<img src="images/sbtn.png" class="sbtn">
+							</div>             
+				        </div>
+					</div>
+				</div>
+				
+				<div class="c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6 uof uhide" id="class">
+					<div class="ub-fh ub" id="pcats">
+						<div class="ub-fh ub ub-ac ub-pc">
+							<input class="uhide" type="radio" checked="true">
+							<div class="ub-f1 tx-c dis-sta">头条</div>
+							<div class="ub-f1 tx-c">&nbsp;</div>
+							<div class="ub-f1 tx-c">&nbsp;</div>
+							<div class="ub-f1 tx-c">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+           <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l t-bla">
+                
+            </div>
+            <!--content结束-->
+        </div>
+    </body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var fid = params.fid;
+var hasCls = params.hasCls;
+var noPop = params.noPop;
+var mySlide = null;
+var catCount = 1;
+var catIndex = 1;
+var clsid = 0;
+if(hasCls=='1') zy_anim_pop('class','uhide');
+if(noPop) removeNode('trans-pic');
+
+window.uexOnload = function(type){
+    if (!type) {
+		setstorage('params', '{"fid":"'+fid+'", "view":"com", "update":""}');
+        zy_con("content", "forum_listct_content.html", 0, $$("header").offsetHeight);
+		showclass();
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+function addThread(){
+	var cid = '';
+	if(!checkLogin()) return;
+	if(clsid) cid = clsid;
+	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "clsid":"'+cid+'"}');
+	openwin('editor','editor.html','12');
+}
+
+function endFun(){}
+function transEnd(){}
+function showclass(){
+	var forums = null;
+	var data = getstorage('forums');
+	if(data) forums = JSON.parse(data);
+	else return;
+	var keyevt = getstorage('keyevt');
+	var cls = forums[fid].cls;
+	if(cls){
+		catCount = zy_tmpl_count(cls);
+		logs('catCount = '+catCount);
+		
+		if(catCount>0){
+			var res = '';
+			for(var k in cls){
+				var sss1 = '';
+				var sss2 = '';
+				var sss3 = '<input class="uhide" type="radio" name="portal" id="'+k+'"><div class="ub-f1 tx-c dis-sta" ontouchstart="zy_touch(\'focuss\')" onclick="myclass(\'' + k + '\');">' + cls[k] + '</div>';
+				if((catIndex%4)==1) sss1 = '<div class="ub-fh ub ub-ac ub-pc">';
+				
+				if (catIndex == 1) {
+					str = '<input class="uhide" type="radio" name="portal" checked="true" id="0"><div class="ub-f1 tx-c dis-sta" ontouchstart="zy_touch(\'focuss\')" onclick="myclass(0);">全部</div>';
+					str += sss3;
+					catIndex ++;
+				}
+				else 
+					str = sss3;
+					
+				if((catIndex%4)==0) sss2 = '</div>';
+				
+				if(catIndex==(catCount+1)){
+					if(catCount>3){
+						var ac = (catCount+1)%4;
+						var ss = '<div class="ub-f1">&nbsp;</div>';
+						if(ac==1) sss2 = ss + ss + ss + '</div>';
+						else if(ac==2) sss2 = ss + ss + '</div>';
+						else if(ac==3) sss2 = ss + '</div>';
+					}
+					else sss2 = '</div>';
+				}
+				str = sss1 + str + sss2;
+				res += str;
+				catIndex ++;
+			}
+			
+			setHtml('pcats', res);
+			mySlide = new zySlide('pcats', 'H', endFun, 0, transEnd);
+		}
+		else{
+			logs('no portal open ~ ~ ~ ');
+		}
+	}
+}
+
+function myclass(id){
+	clsid = id;
+	var e = $$(id);
+	if(e && !e.checked){
+		e.checked = true;
+	}
+	
+	ueppscript('forum_listct', 'content', 'myclass('+id+')');
+}
+
+var ipop = 0;
+function openpop(){
+	if(noPop) return;
+	checkbx();
+	if(ipop){
+		//uexWindow.closePopover('pop_menu');
+		if(isSML){
+			uexWindow.closePopover('pop_menu');
+			ipop = 0;
+		}
+		else ueppscript('forum_listct', 'pop_menu', 'movepop('+ipop+');')
+	}
+	else{
+		ipop++;
+		var e = $$('hd1');
+		var s = window.getComputedStyle(e,null);
+		var h = int(window.innerHeight);
+		var w = int(window.innerWidth);
+		var f = int(s.fontSize);
+		var ofw = 1500
+		if(isSML) ofw = 0;
+		var y = int(e.offsetHeight)-0.4*f - ofw;
+		
+		setstorage('popview','forum');
+		uexWindow.openPopover('pop_menu',"0",'pop_menu.html',"",0,int(y),int(w),int(h),f,"0");
+		
+		if(!h2) h2 = int(e.offsetHeight);
+		if(hasCls=='1' && !h1) h1 = int($$('header').offsetHeight);
+		
+		if(!cw && !ch){
+			var s = window.getComputedStyle($$('content'),null);
+			cw = int(s.width);
+			ch = int(s.height);
+		}
+		logs('openpop()-->h1='+h1+', h2='+h2+', cw='+cw+', ch='+ch);
+	}
+}
+
+var h1 = 0;
+var h2 = 0;
+var cw = 0;
+var ch = 0;
+function selected(i, txt){
+	setHtml('title', txt);
+	
+	var scr = '';
+	if (i == 1) {
+		if (h1 && h1!=h2) {
+			zy_anim_pop('class','uhide');
+			uexWindow.setPopoverFrame('content', 0, h1, cw, ch);
+		}
+		scr = 'loadcom('+clsid+');';
+	}
+	else if(i==2){
+		if (h1 && h1!=h2) {
+			zy_anim_push('class','uhide');
+			uexWindow.setPopoverFrame('content', 0, h2, cw, ch+h2);
+		}
+		scr =  'loadtop();';
+	}
+	else{
+		if (h1 && h1!=h2) {
+			zy_anim_push('class','uhide');
+			uexWindow.setPopoverFrame('content', 0, h2, cw, ch+h2);
+		}
+		scr = 'loadchild();';
+	}
+	ueppscript('forum_listct', 'content', scr);
+}
+function checkbx(){
+	var ch = $$('cbx');
+	if(ch) ch.checked = !ch.checked;
+	
+	if(ipop){
+		if(ch.checked) ipop--;
+		else ipop++;
+	}
+}
+</script>
+</html>

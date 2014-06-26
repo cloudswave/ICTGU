@@ -1,0 +1,165 @@
+.tab
+{
+	height:3em;padding:0.2em 0.1em
+}
+.tab1
+{
+	height:1.5em;padding:0.2em 0.1em
+}
+.tab2
+{
+	height:2em;padding:0.2em 0.1em
+}
+input[type="radio"]:checked + div.tab-act
+{
+	background-color:rgba(255,255,255,0.1) !important;
+	border-radius:0.3em;
+	border: 0px;
+	background-image: none;
+}
+
+input[type="radio"] + div>div.tp-forum{
+	background: url(res-apple/info.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-forum{
+	background: url(res-apple/info-act.png) 50% 50% no-repeat;
+}
+.fos .tp-forum{
+	background: url(res-apple/info-act.png) 50% 50% no-repeat !important;
+}
+
+input[type="radio"] + div>div.tp-menu{
+	background: url(res-apple/menu.png) 50% 50% no-repeat;
+}
+input[type="radio"]:checked + div>div.tp-menu{
+	background: url(res-apple/menu-act.png) 50% 50% no-repeat;
+}
+
+input[type="radio"] + div>div.tp-portal{
+	background: url(res-apple/home.png) 50% 50% no-repeat;
+}
+input[type="radio"]:checked + div>div.tp-portal{
+	background: url(res-apple/home-act.png) 50% 50% no-repeat;
+}
+.fos .tp-portal{
+	background: url(res-apple/home-act.png) 50% 50% no-repeat !important;
+}
+
+input[type="radio"] + div>div.tp-msg{
+	background: url(res-apple/set.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-msg{
+	background: url(res-apple/set-act.png) 50% 50% no-repeat;
+}
+.fos .tp-msg{
+	background: url(res-apple/set-act.png) 50% 50% no-repeat !important;
+}
+
+input[type="radio"] + div>div.tp-fans{
+	background: url(res-apple/shop.png) 50% 50% no-repeat;
+}
+input[type="radio"]:checked + div>div.tp-fans{
+	background: url(res-apple/shop-act.png) 50% 50% no-repeat;
+}
+.fos .tp-fans{
+	background: url(res-apple/shop-act.png) 50% 50% no-repeat !important;
+}
+
+input[type="radio"] + div>div.tp-more{
+	background: url(res-apple/talk.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-more{
+	background: url(res-apple/talk-act.png) 50% 50% no-repeat;
+}
+.fos .tp-more{
+	background: url(res-apple/talk-act.png) 50% 50% no-repeat !important;
+}
+
+.tp-reply{
+	background: url(../images/porf1.png) 50% 50% no-repeat;
+}
+.tp-click .tp-reply{
+	background: url(../images/porf1a.png) 50% 50% no-repeat;
+}
+
+.tp-collect{
+	background: url(../images/porf2.png) 50% 50% no-repeat;
+}
+.tp-click .tp-collect{
+	background: url(../images/porf2a.png) 50% 50% no-repeat;
+}
+
+.tp-click .tp-favorited{
+	background: url(../images/fav-act.png) 50% 50% no-repeat;
+}
+
+.tp-favorited{
+	background: url(../images/porf2a1.png) 50% 50% no-repeat;
+}
+.tp-share{
+	background: url(../images/porf4.png) 50% 50% no-repeat;
+}
+.tp-click .tp-share{
+	background: url(../images/porf4a.png) 50% 50% no-repeat;
+}
+.tp-del{
+	background: url(../images/porf5.png) 50% 50% no-repeat;
+}
+.tp-click .tp-del{
+	background: url(../images/porf5a.png) 50% 50% no-repeat;
+}
+
+.tp-dw{
+	background: url(../images/goto2.png) 50% 50% no-repeat;
+}
+.tp-dws{
+	background: url(../images/goto3.png) 50% 50% no-repeat;
+}
+.tp-click .tp-dw, .tp-dws1{
+	background: url(../images/goto1.png) 50% 50% no-repeat;
+}
+.tp-tp{
+	background: url(../images/pic2.png) 50% 50% no-repeat;
+}
+.tp-click .tp-tp{
+	background: url(../images/pic1.png) 50% 50% no-repeat;
+}
+.tp-zx{
+	background: url(../images/camera2.png) 50% 50% no-repeat;
+}
+.tp-click .tp-zx{
+	background: url(../images/camera1.png) 50% 50% no-repeat;
+}
+.tp-bq{
+	background: url(../images/face2.png) 50% 50% no-repeat;
+}
+.tp-click .tp-bq{
+	background: url(../images/face1.png) 50% 50% no-repeat;
+}
+input[type="radio"]+div.dis-sta{
+	padding:.4em .2em;	
+}
+input[type="radio"]:checked+div.dis-sta{
+	border-radius:.4em;
+	background:-webkit-gradient(linear,0 0,0 100%,from(#9D9D9D),to(#B1B1B1));
+	box-shadow: inset 0px 2px 3px rgba(0, 0, 0, .4);
+	padding:.4em .2em;
+	color:#fff;
+}
+.focuss{/*点击效果*/
+	border-radius:.4em;
+	background:-webkit-gradient(linear,0 0,0 100%,from(#9D9D9D),to(#B1B1B1));
+	box-shadow: inset 0px 2px 3px rgba(0, 0, 0, .4);
+	padding:.4em .2em;
+	color:#fff;
+}
+
+input[type="radio"]:checked + div.c-color{
+	background-color:#5C6063;
+}
+input[type="radio"]:checked + div>div.t-gra4{
+	color:#7eb9cf;
+}

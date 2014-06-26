@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp">
+	<div class="uc-a uinn17" style="background:#B4B4B4;">
+		<div style="background:#E4E4E4;" class="uc-tl uc-tr" >
+			<div class="ulev0 t-gra tx-c uinn">
+				我要参加
+			</div>
+			<div class="b-gra3 uba1 umar-t umar-b"></div>
+			<div ontouchstart="zy_touch('btn-act')" class="uc-t ub t-bla ub-ac umh4 lis"> 
+				<div class="ut-s" style=" margin-top:-.4em;"><img src="images/redd.png" style="width:.5em; height:.5em;" /></div>       
+				<div class="tx-r t-gra ulev-3 umar-l ub-f1">
+					<div class="uc-n uinput uinn4">    
+						<input placeholder="请输入真实姓名" type="text" id="realName" class="uc-n ulev0">   
+					</div>
+				</div> 
+		 	</div>
+			<div class="b-gra3 uba"></div>
+			<div ontouchstart="zy_touch('btn-act')" class="uc-t ub t-bla ub-ac umh4 lis"> 
+				<div class="ut-s" style=" margin-top:-.4em;"><img src="images/redd.png" style="width:.5em; height:.5em;" /></div>      
+				<div class="tx-r t-gra ulev-3 umar-l ub-f1">
+					<div class="uc-n uinput uinn4">    
+						<input placeholder="请输入手机号码" type="number" id="mobileNumber" class="uc-n ulev0">   
+					</div>
+				</div> 
+		 	</div>
+			<div class="b-gra3 uba"></div>
+			<div ontouchstart="zy_touch('btn-act')" class="uc-t ub t-bla ub-ac umh4 lis"> 
+				<div class="tx-r t-gra ulev-3 umar-l ub-f1">
+					<div class="uc-n uinput uinn4">    
+						<input placeholder="请输入QQ号码" type="number" id="qqNumber" class="uc-n ulev0">   
+					</div>
+				</div> 
+		 	</div>
+			<div class="b-gra3 uba"></div>
+			<div ontouchstart="zy_touch('btn-act')" class="uc-t ub t-bla ub-at umh4 lis umar-t">     
+				<div class="tx-r t-gra ulev-3 umar-l ub-f1">
+					<div class="uc-n uinput uinn4">    
+						<!--<textarea placeholder="请输入留言" name="textarea-0" id="leaveMessage" class="uc-a1" style=" height:5em;"></textarea>-->
+						<input placeholder="请输入留言" type="text" id="leaveMessage" class="uc-n ulev0"> 
+					</div>
+				</div> 
+		 	</div>
+			<div class="b-gra3 uba"></div>
+			<div style="height:.5em;"></div>
+		</div>
+		<div class="joinl"></div>
+		<div class="ub ub-ac ub-pc uinn">
+			<div ontouchstart="zy_touch('btn-act')" onclick="submit();" 
+				class="btn uba b-blu1 uinn5 c-blu8 c-m2 uc-a1 t-wh ulev-3" style="width:6em; margin:0 1.5em;">提交</div>
+			<div ontouchstart="zy_touch('btn-act')" onclick="closepop();" 
+				class="btn uba b-gra4 uinn5 c-gra7 c-m2 uc-a1 t-wh ulev-3" style="width:6em; margin:0 1.5em;">取消</div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = params.tid;
+window.uexOnload=function(type)
+{
+}
+function closepop(){
+	uexWindow.closePopover('pop_join');
+}
+function submit(){
+	var rn = getValue("realName");
+	if(!rn){
+		uexWindow.toast('0', '5', '请填写真名姓名', 2000);
+		return;
+	}
+	if(rn) rn = encodeURIComponent(rn);
+	var mb = getValue("mobileNumber");
+	if(!mb){
+		uexWindow.toast('0', '5', '请填写手机号', 2000);
+		return;
+	}
+	var qq = getValue("qqNumber");
+	var ms = getValue("leaveMessage");
+	if(ms) ms = encodeURIComponent(ms);
+	var url = forum_url + '&mod=ajax&action=activityapplies&tid='+tid+'&realname='+rn+'&mobile='+mb+'&qq='+qq+'&message='+ms;
+	$.getJSON(url, function(json) {
+		var str = '报名成功';
+		if(json==0) str = '报名失败';
+		else uescript('forum_detail', 'joinResult("")');
+		uexWindow.toast('0', '5', str, 2000);
+		setTimeout('closepop();', 1500);
+	}, 'json', getJsonErr, 'POST', '', '');
+}
+
+</script>
+</html>

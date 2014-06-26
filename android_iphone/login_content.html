@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_anim.js"></script>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>	
+	<!--注册-->
+	<div id="page2" class="uinn18">
+		<div class="uba b-gra c-wh uc-a">  
+			<div class="uc-t ubb ub b-gra t-bla ub-ac umh4 lis">   
+		   		<div class="ut-s rpass tx-r">帐号</div> 
+				<div class="ub-f1 tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="亲，起一个名字吧！" id="j_name" type="text" class="uc-n ulev-3">   
+					</div>
+				</div> 
+		 	</div>     
+			<div class="ub ubb b-gra t-bla ub-ac umh4 lis">     
+		 		<div class="ut-s rpass tx-r">密码</div> 
+				<div class="ub-f1 tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请输入密码"  type="password" id="j_psw1" class="uc-n ulev-3">   
+					</div>
+				</div> 
+		    </div> 
+			<div class="ub ubb b-gra t-bla ub-ac umh4 lis">     
+		 		<div class="ut-s rpass tx-r">确认密码</div>
+				<div class="ub-f1 tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请确认密码"  type="password" id="j_psw2" class="uc-n ulev-3">   
+					</div>
+				</div> 
+		    </div> 
+			<div class="uc-b ub t-bla ub-ac umh4 lis">     
+		 		<div class="ut-s rpass tx-r">Email</div>
+				<div class="ub-f1 tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请输入您常用的邮箱地址" id="j_email" type="text" class="uc-n ulev-3">   
+					</div>
+				</div> 
+		    </div> 
+		</div>
+		<div class="uba b-gra c-wh uc-a uinn8">  
+			<div class="uc-t ub b-gra t-bla ub-ac umh4 lis">   
+		   		<div class="ut-s rpass tx-r">验证码</div>
+				<div class="ub-f1 tx-r t-gra umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">    
+						<input placeholder="请在此输入验证码" id="j_seccode"  type="number" class="uc-n ulev-3">   
+					</div>
+				</div> 
+		 	</div>     
+		</div>
+		<div style="text-align:center;">
+			<img src="" id="img_seccode" style="width:20%; height:1.5em;"/>
+			<img class="sxpig" src="images/sx.png" style="width:1.5em; height:1.5em;" ontouchstart="zy_touch('sxpic1')" onclick="seccode();">
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var view = params.view;
+var uname = params.uname;
+var going = 0;
+var surl = "http://" + ip + '/member.php?mod=seccode&cont=';
+var ww = 0;
+window.uexOnload=function(type)
+{
+	//setPageBounce('', '');
+	var ele = $$("img_seccode");
+	ele.src = surl + Int(Math.random()*1000);
+	
+	ww = int(window.innerWidth);
+	logs('login_content::uexOnload()-->ww='+ww);
+	
+	var windWH = "&width="+int(window.innerWidth)+"&height="+int(window.innerHeight);
+	logs('longin_content--->uexOnload-->windWH='+windWH);
+}
+
+function register(){
+	if(going) return;
+	
+	var r_name = getValue("j_name"); 
+	var r_psw1 = getValue("j_psw1");
+	var r_psw2 = getValue("j_psw2");
+	var r_email = getValue("j_email");
+	var r_seccode = getValue("j_seccode");
+	
+	if ('' == r_name) {
+		uexWindow.toast('0', '5', "请输入用户名", 2000);
+		return;
+	}
+	if (fucCheckLength(r_name) < 3 || fucCheckLength(r_name) > 15) {
+		uexWindow.toast('0', '5', "用户名必须为3~15个字符", 2000);
+		return;
+	}
+	r_psw1 = trim(r_psw1);
+	if (r_psw1 == '') {
+		uexWindow.toast('0', '5', "密码不能为空或空格", 2000);
+		return;
+	}
+	if (fucCheckLength(r_psw1) > 15) {
+		uexWindow.toast('0', '5', "密码必须为15个字符", 2000);
+		return;
+	}
+	if (r_psw2 == '') {
+		uexWindow.toast('0', '5', "确认密码不能为空", 2000);
+		return;
+	}
+	if (r_psw1 != r_psw2) {
+		uexWindow.toast('0', '5', "密码和确认密码不一致", 2000);
+		return;
+	}
+	if (r_email == '') {
+		uexWindow.toast('0', '5', "请填写邮箱", 2000);
+		return;
+	}
+	var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+	if (!pattern.test(r_email)) {
+		uexWindow.toast('0', '5', "邮箱格式不正确", 2000);
+		return;
+	}
+	if (r_seccode == '') {
+		uexWindow.toast('0', '5', "请填写验证码", 2000);
+		return;
+	}
+	
+	var _r_name = encodeURIComponent(r_name);
+	var _r_psw1 = encodeURIComponent(r_psw1);
+	var _r_psw2 = encodeURIComponent(r_psw2)
+	var r_url = login_url + "&mod=register&action=register&username="
+			+ _r_name + "&password="
+			+ _r_psw1 + "&password2="
+			+ _r_psw2 + "&email=" + r_email
+			+ "&seccode=" + r_seccode;
+	logs('register()-->r_url='+r_url);
+	//return;	
+	uexWindow.toast('1', '5', "注册中", '');
+	going = 1;
+	$.getJSON(r_url, function(msg) {
+		going = 0;
+		if (parseInt(msg.status) == -1) {
+			uexWindow.toast('0', '5', msg.message, 2000);
+			return;
+		}
+		uexWindow.toast('0', '5', msg.status, 2000);
+		if (msg.uid && parseInt(msg.uid) > 1) {
+			var str = 'regSuccess("'+r_name+'", "'+r_psw1+'");';
+			uescript('login', str);
+			setTimeout(function(){
+				movepop();
+				setValue('j_name', '');
+				setValue('j_psw1', '');
+				setValue('j_psw2', '');
+				setValue('j_email', '');
+				setValue('j_seccode', '');
+			}, 1500);
+		} 
+		else {
+		}
+	}, 'json', getJsonErr, 'POST', '', '');
+}
+
+function getJsonErr(s){
+	going = 0;
+	var str = '返回数据有误！';
+	if(s.status=='-1') str = '无网络，连接失败！';
+
+	uexWindow.toast('0','5',str,"1500");
+}
+
+var nextimg = null;
+var ii = 100;
+function changeseccodeimg() {
+	if (isDefine(nextimg))
+		nextimg.src = "images/sx.png";
+}
+function seccode() {
+	var p_seccode = $$("img_seccode");
+	nextimg = p_seccode.nextElementSibling;
+	p_seccode.src = surl + Int(Math.random()*1000);
+	logs('seccode()-->src='+p_seccode.src);
+	nextimg.src = "images/sx-r.png";
+	setTimeout("changeseccodeimg();", 200);
+}
+
+function trim(s) {
+	var count = s.length;
+	var st = 0; // start
+	var end = count - 1; // end
+
+	if (s == "")
+		return s;
+	while (st < count) {
+		if (s.charAt(st) == " ")
+			st++;
+		else
+			break;
+	}
+	while (end > st) {
+		if (s.charAt(end) == " ")
+			end--;
+		else
+			break;
+	}
+	return s.substring(st, end + 1);
+}
+
+var pps = 0;
+function movepop(){
+	var dx = '-'+ww;
+	if(pps) dx = ''+ww;
+	logs('movepop()-->dx='+dx);
+	disShowAnim(dx, '0');
+	pps = !pps;
+}
+</script>
+</html>

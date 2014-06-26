@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/zy_json.js"></script>
+    <style>
+	.mswi
+	{
+		-webkit-transition:-webkit-transform 0.1s ease-in;
+	}
+	input+div.mswi
+	{
+		-webkit-transform:rotate(0deg);
+	}
+	input:checked+div.mswi
+	{
+		-webkit-transform:rotate(90deg);
+	}
+		
+	.drdc{
+		-webkit-transition: all 0.2s ease-in-out;
+	}	
+		
+	input[type="radio"]:checked+div.drdc{
+		-webkit-transform: scale(1,1);
+	}
+
+	input[type="radio"]+div.drdc{
+		-webkit-transform: scale(0,0);
+	}
+	
+	input[type="radio"]:checked+div.st-uid{
+		display: block;
+	}
+
+	input[type="radio"]+div.st-uid{
+		display: none;
+	}
+	</style>
+  </head>
+<body class="um-vp" ontouchstart="zy_cc(this);">
+	<div class="uinn18">
+		<div class="uba  b-gra c-wh us uc-a" id="lists"></div>
+		<div ontouchstart="zy_touch('btn-act')" onclick="addNewAcc();" class="btn uba b-gra uinn c-wh c-m2 uc-a t-bla uinn8 ulev0">添加新账号</div>
+	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var uid1st = uid;
+var obj = getStorJson('loginObj');
+var lg = zy_tmpl_count(obj);
+var onEdit = false;
+
+var uidi = 0;
+var uidarr = [];
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'uid':
+				uidarr[uidi] = d.uid;
+				uidi++;
+				if(d.uid==uid) str='checked=true';
+			break;
+		}
+	 }
+	 return str;
+}
+var tl = '<div class="uc-t ubb ub b-gra t-bla ub-ac umh4 lis" style="position:relative;" id="uid_${uid}" ontouchstart="zy_touch()" onclick="setUser(${uid});">'
+			+'<input class="uhide" type="checkbox" id="cb${uid}">'  
+			+'<div class="ub-img5 im10 newpic uhide mswi" id="sel${uid}" ontouchstart="zy_touch()" onclick="select(${uid});"></div>'
+	   		+'<div class="ub-f1 ut-s">${uname}</div>'
+			+'<input class="uhide" type="radio" id="ch_${uid}" name="online" ${cb:uid}>'
+	 		+'<div class="lis-login ub-img5 im9 st-uid" id="ch${uid}"></div>'
+			+'<input class="uhide" type="radio" id="rd${uid}">'
+			+'<div class="t-wh uc-a c-red uinn2 ulev-1 us-i drdc" style="position:absolute; right:1em; top:.7em;" id="del${uid}" ontouchstart="zy_touch()" onclick="del(${uid});">删除</div>'    
+	 	+'</div>';
+var res = zy_tmpl(tl,obj,lg,j2vCb);
+setHtml('lists', res+'<div></div>');
+			
+window.uexOnload=function(type)
+{
+	setPageBounce('', '');
+}
+function addNewAcc(id){
+	var unm = '';
+	if(id) unm = obj[id].uname;
+	setstorage('params','{"view":"manageId", "uname":"'+unm+'"}');
+	openwin('login', 'login.html', '10');
+	
+	if(onEdit){
+		fini();
+		uescript('manageId', "flage=!flage; setHtml('btnr', '编辑');");
+	}
+}
+
+function adit(){
+	for(var k in obj){
+		var o = obj[k];
+		var id1 = 'sel'+o.uid;
+		var id2 = 'ch'+o.uid;
+		zy_show(id1);
+		if(o.uid==uid) zy_hide(id2);
+	}
+	onEdit = true;
+}
+function fini(){
+	for(var k in obj){
+		var o = obj[k];
+		var id1 = 'sel'+o.uid;
+		var id2 = 'ch'+o.uid;
+		if(o.uid==uid) zy_show(id2);
+		zy_hide(id1);
+		
+		var id3 = "cb"+o.uid;
+		var id4 = "rd"+o.uid;
+		var cb1 = $$(id3);
+		var cb2 = $$(id4);
+		if(cb1 && cb1.checked) cb1.checked=false;
+		if(cb2 && cb2.checked) cb2.checked=false;
+	}
+	onEdit = false;
+}
+
+function select(i){
+	if(onEdit){
+		zy_for(event);
+		var id = 'rd'+i;
+		var ch = $$(id);
+		if(ch){
+			if (ch.type=="radio") 
+	        	ch.checked = !ch.checked;
+		}
+	}
+}
+function del(i){
+	if(onEdit){
+		var id = 'uid_'+i;
+		removeNode(id);
+		if(i==uid) setstorage('UID', '');
+		delete obj[i];
+		setStorJson('loginObj', obj);
+		
+		lg--;
+		if(lg==0){
+			
+		}
+	}
+}
+
+function adduser(){
+	var isnew = true;
+	uid = getstorage('UID');
+	for(var k in uidarr){
+		if(uidarr[k] == uid){
+			isnew = false;
+			break;
+		}
+	}
+	if(isnew){
+		uidarr[uidi] = uid;
+		uidi++;
+		obj = getStorJson('loginObj');
+		if(obj[uid]){
+			var o = {};
+			o[uid] = obj[uid];
+			var res = zy_tmpl(tl, o, 1, j2vCb);
+			var cc = $$('lists');
+			var node = document.createElement("div");
+			node.innerHTML = res;
+			cc.insertBefore(node,cc.lastElementChild);
+		}
+	}
+	
+	var id = 'ch_'+uid;
+	setChecked(id);
+}
+
+function setUser(id){
+	if(!onEdit && uid!=id){
+		var o = obj[id];
+		if(!o.upwd){
+			addNewAcc(id);
+			return;
+		}
+		
+		login(o);
+	}
+}
+
+function login(o){
+	var name = o.uname;
+	var pwd = o.upwd;
+	
+	if("" == name){
+		uexWindow.toast('0', '5', '切换失败', 2000);
+		return;
+	}
+	if("" == pwd){
+		uexWindow.toast('0', '5', '切换失败', 2000);
+		return;
+	}
+	
+	var name2 = encodeURIComponent(name);
+	var pwd2 = encodeURIComponent(pwd);
+	
+	var url = login_url + "&mod=logging&action=login&username=" + name2 + "&password=" + pwd2;
+	
+	uexWindow.toast('1', '5', "请稍候...", '');
+	
+	$.getJSON(url, function(msg) {
+		if (msg.status == 'LoginSuccess') {
+			uid = msg.uid;
+			setstorage('UID', uid);
+			var id = 'ch_'+uid;
+			setChecked(id);
+			uexWindow.toast('0', '5', '切换成功', 2000);	
+			
+			var dt = '';
+			if(uid1st!=uid) dt='1';
+			setstorage('Logout_1', dt);/*我的帖子*/
+			setstorage('Logout_3', dt);/*消息*/
+			setstorage('Logout_4', dt);/*好友*/
+			setstorage('Logout_5', dt);/*个人资料*/
+		}else if(msg.status == 'password_error'){
+			uexWindow.toast('0', '5', '您的密码错误，请重新登陆', 2000);
+			setTimeout("addNewAcc("+id+");", 1500);
+			setTimeout("del("+id+");", 2000);
+		}else{
+			uexWindow.toast('0', '5', '切换失败', 2000);
+		}
+	});
+}
+
+function setChecked(id){
+	var ch = $$(id);
+	if(ch && !ch.checked) ch.checked = true;
+}
+</script>
+</html>

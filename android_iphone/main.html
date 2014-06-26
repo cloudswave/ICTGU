@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_slide.js"></script>
+	<script src="js/config.js"></script>
+	<script>
+	</script>
+	<style>
+	input[type="radio"]+div.ip-sta{
+		display:none !important;
+	}
+	input[type="radio"]:checked+div.ip-sta{	
+		display:block !important;
+	}
+	
+	.m-maxh{
+		height:1.2em;
+	}
+	</style>
+</head>
+    <body class="um-vp c-gra5" ontouchstart>
+        <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+            <!--header开始-->
+			<!--论坛-->
+			<input class="uhide" type="radio" name="headers" checked="true" id="iheader1">
+            <div id="header1" class="uh ip-sta">
+            	<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+            		<div class="uhide" id="acc">
+	            		<a class="btn btn-l ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="signIn(1);">       
+				        	<div class="signpic" id="sign"></div>            
+				        </a>
+					</div>
+	                <h1 class="ut ulev0 ut-s tx-c" id="ttl1">Discuz</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right();">       
+			        	<div class="ulim" id="btnr">登录</div>             
+			        </a>
+				</div>
+				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
+					<input class="uhide" type="radio" name="menus" checked="true" id="menu1">
+					<div class="ub-con ub-f1 tx-c dis-sta ut-s" ontouchstart="zy_touch('focuss')" onclick="menuSelected(1);">热帖</div>
+					<input class="uhide" type="radio" name="menus" id="menu2">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(2);">最新</div>
+					<input class="uhide" type="radio" name="menus" id="menu3">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(3);">版块</div>
+					<input class="uhide" type="radio" name="menus" id="menu4">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(4);">我的帖子</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+				
+			<!--资讯-->
+			<input class="uhide" type="radio" name="headers" id="iheader2">
+			<div id="header2" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id='titp'>头条</h1>
+				</div>
+				<div class="c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6 uof">
+					<div class="ub-fh ub" id="pcats">
+						<div class="ub-fh ub ub-ac ub-pc">
+							<input class="uhide" type="radio" checked="true">
+							<div class="ub-f1 tx-c dis-sta ub-con"><div class="m-maxh uof">头条</div></div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
+			<!--消息-->
+			<input class="uhide" type="radio" name="headers" id="iheader3">
+			<div id="header3" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">消息</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="addmsg();">       
+			        	<div class="ulim"><img src="images/rbtn.png" class="rbtn" /></div>             
+			        </a>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
+			<!--找朋友-->
+			<input class="uhide" type="radio" name="headers" id="iheader4">
+			<div id="header4" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">好友</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="searchfriend();">       
+			        	<div class="ulim">找朋友</div>             
+			        </a>
+				</div>
+				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
+					<input class="uhide" type="radio" name="friend" checked="true" id="menu7">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(7);">好友列表</div>
+					<input class="uhide" type="radio" name="friend" id="menu6">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(6);">在线成员</div>
+					<input class="uhide" type="radio" name="friend" id="menu5">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(5);">附近朋友</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
+			<!--更多-->
+			<input class="uhide" type="radio" name="headers" id="iheader5">
+			<div id="header5" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">更多</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="setting();">       
+			        	<div class="ulim">设置</div>             
+			        </a>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+            <!--header结束-->
+			
+			<!--content开始-->
+			<input class="uhide" type="radio" name="contents" checked="true" id="icontent1">
+            <div id="content1" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent2">
+			<div id="content2" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent3">
+			<div id="content3" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent4">
+			<div id="content4" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent5">
+			<div id="content5" class="ub-f1 tx-l t-bla ip-sta"> </div>
+            <!--content结束-->
+			
+			<!--footer开始-->
+            <div id="footer" class="uf c-m2 t-wh">
+				 <div class="ub c-wh c-m2 tab t-gra uba us b-gra uc-a" style="margin:.15em;" ontouchstart="zy_cc(this);">	
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft1" checked="true">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(1);" class="ub-f1 ub ub-ver tab-act">
+				 		<div class="ub-f1 ub-img5 tp-forum">   
+				 		</div>
+						<div class="uinn ulev-2 tx-c">论坛</div>
+					</div>
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft2">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(2);" class="ub-f1 ub ub-ver tab-act" id="pt">
+				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+						<div class="uinn ulev-2 tx-c">资讯</div>
+					</div>
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft3">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(3);" class="ub-f1 ub ub-ver tab-act">
+				 		<div class="ub-f1 ub-img5 tp-msg" style="position:relative;">
+				 			<div class="ub-img5 tximg t-wh tx-c ulev-2 umar-t uhide" id="msgn" style="position:absolute; right:.9em;top:-.6em;"><span id="msgtxt">&nbsp;</span></div>  
+				 		</div>
+						<div class="uinn ulev-2 tx-c">消息</div>
+					</div>
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft4">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(4);" class="ub-f1 ub ub-ver tab-act">
+				 		<div class="ub-f1 ub-img5 tp-fans"></div>
+						<div class="uinn ulev-2 tx-c">好友</div>
+					</div>
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft5">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(5);" class="ub-f1 ub ub-ver tab-act">
+				 		<div class="ub-f1 ub-img5 tp-more" style="position:relative;">
+				 			<div class="ub-img5 tximg t-wh tx-c ulev-2 umar-t uhide" id="moren" style="position:absolute; right:.9em;top:-.6em;"><span id="moretxt">&nbsp;</span></div>    
+				 		</div>
+						<div class="uinn ulev-2 tx-c">更多</div>
+					</div>
+				 </div>
+				 <div class="umh015"></div>
+            </div>
+			
+			<div id="footer_hide" class="uf c-m2 t-wh"><div class="ub c-wh c-m2 tab t-gra uba us b-gra uc-a" style="margin:.15em;"><input class="uhide" type="radio" name="th1"><div class="ub-f1 ub ub-ver tab-act"><div class="ub-f1 ub-img5 tp-forum"></div><div class="uinn ulev-2 tx-c">论坛</div></div><input class="uhide" type="radio" name="th2" checked="true"><div class="ub-f1 ub ub-ver tab-act" id="pt"><div class="ub-f1 ub-img5 tp-portal"></div><div class="uinn ulev-2 tx-c">资讯</div></div><input class="uhide" type="radio" name="th3" checked="true"><div class="ub-f1 ub ub-ver tab-act"><div class="ub-f1 ub-img5 tp-msg"></div><div class="uinn ulev-2 tx-c">消息</div></div><input class="uhide" type="radio" name="th4" checked="true"><div class="ub-f1 ub ub-ver tab-act"><div class="ub-f1 ub-img5 tp-fans"></div><div class="uinn ulev-2 tx-c">好友</div></div><input class="uhide" type="radio" name="th5" checked="true"><div class="ub-f1 ub ub-ver tab-act"><div class="ub-f1 ub-img5 tp-more"></div><div class="uinn ulev-2 tx-c">更多</div></div></div></div>
+            <!--footer结束-->
+        </div>
+    </body>
+<script>
+zy_init();
+var pages = {curid:1, preid:1};
+var uid = getstorage('UID');
+var uid1st = uid;
+var mySlide = null;
+
+if(uid) setHtml('btnr', '<img src="images/sbtn.png" class="sbtn" />');
+pages[1] = {ld:0, x:0};
+zy_anim_push('footer_hide', 'uhide');/*底部栏中转闪动*/
+
+window.uexOnload = function(type){
+	if (!type) {
+		var osH = $$("header1").offsetHeight;
+		var idc = "content1";
+		zy_con(idc, "main_forum.html", 0, osH);
+		pages[1].ld = 1;
+		if(!isSML) getPortalLists(1);
+			
+		logs('main-->onload-->header width='+$$("header1").offsetWidth);
+	}
+	window.onorientationchange = window.onresize = function(){
+		var i = pages.curid;
+		var idh = 'header' + i;
+		var idc = 'content' + i;
+		var osH = $$(idh).offsetHeight;
+		zy_resize(idc, 0, osH);
+	}
+	
+	if (!isSML) {
+		uexWindow.onKeyPressed = function(keyCode){
+			if (keyCode == '0') {
+				uexWidget.finishWidget('');
+			}
+		}
+		uexWindow.setReportKey('0', '1');
+	}
+	
+	if (uid){
+		setTimeout('getlocation();', 1000);
+		
+		/*var signs = getstorage('signstatus');
+		if(signs=='1'){
+			zy_anim_pop('acc', 'uhide');
+			signIn();
+		}*/
+		msg_check();
+		
+		uexWidget.setPushInfo(uid,'');
+		logs('add push function ~~ ~~');
+	}
+	
+	var pt = getstorage('portal');
+	if(pt=='0') removeNode('pt');
+	
+	var an = getstorage('appname');
+	if(an) setHtml('ttl1', an);
+	
+	setstorage('Logout_1', '');
+	setstorage('Logout_3', '');
+	setstorage('Logout_4', '');
+	setstorage('Logout_5', '');
+	
+	setTimeout('clearTemp();', 1000);
+	
+/*
+	uexDevice.cbGetInfo = function(opCode, dataType, data){
+		logs("deviceToken=" + data);
+	}
+	uexDevice.getInfo('11');
+*/
+	
+	uexWidget.cbGetPushInfo = function(opCode, dataType, data){
+		logs("cbGetPushInfo=" + data);
+	}
+	uexWidget.getPushInfo();
+	uexWidget.setPushNotifyCallback("cbNotify");
+}
+
+function cbNotify(){
+	logs("cbNotifytttt");
+	uexWidget.getPushInfo();
+}
+
+function btn_right(){
+	var e = $$('btnr');
+	var wnm = 'editor';
+	if(e.innerText=='登录') wnm='login';
+	else{
+		setstorage('params','{"type":"thread", "wname":"main"}');
+	}
+	var url = wnm + '.html';
+	openwin(wnm, url, '12');
+}
+function radioSelect(id){
+	var ret = 0;
+	var e = $$(id);
+	if(e && !e.checked){
+		e.checked = true;
+		ret = 1;
+	}
+	return ret;
+}
+function menuSelected(i){
+	if (i==4 && !checkLogin()) return;
+	
+	var cc = 'content'+pages.curid;
+	ueppscript('main', cc, 'pageSwitch('+i+')');
+	
+	radioSelect('menu'+i);
+}
+function navSelected(i){
+	logs('navSelected()-->i='+i+', preid='+pages.preid+', curid='+pages.curid);
+	if (pages.curid == i)  return;
+	if(!pages[i]) pages[i]={ld:0, x:0};
+	if (i>2 && !checkLogin()) return;
+	
+	pages.preid = pages.curid;
+	pages.curid = i;
+	
+	if(i==3 || pages.preid==3) zy_anim_push('msgn', 'uhide');
+	if(i==5 || pages.preid==5) zy_anim_push('moren', 'uhide');
+	
+	var idih = 'iheader'+i;
+	var idic = 'icontent'+i;
+	var idft = 'ft' + i;
+	radioSelect(idih);
+	radioSelect(idic);
+	radioSelect(idft);
+	
+	var idc = 'content'+i;
+	var idh = 'header'+i;
+	var osH = $$(idh).offsetHeight;
+	
+	if(!pages[i].y){
+		var s = window.getComputedStyle($$(idc),null);
+		pages[i].y = osH;
+		pages[i].width = int(s.width);
+		pages[i].height = int(s.height);
+	}
+	
+	if(!pages[i].ld){
+		pages[i].ld = 1;
+		
+		if (i == 2) {
+			if(mySlide) mySlide.refresh();
+			getPortalLists('');
+		}
+		
+		var url = ['', 'main_forum.html', 'main_portal.html', 'main_msg.html', 'main_friend.html', 'main_more.html'];
+		setstorage('params','{"view":"me"}');
+		zy_con(idc, url[i], 0, osH);
+	}
+	else{
+		uexWindow.setPopoverFrame(idc, 0, pages[i].y, pages[i].width, pages[i].height);
+		
+		var ppn = 'Logout_'+i;
+		if(getstorage(ppn)) ueppscript('main', idc, 'updateLists();');
+	}
+	var pervc = 'content'+pages.preid;
+	logs('navSelected2-->idc='+idc+', y='+pages[i].y+', w='+pages[i].width+', h='+pages[i].height+', pervc='+pervc);
+	uexWindow.setPopoverFrame(pervc, 0, 0, 0, 0);
+}
+
+function switchAccount(){
+	openwin('manageId', 'manageId.html', '10');
+}
+
+var catCount2 = 0;
+var catStrL = 0;
+function endFun(){}
+function transEnd(){}
+function getPortalLists(f){
+	var url=portal_url + "&mod=index";
+	logs('getPortalLists()-->flag='+f);
+	$.getJSON(url, function(json){
+		logs('getPortalLists()-->json='+json);
+		if(json){
+			var list = json;
+			catCount = zy_tmpl_count(list);
+			logs('catCount = '+catCount);
+			if(catCount2==0) catCount2 = catCount;
+			if(catCount2==catCount){
+				var sss = JSON.stringify(list);
+				if(sss){
+					var sssl = sss.length;
+					logs('sssl='+sssl+', catStrL='+catStrL);
+					if(sssl==catStrL) return;
+					catStrL = sssl;
+				}
+			}
+			catCount2 = catCount;
+			
+			if(catCount>0){
+				catIndex = 1;
+				var tmpl = '${cb:catlist}${cb:catlast}';
+				var res = zy_tmpl(tmpl, list, catCount, j2vCb);
+				
+				setHtml('pcats', res);
+				if(mySlide) mySlide.refresh();
+				else mySlide = new zySlide('pcats', 'H', endFun, 0, transEnd);
+			}
+			else{
+				logs('no portal open ~ ~ ~ ');
+			}
+		}
+	}, 
+	'json', getJsonErr, 'POST', '', f, '1');
+}
+var catCount = 1;
+var catIndex = 1;
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'catlist':
+				var sss1 = '';
+				var sss2 = '';
+				var cname = d.catname;
+				var mxl = 7;
+				if(cname && cname.length>mxl){
+					//cname = cname.substr(0,mxl);
+					//var lll = fucCheckLength(cname);
+					//logs('lll='+lll);
+				}
+				var sss3 = '<input class="uhide" type="radio" name="portal" id="' + d.catid + '"><div class="ub-f1 tx-c dis-sta ub-con" ontouchstart="zy_touch(\'focuss\')" onclick="portalcat(' + d.catid + ');"><div class="m-maxh uof">' + cname + '</div></div>';
+				if((catIndex%4)==1) sss1 = '<div class="ub-fh ub ub-ac ub-pc">';
+				
+				if (catIndex == 1) {
+					str = '<input class="uhide" type="radio" name="portal" checked="true" id="0"><div class="ub-f1 tx-c dis-sta ub-con" ontouchstart="zy_touch(\'focuss\')" onclick="portalcat(0);"><div class="uof">头条</div></div>';
+					str += sss3;
+					catIndex ++;
+				}
+				else 
+					str = sss3;
+					
+				if((catIndex%4)==0) sss2 = '</div>';
+				
+				if(catIndex==(catCount+1)){
+					if(catCount>3){
+						var ac = (catCount+1)%4;
+						var ss = '<div class="ub-f1 ub-con">&nbsp;</div>';
+						if(ac==1) sss2 = ss + ss + ss + '</div>';
+						else if(ac==2) sss2 = ss + ss + '</div>';
+						else if(ac==3) sss2 = ss + '</div>';
+					}
+					else sss2 = '</div>';
+				}
+				str = sss1 + str + sss2;
+				catIndex ++;
+				break;
+		}
+	 }
+	 return str;
+}
+function portalcat(i){
+	var id = '' + i;
+	logs('portalcat()-->i='+i);
+	radioSelect(id);
+	
+	var e = event;
+	if(e && e.currentTarget) setHtml('titp', e.currentTarget.innerText);
+	
+	ueppscript('main', 'content2', 'portalcat('+i+')');
+}
+
+function addmsg(){
+	openwin('msg_search','msg_search.html','10');
+}
+function searchfriend(){
+	openwin('friend_search','friend_search.html','10');
+}
+function setting(){
+	openwin('setting','setting.html','10');
+}
+function getlocation(){
+	uescript('root', 'getlocation()');
+}
+function loginsuccess(){
+	uid = getstorage('UID');
+	if(!uid1st) uid1st=uid;
+	setHtml('btnr', '<img src="images/sbtn.png" class="sbtn" />');
+	//zy_anim_pop('acc','uhide');
+	//signIn();
+	setTimeout('getlocation();', 1000);
+	msg_check();
+	
+	logoutData(uid);
+	
+	uexWidget.setPushInfo(uid,'');
+	logs('add push function ~~ ~~');
+}
+
+function logoutSuccess(){
+	logs('logoutSuccess()---->');
+	uid = '';
+	setHtml('btnr', '登录');
+	//zy_anim_push('acc','uhide');
+	var ret = radioSelect('menu1');
+	if(ret) ueppscript('main', 'content1', 'pageSwitch(1)');
+	
+	navSelected(1);
+	logoutData();
+	if(timid) clearTimeout(timid);
+}
+
+function logoutData(id){
+	var dt = '';
+	if(uid1st!=id) dt = '1';
+	setstorage('Logout_1', dt);/*我的帖子*/
+	setstorage('Logout_3', dt);/*消息*/
+	setstorage('Logout_4', dt);/*好友*/
+	setstorage('Logout_5', dt);/*个人资料*/
+}
+
+function signIn(flag){
+	var url=home_url+'&mod=space&do=sign&uid='+uid;
+	$.getJSON(url, function(json){
+		logs("signIn()--> "+JSON.stringify(json));
+		if(json){
+			if(json.status=='0'){
+				zy_anim_push('sign', 'signsucc');
+			}
+			else if(json.status=='1'){
+				if(flag) zy_anim_push('sign', 'signsucc');
+			}
+			if(flag) uexWindow.toast('0', '5', json.msg, 2000);
+		}
+	}, 
+	'json', getJsonErr, 'POST', '', '');
+}
+
+
+var msg = 0;
+var frq = 0;
+var rem = 0;
+var timid = '';
+function msg_check(){
+	if(isSML) return;
+	var url = forum_url + "&mod=ajax&action=pm_checknew";
+	$.getJSON(url, function(json){
+		if(json)
+		{
+			var mn = Int(json.newpm);
+			var fn = Int(json.friend_request_num);
+			var rn = Int(json.newprompt);
+			//logs("mn="+mn+"; fn="+fn+"; rn="+rn);
+			if(msg!=mn)
+			{
+				msg = mn;
+				setHtml('msgtxt', mn);
+				if(mn>0) zy_anim_pop('msgn', 'uhide');
+				else zy_anim_push('msgn', 'uhide');
+			}
+			if(frq!=fn || rem!=rn)
+			{
+				frq = fn;
+				rem = rn;
+				var tt = fn+rn
+				setHtml('moretxt', tt);
+				if(tt>0) zy_anim_pop('moren', 'uhide');
+				else zy_anim_push('moren', 'uhide');
+				
+				setstorage('rn', rn);
+				setstorage('fn', fn);
+			}
+			
+			if(pages[5] && pages[5].ld) ueppscript('main', 'content5', 'rminders();')
+		}
+	}, 
+	'json', null, 'POST', '', '');
+	clearTimeout(timid);
+	timid = setTimeout('msg_check();', 60000);
+}
+
+/*清理头像缓存*/
+function clearTemp(){
+	var d = new Date();
+	var ms = d.getTime();
+	var myms = getstorage('myTime');
+	if(myms){
+		myms = parseInt(myms);
+		var cz = (ms - myms)/(1000*60*60*24);
+		logs('main-->clearTemp()-->ms='+ms+', myms='+myms+', cz1='+cz);
+		cz = parseInt(cz);
+		if(cz>7){
+			setstorage('myTime', ms);
+			var url = getstorage('ucurl');
+			for(var k in lsg){
+				if(k.indexOf(url)==0) lsg.removeItem(k);
+			}
+		}
+	}
+	else setstorage('myTime', ms);
+}
+</script>
+</html>

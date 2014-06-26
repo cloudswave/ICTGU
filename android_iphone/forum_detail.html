@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh">
+        	<div class="umh015"></div>
+        	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6" id="hd1">
+        		<!--按钮开始-->
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim">返回</div>       
+				</a>
+				<!--按钮结束-->
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">帖子正文</h1>
+				<div></div>
+			</div>
+			<div style="height:1px;"></div>
+			<div class="ub ub-ac ub-pc navbg us uc-a uinn6 uinn5 ulev-3">
+				<input class="uhide" type="radio" name="menus" checked="true">
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(1);">默认</div>
+				<input class="uhide" type="radio" name="menus">
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(2);">只看楼主</div>
+				<input class="uhide" type="radio" name="menus">
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(3);">查看回复</div>
+			</div>
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+			
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var wnm = 'forum_detail';
+window.uexOnload = function(type){
+    if (!type) {
+		setTimeout(function(){
+			var hh = $$("header").offsetHeight;
+			setstorage('headerHeight', hh);
+			my_con("content", "forum_detail_content.html", 0, hh);
+		}, 500);
+		
+		//setTimeout('setNavDiv();', 200);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+	setstorage('fscreen', '');
+}
+
+function menus2(i){
+	var act = getstorage('active');
+	if(!act) return;
+	
+	zy_for(event);
+	var scr = '';
+	if(i==1) scr='readDefalt();'
+	else if(i==2) scr='readAuthorOnly();'
+	else scr='readComOnly();'
+	if(scr) ueppscript(wnm, 'content', scr);
+}
+
+function setNavDiv(del, fav){
+	var s=window.getComputedStyle($$('header'),null);
+	var em = Int(s.fontSize);
+	var x = 0;
+	var y = Int(window.innerHeight) - Int(2.6*em);
+	var w = Int(s.width);
+	var h = Int(2.5*em);
+	logs('setNavDiv-->y='+y+', h='+h);
+	params.view = 'forum';
+	params.del = del;
+	params.fav = fav;
+	var str = JSON.stringify(params);
+	logs('setNavDiv-->str='+str);
+	setstorage('popnav', str);
+	//if(!isSML) y = y + 500;
+	uexWindow.openPopover('nav',"0",'pop_nav.html',"",x,Int(y),Int(w),Int(h),em,"0");
+}
+
+var att = 0;
+function addJoinNode(f){
+	var str = '取消参加';
+	var cc = $$('hd1');
+	var node = createEle("div");
+	if(f) str = '我要参加';
+	att = f;
+	node.innerHTML = '<div class="ulim" id="btnr">'+str+'</div>';
+	node.className = 'btn btn-r btn-n ub ub-ac';
+	node.onclick = join;
+	cc.insertBefore(node,cc.lastElementChild);
+}
+
+function joinResult(f){
+	var tts = '已经报名，正在审核中...';
+	var str = '取消参加';
+	if(f){
+		tts = '&nbsp;';
+		str = '我要参加';
+	}
+	
+	att = f;
+	setHtml('btnr', str);
+	
+	ueppscript(wnm, 'content', "setHtml('ts', '"+tts+"'); updateForum();");
+}
+
+function join(){
+	if (!checkLogin()) return;
+	if(att){
+		var e = $$('header');
+		var s = window.getComputedStyle(e,null);
+		var h = Int(window.innerHeight);
+		var w = Int(window.innerWidth);
+		var em = Int(s.fontSize);
+		var y = Int(e.offsetHeight)-0.8*em;
+		
+		uexWindow.openPopover('pop_join',"0","pop_join.html","",0,Int(y),Int(w),Int(h),em,"0");
+	}
+	else{
+		uexWindow.cbConfirm = function(opId, dataType, data){
+	 		if(Int(data)==0) ueppscript(wnm, 'content', 'activityCancel();')
+		}
+		var mycars = ['确定','取消'];
+		uexWindow.confirm('提示', '取消报名', mycars);
+	}
+}
+
+function openFscr(){
+	var fsc = getstorage('fscreen');
+	logs('openFscr()-->fsc='+fsc);
+	if(!fsc){
+		var e = $$('header');
+		var s = window.getComputedStyle(e,null);
+		var f = Int(s.fontSize);
+		var h = 2.5*f;
+		var w = h;
+		var x = Int(window.innerWidth)-w-0.2*f;
+		var y = Int(window.innerHeight)-w-0.2*f;
+		
+		logs('openFscr()-->em='+f+', w='+w);
+		setstorage('pop_sf', wnm);
+		uexWindow.openPopover('pop_sf',"0","pop_sf.html","",Int(x),Int(y),Int(w),Int(h),f,"0");
+		
+		outFscr('1');
+	}
+}
+
+function outFscr(c){
+	setstorage('fscreen', c);
+	ueppscript(wnm, 'nav', 'moveOutsc();');
+	ueppscript(wnm, 'content', 'moveOutsc();');
+}
+</script>
+</html>

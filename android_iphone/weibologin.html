@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh">
+        	<div class="umh015"></div>
+        	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
+					<div class="ulim">返回</div>       
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="title">微博登陆</h1>
+			</div>
+        </div>
+        <!--header结束--><!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla">
+        	<div class="ub ub-ac ub-pc" style="padding-top: 2em;">正在加载微博授权页面，请稍候...</div>
+        </div>
+        <!--content结束-->
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var wname = params.wname;
+
+window.uexOnload = function(type){
+    if (!type) {
+		pageInit();
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+	
+	setTimeout('setHtml("content", "");', 3000);
+}
+
+function pageInit(){
+	var wkey = '';
+	var type = params.type?params.type:'0';
+	var tz = "http://www.3g2win.com/tiaozhuan/index.html"
+	var cburl = params.url || tz;
+	
+	if(type=='0'){ /*腾讯微博*/
+		wkey = params.key || "801088600";
+		url = "https://open.t.qq.com/cgi-bin/oauth2/authorize?client_id="+wkey+"&response_type=token&redirect_uri="+cburl+"&wap=2";
+	}
+	else if(type=='1'){ /*新浪微博*/
+		wkey = params.key || "3845409824";
+		logs("webpage-->wkey: "+wkey);
+		logs("webpage-->wkey: "+cburl);
+		url = "https://api.weibo.com/oauth2/authorize?client_id="+wkey+"&response_type=token&redirect_uri="+cburl+"&display=mobile";
+	}
+	else if(type=='2'){ /*网易微博*/
+		wkey = params.key || "0PU25xVLBJ2ChzPF";
+		url = "https://api.t.163.com/oauth2/authorize?client_id="+wkey+"&response_type=token&redirect_uri="+cburl+"&display=mobile";
+	}
+	
+	//addexitlisten();
+	
+	logs("pageInit-->wname="+wname+", url="+url);
+	var e = $$("header");
+	var y = e.offsetHeight;
+	var s = window.getComputedStyle($$("content"),null);
+	
+	uexWindow.onOAuthInfo = onOAuthWP;
+	uexWindow.openPopover("content","0",url,"",0,int(y),int(s.width),int(s.height),int(s.fontSize),"1");
+}
+
+function onOAuthWP(winNam,url){
+	logs('onOAuthWP-->winNam='+winNam+', url='+url);
+	if(winNam=='content'){
+		var scr = 'onOAuth("webpage","'+url+'")';
+		ueppscript(wname, 'content', scr);
+	}	
+}
+</script>
+</html>

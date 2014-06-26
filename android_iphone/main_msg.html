@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_icache.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>
+	<!--列表开始-->
+	<div class="b-gra c-gra uc-n" id="msglist">
+		<div></div>
+  	</div>
+	<!--列表结束-->
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('msglist');
+var updated = 0;
+window.uexOnload=function(type)
+{
+	setPageBounce(downcb, upcb);
+
+	zy_initcache();
+	updateLists();
+	
+	if(updated) loadListMsg('', '');
+}
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadListMsg('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadListMsg(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadListMsg(pn, flag){
+	uid = getstorage('UID');
+	var url = home_url + "&mod=space&do=pm" + "&uid=" + uid + "&page="+ pn;
+	var aaa = getstorage('Logout_3');
+	updated = checkKey(url);
+	if(!updated || aaa) uexWindow.toast('1','5','加载中...',"");
+	logs('loadListMsg()-->url='+url);
+	var f = pn?'':'1';
+	$.getJSON(url, loadListMsgCb, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadListMsgCb(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		if (json.nologin=='1') {
+			setstorage('UID', '');
+			checkLogin();
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].uid+'_'+list[0].dateline;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			
+			var si2 = getstorage('showimage'+uid);
+			logs('id0='+id0+', id1='+id1+', si='+imgmod+', si2='+si2);
+			if(id0==id1 && imgmod==si2) return;
+		}
+		
+		if(json.ucurl) setstorage('ucurl', json.ucurl+"/avatar.php?&size=middle&uid=");
+		
+		var res = '';
+		if (length > 0) {
+			
+			//+'<div class="lis-th ub-img5" style="background-image: url(images/loading.gif);-webkit-background-size: auto; background-size: auto;${cb:img}" id="touid_${touid}"></div>'
+			var tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${touid}, \'${tousername}\',  \'${isnew}\',  \'${pmid}\');" class="uc-n c-m2 ubb ub b-gra t-bla ub-ac lis" id="${uid}_${dateline}">' 
+			 			+'<div class="lis-th2 ub-img5 uc-a1">'
+     						+'<img src="images/mylogo.gif" class="inforpic" ${cb:img} id="touid_${touid}"/>'
+     					+'</div> '
+						+'<div class="ub-f1 ub ub-ver">'
+			 	    		+'<div class="ulev0">${tousername}</div>'
+			    			+'<div class="ulev-1 t-gra ub">'
+								+'<div class="ub-f1 ut-s uof">${lastsummary}</div>'
+								+'${cb:isnew}'
+							+'</div>'
+			 	    		+'<div class="ub ub-ac t-gra ulev-2 umar-t">'
+						
+								+'<div class="ub-f1"></div>'
+				 		    	+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+						 		+'${datetime}'
+				 		    +'</div> '
+			 			+'</div> '
+						
+						+'<div class="res8 lis-sw ub-img4"></div> '     
+			 		+'</li>  '
+					+'<li class="ubt1"></li>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn10 tx-c">暂无消息</div>';
+		}
+		
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'img':
+				var ucurl = getstorage('ucurl');
+				if(!ucurl) ucurl = guc;
+				var imgsrc = ucurl+d.touid;
+				var src = imgsrc;
+				var picid = 'touid_'+d.touid;
+				//logs('msg::j2vCb-->src='+src);
+				dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+				break;
+			
+			case 'isnew':
+				if(d.isnew == '1'){
+					str = '<div class="ufr ulev-1 c-blu4 t-wh uc-a uinn11" id="n'+d.pmid+'">New</div>';
+				}
+				break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(touid, tousername, isnew, pmid){
+	setstorage('params','{"touid":"'+touid+'", "tousername":"'+tousername+'", "isnew":"'+isnew+'"}');
+	 
+	if(isnew == '1') removeNode('n'+pmid);
+
+	openwin('msg_detail','msg_detail.html','10');
+}
+
+function updateLists(){
+	loadListMsg('', '1');
+	setstorage('Logout_3', '');
+}
+</script>
+</html>

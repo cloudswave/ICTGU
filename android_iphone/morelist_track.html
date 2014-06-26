@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_icache.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<!--我的访客-->
+	<div class="b-gra uc-n" id="list">
+		<div></div>
+  	</div>
+</body>
+<script>
+zy_init();
+var uid = getstorage('UID');
+var params = getStorJson('params');
+var view = params.view;
+var curpage = 1;
+var totpage = 1;
+var upt = '';
+var update = {};
+var cContent = $$('list');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+
+window.uexOnload=function(type)
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	loadList('', 1);
+}
+function downcb(){
+	upt = '0';
+	update['0'] = 1;
+	loadList('', '');
+}
+function upcb(){
+	if (curpage < totpage) {
+		upt = '1';
+		update['1'] = 1;
+		loadList(curpage + 1, '');
+	}
+	else resetBV('1');
+}
+
+function loadList(pn, flag){
+	var url = home_url+"&mod=space&do=friend&view="+view+"&page="+ pn+'&uid='+uid;
+	if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+	logs('track-->loadList-->url='+url);
+	var f = pn?'':'1';
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', flag, f);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	if(update[upt]){
+		update[upt] = 0;
+		resetBV(upt);
+	}
+		
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(list && list[0]){
+			var id0 = 0;
+			var id1 = list[0].ldateline;
+			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
+			logs('id0='+id0+', id1='+id1);
+			if(id0==id1) return;
+		}
+		
+		var res = '';
+		if (length > 0) {
+			var tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="showMenu(\'${uid}\', \'${username}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis uof" id="${ldateline}">'	     	 
+				 			+'<div class="lis-th2 ub-img5 uc-a1">'
+				     			+'<img src="images/mylogo.gif" ${cb:pic} class="inforpic" id="pic${uid}"/>'
+				     		+'</div>'
+							+'<div class="ub-f1 ub ub-ver" style="margin-top:-2.3em;">'
+				 	    		+'<div class="ulev0">${username}</div>'
+				 			+'</div>'
+							+'<div style="position:relative; width:6em;">'
+								+'${cb:isfriend}<br/>'
+								+'<div class="ub ub-ac t-gra ulev-2" style="position:absolute; bottom:-2em; right:0;">'
+									+'<div class="ub-f1"></div>'
+								 	+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+									+'${lastvisit}'
+								+'</div>' 
+							+'</div>'
+							+'<div class="res8 lis-sw ub-img4"></div> '      
+			 		+'</li> '
+					+'<li class="ubt1"></li>';
+			res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			curpage = Int(json.zywy_curpage);
+			totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn10 tx-c">暂无记录</div>';
+		}
+		
+		if(curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'pic':
+				var src = ucurl + d.uid;					
+				var picid = 'pic'+d.uid;
+				dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+				break;
+			case 'isfriend':
+				if(d.isfriend != '1'){
+					str='<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11 umar-t">未添加</div>';
+				}
+		}
+	 }
+	 return str;
+}
+
+function showMenu(uid, unm, isf){
+	if(isf!='1'){
+		var array = ['查看主页'];
+		array[1] = '添加好友';
+		uexWindow.cbActionSheet = function (opId, dataType, data){
+			var i=int(data);
+			if(i==0){
+				go2new5(uid, unm, isf);
+			}
+			else if(i==1){
+				if(isf!='1') friendAdd(uid);
+			}
+			else{}
+		}
+		uexWindow.actionSheet('', '取消', array);
+	}
+	else go2new5(uid, unm, isf);
+}
+
+function go2new5(uid, username, isf){
+	setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+	openwin('friend_information','friend_information.html','10');
+}
+
+function friendAdd(uid){
+	var url = home_url + "&mod=spacecp&ac=friend&op=add&uid="+uid+"&gid=0&note=&addsubmit=1";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, friendAddCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendAddCb(json){
+	uexWindow.closeToast();
+	if(json && json.status){
+		uexWindow.toast('0','5',json.status,2000);
+	}
+	else uexWindow.toast('0','5',"操作失败", 2000);
+}
+</script>
+</html>

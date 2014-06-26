@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart="zy_cc(this);">
+	<div class="uinn18">
+		<ul class="uba b-gra c-wh uc-a">  
+		  	<li ontouchstart="zy_touch('us-i')" onclick="go2new5(1);" class="uc-t ubb ub b-gra t-bla ub-ac lis">     
+		 		<div class="ub-img5 im18 morepic"></div>  
+		   		<div class="ub-f1 ut-s ulev0">浏览设置</div>    
+		 		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>   
+		 	<li ontouchstart="zy_touch('us-i')" onclick="go2new5(2);" class="ub ubb b-gra t-bla ub-ac lis">    
+		  		<div class="ub-img5 im19 morepic"></div>    
+		 		<div class="ub-f1 ut-s ulev0">上传设置</div>   
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li> 
+			<li ontouchstart="zy_touch('us-i')" onclick="go2new5(3);" class="ub ubb b-gra t-bla ub-ac lis">    
+		  		<div class="ub-img5 im20 morepic"></div>    
+		 		<div class="ub-f1 ut-s ulev0">隐私设置</div>   
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</li>        
+			<li ontouchstart="zy_touch('us-i')" onclick="go2new5(4);" class="uc-b ub  t-bla ub-ac lis">    
+		  		<div class="ub-img5 im21 morepic"></div>     
+		 		<div class="ub-f1 ut-s ulev0">修改密码</div>   
+		 		<div class="res8 lis-sw ub-img4"></div>
+		    </li>   
+		</ul>
+	</div>
+	<ul class="uba b-gra c-wh uc-a uinn8">  
+	  	<li ontouchstart="zy_touch('us-i')" onclick="go2new5(5);" class="uc-t ubb ub b-gra t-bla ub-ac lis">     
+	 		<div class="ub-img5 im22 morepic"></div>  
+	   		<div class="ub-f1 ut-s ulev0">同步微博</div>    
+	 		<div class="res8 lis-sw ub-img4"></div>   
+	 	</li>   
+	 	<li ontouchstart="zy_touch('us-i')" onclick="inviteFriend();" class="ub ubb b-gra t-bla ub-ac lis">    
+	  		<div class="ub-img5 im23 morepic"></div>    
+	 		<div class="ub-f1 ut-s ulev0">推荐好友</div>   
+	  		<div class="res8 lis-sw ub-img4"></div>   
+	 	</li>     
+		<li ontouchstart="zy_touch('us-i')" onclick="cleanCache();"  class="uc-b ub  t-bla ub-ac lis">    
+	  		<div class="ub-img5 im24 morepic"></div>     
+	 		<div class="ub-f1 ut-s ulev0">清除缓存</div>   
+	 		<div class="res8 lis-sw ub-img4"></div>
+	    </li>   
+	</ul>
+</body>
+<script>
+zy_init();
+window.uexOnload=function(type)
+{
+	setPageBounce('', '');
+	uexWidgetOne.cbError = errorCb;
+}
+function go2new5(i){
+	var wnm = 'setlist';
+	var url = 'setlist.html';
+	var str = '';
+	
+	switch(i)
+	{
+		case 1:
+			str = '{"view":"browsing"}';
+		break;
+		case 2:
+			str = '{"view":"upload"}';
+		break;
+		case 3:
+			str = '{"view":"privacy"}';
+		break;
+		case 4:
+			str = '{"view":"secure"}';
+		break;
+		case 5:
+			str = '{"view":"weibo"}';
+		break;
+	}
+	
+	logs('go2new5()-->i='+i+', wnm='+wnm+'. url='+url);
+	if(str) setstorage('params', str);
+	if(url){
+		//var o = getStorJson('params');
+		openwin(wnm,url,'10');
+	}
+}
+function inviteFriend(){
+	var msg = 'HI，我正在玩论坛手机客户端，功能棒极了！支持拍照+微博互动，还有超赞定位服务可以帮您找到附近的好友呢！下载：';
+	var appid = getstorage('appid');
+	msg = msg + 'http://app.tx100.com/'+appid+'/index.html';
+	uexSMS.open('', msg);
+}
+function cleanCache(){
+	if(getstorage('simulate')) cleanCacheCb(0,0,0);
+	else{
+		uexWidgetOne.cbCleanCache = cleanCacheCb;
+		uexWidgetOne.cleanCache();
+	}
+}
+
+function cleanCacheCb(opId,dataType,inData){
+	if(inData == 0){
+		uexWindow.toast('0','5','清除成功',2000);
+		
+		var lsg = window.localStorage;
+		for(var k in lsg){
+			if(k.indexOf('http://')==0 || k=='UID') lsg.removeItem(k);
+		}
+		uexFileMgr.deleteFileByPath("wgt://data/icache");
+		
+		uescript('main', 'logoutSuccess();');
+		setTimeout("uescript('setting', 'closewin()');", 1500);
+		
+		var d = new Date();
+		var ms = d.getTime();
+		setstorage('myTime', ms);
+	}else{
+		uexWindow.toast('0','5','清除失败',2000);
+	}
+}
+function errorCb(){
+	uexWindow.toast('0','5','手机信息功能不可用',2000);
+}
+</script>
+</html>

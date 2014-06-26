@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/zy_slide.js"></script>
+	<script src="js/zy_icache.js"></script>
+	<script src="js/dis_ad.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_share.js"></script>
+	<script src="js/zy_event.js"></script>
+    <script>
+	</script>
+	<style>
+	.quote{
+		padding:.2em;
+		background-color:#C9C9C9;
+		border-radius: .3em;
+	}
+	.q1{	
+		background: url(images/yl.png);
+		-webkit-background-size:auto 100%;
+		background-size:auto 100%;
+		background-repeat:no-repeat;
+		background-position:center;
+		width: 1em;
+		height: 1em;
+		display: inline-block;
+		margin-right: .5em;
+	}
+	.q2{
+		background: url(images/yr.png);
+		-webkit-background-size:auto 100%;
+		background-size:auto 100%;
+		background-repeat:no-repeat;
+		background-position:center;
+		width: 1em;
+		height: 1em;
+		display: inline-block;
+		margin-left: .5em;
+	}
+	
+	input[type="radio"]:checked+span.ady{
+		background-color: #FFF;
+	}
+	
+	.act-pic{
+		width:95%;
+	}
+/*
+	p{
+		text-align:center;
+	}
+*/
+	p img{
+		border:1px solid #aaa;
+		background-color: #fff;
+		padding: .3em;
+		border-radius: .4em;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, .3)
+	}
+  </style>
+  </head> 
+<body class="um-vp c-gra5" ontouchstart id="myevt">
+	<!--帖子主题-->
+	<div class="uc-n ub t-bla ub-ac lis uhide uinn uof-x" id="subject"></div>
+	
+	<!--帖子内容-->
+	<div class="uinn1" id="content"></div>
+	
+	<div class="adcon uof uhide" id="adimg" style="height:5em; margin:.5em;">
+		<div class="ub ub-ac ub-pc" id="box1"></div>
+		<div class="recpic"><img src="images/recommend.png" style="height:2em;" /></div>
+		<div class="adtit1 ulev-1">
+			<div class="ufr umar-r1" id="rad1">
+			</div>
+		</div>
+		<div class="dpic" ontouchstart="zy_touch()" onclick="closead();" style="z-index:100;">
+			<img src="images/delpic.png" style="height:1em;" />
+		</div>
+	</div>
+	
+	<div class="umar-t" id="cmnum">
+	</div>
+	
+	<!--回帖列表-->
+	<div id="comlist">
+		<div></div>
+	</div>
+	
+	<!--回帖页跳转导航-->
+	<div id="nav" ontouchstart="zy_cc(this);"></div>
+	<div style="height:3em"></div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var tid = params.tid;
+var auid = '';
+var windWH = '';
+var favID = '';
+var act = 0;
+var ucurl = guc;
+var curp = 1;
+var totp = 1;
+var cnum = 0;
+var uid = getstorage('UID');
+var subject = '';
+var ams = '';/*匿名发帖?*/
+var ucurl2 = '';
+
+window.uexOnload=function(type)
+{
+	//return;
+	windWH = "&width="+int(window.innerWidth*2/3)+"&height="+int(window.innerWidth*2/3);
+	logs('forum_detail--->uexOnload-->windWH='+windWH);
+	setPageBounce(downcb, '');
+	zy_initcache();
+	
+	setstorage('active', '');
+	var fg = '1';
+	if(params.from) fg = '';
+	loadListForum(fg);
+	
+	//addflip('', 'forum_detail');
+	//uescript('forum_detail', 'setNavDiv();');
+	addListen();
+}
+function upcb(){
+	resetBV('1');
+}
+function downcb(){
+	//resetBV('0');
+	uexWindow.toast('1','5','更新中...',"");
+	updateForum();
+	loadListCom('');
+}
+
+/*帖子内容*/
+function loadListForum(fg){
+	uid = getstorage('UID');
+	var url = forum_url + "&mod=ajax&action=getpost&tid=" + tid + windWH +"&guid="+uid;
+	logs('forum-->url='+url);
+	if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadListForumCb, 'json', getJsonErr, 'POST', '', fg, '1');
+}
+function threadPay(){
+	var url = forum_url + "&mod=ajax&action=getpost&pay=1&tid=" + tid;
+	$.getJSON(url, threadPayCb, 'json', getJsonErr, 'POST', '', '');
+}
+function threadPayCb(){}
+function loadListForumCb(json){
+	logs('loadListForumCb-->json='+JSON.stringify(json));
+	if(json){
+		var ss = Int(json.status);
+		if (ss<0) {
+			if(ss==-3) myConfirm(json.message, 'forum_detail');
+			else uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var o = json;
+		if(o.back=='1' && o.msg){
+			myConfirm(o.msg, 'forum_detail');
+			return;
+		}
+		
+		if(!o.tid){
+			myConfirm('抱歉，指定的主题不存在或已被删除或正在被审核', 'forum_detail');
+			return;
+		}	
+		
+		if(params.uid!=o.authorid && o.price && Int(o.price)>0){
+			uexWindow.cbConfirm = function(opId, dataType, data){
+ 				if(Int(data)==0){
+					o.price = '';
+					loadListForumCb(o);
+					threadPay();
+				}
+				else uescript('forum_detail', 'closewin();');
+			}
+			
+			var ttc = Int(o.curcredits);
+			if(ttc-Int(o.price)<0) myConfirm('阅读需要'+o.price+o.flag+'，您没有足够的'+o.flag+'值', 'forum_detail');
+			else{
+				var mycars = ['确定', '取消'];
+				var msg = '付费主题，阅读需要'+o.price+o.flag;
+				uexWindow.confirm('提示', msg, mycars);
+			}
+			return;
+		}
+		cnum = o.replies;
+		
+		if(o.favorite){
+			favID = o.favorite;
+			//ueppscript('forum_detail', 'nav', 'favoriteUI(1)');
+		}
+		act = 1;
+		setstorage('active', '1');
+		subject = o.subject;
+		setHtml('subject', o.subject);
+		if(json.ucurl){
+			setstorage('ucurl',json.ucurl+"/avatar.php?&size=middle&uid=");
+			ucurl = json.ucurl+"/avatar.php?&size=middle&uid=";
+			ucurl2 = json.ucurl;
+		}
+		else ucurl = getstorage('ucurl');
+		
+		var uucc = guc;
+		auid = o.authorid;
+		ams = o.anonymous;
+		
+		if(auid) uescript('forum_detail', 'setNavDiv("'+o.candelete+'","'+favID+'");');
+		
+		var maps = '';
+		var device = '';
+		var activity = '';
+		var simgid = getstorage('showimage'+uid);
+		
+		if(o.address) maps = '<span class="t-blu ulev-3 ufl ub-f1" style="text-decoration:underline; margin-top:.5em;" onclick="lookmap('+o.latitude+','+o.longitude+');"><img src="images/goto3.png" class="ub-f1" style="width:1em;">'+o.address+'</span>';
+		if(o.device) device = '<span class="t-gra7 ulev-3 ufr">来自'+o.device+'客户端</span>';
+		if(o.activity){
+			var ac = o.activity;
+			var sex = '不限';
+			if(ac.gender == "1") sex = '男';
+			else if(ac.gender == "2") sex = '女';
+			var jbtn = '';
+			if(!ac.activityclose && ac.uid!=uid){
+				//jbtn='<div ontouchstart="zy_touch(\'btn-act\')" onclick="join();" class="btn uba b-gra c-gra uc-a1 t-gra" style=" width:6em; margin-top:.5em;">我要参加</div>';
+				var af = '';
+				if(!ac.applyed) af=1;
+				uescript('forum_detail', 'addJoinNode('+af+');');
+			}
+			
+			var ts = '&nbsp;';
+			if(ac.applyed){
+				if(ac.appstatus) ts='您已经参加了此活动';
+				else ts='已经报名，正在审核中...';
+			}
+			
+			activity = '<div style="margin:.5em; line-height:1.5em;">'
+							+'<div>活动类型：'+ac.cls+'</div>'
+							+'<div>开始时间：'+ac.starttimefrom+' 至 '+ac.starttimeto+'</div>'
+							+'<div>活动地点：'+ac.place+'</div>'
+							+'<div>性别：'+ sex +'</div>'
+							+'<div>每人花销：'+ac.cost+'元</div>'
+							+'<div>已报名人数：'+ac.allapplynum+'人 </div>'
+							+'<div>剩余名额：'+ac.overnum+'人</div>'
+							+'<div>报名截止：'+ac.expiration+'</div>'
+							+'<div id="ts">'+ts+'</div>'
+							+jbtn
+						+'</div>'
+						+'<div class="uc-a">'
+							+'<img src="images/mylogo.gif" class="uba uc-a b-gra c-wh"  style="padding:.35em .35em .2em .35em;" id="aapic"/>'
+						+'</div><div>&nbsp;</div>';
+						
+			var pic = ac.attachurl;
+			if(simgid=='false') pic = 'images/imgno.png';
+			dis_imgcache('aapic',pic,pic,imgLoadSucSrc2,imgLoadErrSrc,null,'',1);				
+		}
+		
+		var author = o.author;
+		if(ams=='1') author='匿名';
+		var str2 = '<div class="b-gra uc-n" ontouchstart="zy_touch(\'\')" onclick="showLZ(\''+o.authorid+'\',\''+author+'\');">'    	  
+						+'<div class="ub b-gra t-bla ub-ac lis"> '	 
+					   		+'<div class="lis-th2 ub-img5 uc-a1 us">'
+				     			+'<img src="images/mylogo.gif" class="inforpic" id="'+tid+'"/>'
+				     		+'</div>    '
+					 		+'<div class="ub-f1 ub ub-ver"> '
+					 		   +' <div class="ulev0">'+author+'</div> '
+					 		   +' <div class="ub ub-ac t-gra ulev-2 umar-t1"> '
+					 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic"></div> '
+					 		    	+'<span id="rp1">'+cnum+'</span>'
+					 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic"></div> '
+					 		    	+'<div class="ub-f1">'+o.views+'</div>'
+									+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
+					 		    	+o.dateline
+					 		   +'</div>'
+					 		+'</div>' 
+						+'</div>'
+					+'</div>'
+					+'<div class="ubll"></div>'
+					+'<div class="b-gra uof"  style="position:relative; padding:.5em;">'
+						//+'<img src="images/line.png" class="uh" style="position:absolute; top:0em; left:0; height:.2em;"/>'
+						+activity
+						+'<div onclick="hyperlinkHandle(event);" class="wba-all">'+o.message+'</div>'
+						+maps
+						+device
+					+'</div>'
+					//+'<div style="position:relative;">'
+						//+'<img src="images/ad.jpg" class="uh umar-t" style="height:3em;" />'
+						//+'<div class="recpic"><img src="images/recommend.png" style="height:1.5em;" /></div>'
+					//+'</div>';
+		setHtml('content', str2);
+		
+		var pic = ucurl+ auid;
+		if(ams=='1') pic=json.ucurl+'/images/noavatar_middle.gif';
+		logs('forum-detail-->pic = '+pic);
+		dis_imgcache(tid,pic,pic,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+		onloadimg();
+		
+		var m = getstorage('closead');
+		logs('fffff-->m='+m+', simgid='+simgid);
+		if(m!='1' && simgid=='true') addflip('', 'forum_detail');
+		
+		var str3 = '<img src="images/plbg.png" class="recbg" />'
+					+'<div class="t-wh ulev0 rectxt" id="replynum">'+cnum+'条评论</div>';
+		setHtml('cmnum', str3);
+		
+		if(cnum>0) loadListCom('');
+		else uexWindow.closeToast();
+	}
+}
+
+function imgLoadSucSrc2(id, src){
+	var e = $$(id);
+	if (e) {
+		e.src = src;
+		zy_anim_push(id,'act-pic');
+	}
+}
+
+/*回帖列表*/
+function loadListCom(pn){
+	var pstr = '';
+	if(params.pid){
+		pstr = '&pid='+params.pid;
+		params.pid = '';
+	}
+	var url = forum_url + "&mod=ajax&action=loadreply&tid="+tid+"&page="+pn+windWH+"&guid="+uid + pstr;
+	logs('loadListCom-->url='+url);
+	var f = pn?'':'1';
+	$.getJSON(url, loadListComCb, 'json', getJsonErr, 'POST', '', pn, f);
+}
+function loadListComCb(json){
+	//logs('loadListComCb-->json='+JSON.stringify(json));
+	uexWindow.closeToast();
+	if(json){
+		var list = json.list || json[0];
+		if(list){
+			var tmpl = '<div onclick="replyAct(${authorid}, \'${pid}\', \'${author}\');" class="b-gra uc-n ${cb:auid}" id="${authorid}_${pid}">'  	 
+				 		+'<div class="uc-n ubb1 ub b-gra t-bla ub-at lis">' 
+							+'<div class="lis-th2 ub-img5 uc-a1 tx-c us">'
+				     			+'<img src="images/mylogo.gif" ${cb:img} class="inforpic" id="pic${pid}"/>'
+								+'<span class="t-gra ulev-1 tx-c">${cb:floor}</span>'
+				     		+'</div>'  
+				 			+'<div class="ub-f1 ub ub-ver">'	 
+				 	    		+'<div class="ulev0" ><span>${cb:author}</span><span class="ulev-1 t-gra ufr">${dateline}</span></div>'		    
+				    			+'<div class="ulev-1 umh4 umar-t ulh1 uof minh">${message}</div>'
+								+'${cb:addr}'
+								+'<div class="ub">'
+									+'<div class="ub-f1"></div>'
+									+'<div class="t-gra7 ulev-1">${cb:device}</div>'
+								+'</div>' 
+				 			+'</div>'     
+				 		+'</div>'  
+				  	+'</div>';
+			var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
+			
+			//var cContent = $$('comlist');
+			//var node = createEle("div");
+			//node.innerHTML = res;
+			//cContent.insertBefore(node,cContent.lastElementChild);
+			setHtml('comlist', res);
+			
+			onloadimg();
+			
+			var cp = json.zywy_curpage;
+			var tp = json.zywy_totalpage;
+			if(cp) curp = Int(cp);
+			if(tp) totp = Int(tp);
+			
+			if(totp>1){
+				var str = '<div class="pagebg ub ub-ac ub-pc">'
+							+'<div class="uinn17 pagel ub-img5" ontouchstart="zy_touch(\'pagel-a\')" onclick="getNextPage(-1)"></div>'
+							+'<div class="uinn17 pagebtn" ontouchstart="zy_touch(\'pagebtn-a\')" onclick="go2Page()">'+curp+'/'+totp+'</div>'
+							+'<div class="uinn17 pager ub-img5" ontouchstart="zy_touch(\'pager-a\')" onclick="getNextPage(1)"></div>'
+						+'</div>';
+				setHtml('nav', str);
+			}
+		}
+		else if(json.msg){
+			var res = '<div class="uinn1">'+json.msg+'</div>';
+			setHtml('comlist', res);
+		}
+		else setHtml('comlist', '回帖列表加载有误，请刷新！');
+	}
+	resetBV('0');
+}
+
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'floor':
+				if(d.lcid){
+					var fn = int(d.lcid);
+					if(fn==2) str='沙发';
+					else if(fn==3) str='板凳';
+					else if(fn==4) str='地板';
+					else str=fn+'楼';
+				}
+			break;
+			case 'img':
+				var src = ucurl+d.authorid;
+				if(d.anonymous=="1") src=ucurl2+'/images/noavatar_middle.gif';
+				dis_imgcache('pic'+d.pid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'', 1);
+			break;
+			
+			case 'auid':
+				if(rflag && auid!=d.authorid) str='uhide';
+			break;
+			
+			case 'device':
+				str = '&nbsp;';
+				if(d.device) str='来自'+d.device+'客户端';
+			break;
+			
+			case 'addr':
+				if(d.address){
+					str = '<div class="ulev-1 t-blu uof" style="text-decoration:underline;" onclick="lookmap('+d.latitude+','+d.longitude+');"><img src="images/goto3.png" class="ub-f1" style="width:1em;">'+d.address+'</span></div>'
+				}
+				break;
+			case 'author':
+				str = d.author;
+				if(d.anonymous=="1") str='匿名';
+			break;
+		}
+	 }
+	 return str;
+}
+
+function favorite(){
+	if(act){
+		var url = '';
+		if(favID){
+			/*取消收藏*/
+			url = home_url + "&mod=spacecp&ac=favorite&op=delete&deletesubmit=true&favid=" + favID;
+		}
+		else{
+			/*添加收藏*/
+			url = home_url + '&mod=spacecp&ac=favorite&type=thread&id='+ tid + '&spaceuid=0&favoritesubmit=yes';
+		}
+		uexWindow.toast('1','5','请稍候...','');
+		$.getJSON(url, favoriteCb, 'json', getJsonErr, 'POST', '', '');
+	}
+	else uexWindow.toast('0','5','数据加载中，请稍候','2000');
+}
+function favoriteCb(json){
+	if(json){
+		var  str = '操作失败';
+		if(favID){
+			/*取消收藏*/
+			if (json.status == '1') {
+				favID = '';
+				str = '取消收藏成功';
+				ueppscript('forum_detail', 'nav', 'favoriteUI()');
+				setMyData(1, '');
+			}else{
+				if(json.message) str = json.message;
+			}
+		}
+		else{
+			/*添加收藏*/
+			str = json.message;
+			if(json.favorite_id){
+				favID = json.favorite_id;
+				str = '收藏成功';
+				ueppscript('forum_detail', 'nav', 'favoriteUI(1)');
+				setMyData(1, favID);
+			}
+		}
+		uexWindow.toast('0','5',str, 2000);
+	}
+}
+
+function getNextPage(cmd){
+	var np = 0;
+	if(cmd==-1){
+		if(curp>1) np=curp-1;
+	}
+	else{
+		if(curp<totp) np=curp+1;
+	}
+	if(np>0){
+		uexWindow.toast('1','5','加载中...',"");
+		loadListCom(np);
+	}	
+}
+
+function go2Page(){
+	var keycap = ['确定','取消'];
+	uexWindow.cbPrompt = function (opId, dataType, data){
+		var objdata = eval('('+data+')');
+		if(objdata.num==0){
+			var num = int(objdata.value);
+			if(0<num && num<=totp) loadListCom(num);
+			else uexWindow.alert('提示', '输入错误！', '确定');
+        }
+	}
+	uexWindow.prompt('请输入页码：','请输入页码：', '', keycap);
+}
+
+function lookmap(lat, log){
+	setstorage('params','{"lat":"'+lat+'", "log":"'+log+'"}');
+	openwin('map','map.html','10');
+}
+
+var ii = 0;
+function onloadimg(){
+	var ee = document.getElementsByTagName("img");
+	var imgsrc = '';
+	for(var key in ee)
+	{
+		var eimage = ee[key];
+		imgsrc = eimage.src;
+		
+		if(imgsrc && imgsrc.indexOf('http://')==0 && eimage.onclick!=null && !eimage.id)
+		{
+			var id = "img_"+ii;
+			eimage.src = 'images/mylogo.gif';
+			eimage.id = id;	
+			
+			var pattern = /&src=(.*?)&/i; 
+        	var imgs = pattern.exec(imgsrc); 
+			if(imgs && imgs[1]) imgs = imgs[1];
+			else{
+				imgs = imgsrc.split('&src=');
+				if(imgs && imgs[1]) imgs = imgs[1];
+				else imgs = imgsrc;
+			}
+			imglists[ii] = imgs;
+			dis_imgcache(id,imgsrc,imgsrc,imgLoadSucSrc,imgLoadErrSrc,null,'');
+			ii++;
+		}
+	}
+}
+
+function readDefalt(){
+	zy_anim_pop('content', 'uhide');
+	sortlist(false);
+}
+function readAuthorOnly(){
+	zy_anim_pop('content', 'uhide');
+	sortlist(true);
+}
+function readComOnly(){
+	zy_anim_push('content', 'uhide');
+	sortlist(false);
+}
+
+var rflag = false;
+function sortlist(f){
+	if(rflag==f) return;
+	
+	var cContent=$$("comlist");
+	var e = cContent.firstElementChild;
+	rflag = f;
+	while(e)
+	{
+		var nid = e.id;
+		var temp = '';
+		if(nid) temp = auid+'_';
+
+		if(nid.indexOf(temp)==0){
+			if(!rflag) zy_anim_pop(nid, 'uhide');
+		}
+		else{
+			if(rflag) zy_anim_push(nid, 'uhide');
+			else zy_anim_pop(nid, 'uhide');
+		}
+		
+		e = e.nextElementSibling;
+	}
+}
+
+function deletet(){
+	var array = ['删除'];
+	uexWindow.cbActionSheet = function (opId, dataType, data){
+		if(data=="0"){
+			var url = forum_url + "&mod=ajax&action=deletethread&tid="+tid;
+			uexWindow.toast('1','5','请稍候...','');
+			$.getJSON(url, function (json){
+				if(json != '') {
+					act = 0;
+					uexWindow.toast('0','5','删除成功',2000);
+					setTimeout("uescript('forum_detail', 'closewin();');",2000);
+				}
+				else uexWindow.toast('0','5','删除失败！',2000);
+			}, 'json', getJsonErr, 'POST');
+		}
+	}
+	uexWindow.actionSheet('', '取消', array);
+}
+
+function replyAct(aid, pid, author){
+	var res = hyperlinkHandle(event);
+	if(res || !act) return;
+	if(!checkLogin()) return;
+	logs('replyAct()-->id='+aid+', pid='+pid);
+	var array = ['回复'];
+	uid = getstorage('UID');
+	if(aid==uid) array.push('删除');
+	else array.push('个人主页');
+	uexWindow.cbActionSheet = function (opId, dataType, data){
+		var i = int(data);
+		if(i==0){
+			setstorage('params','{"type":"reply", "wname":"forum_detail", "tid":"'+tid+'", "pid":"'+pid+'"}');
+			openwin('editor','editor.html','12');
+		}
+		else if(i==1){
+			if(aid==uid) replyDel(aid, pid);
+			else go2new5(aid, author);
+		}
+		else{
+			//logs('replyAct()-->id='+aid+', pid='+pid+', length='+array.length);
+			//if(array.length==3) go2new5(aid, author);
+		}
+	}
+	uexWindow.actionSheet('', '取消', array);
+}
+function replyDel(id, pid){
+	var url = forum_url+"&mod=ajax&action=delpost&pid="+pid;
+	uexWindow.toast('1','5','请稍候...','');
+	$.getJSON(url,function(msg){
+		if(msg == 1){
+			uexWindow.toast('0','5','删除成功',2000);
+			var id2 = id+'_'+pid;
+			var ele = $$(id2);
+			if(ele) ele.parentNode.removeChild(ele);
+			cnum--;
+			setHtml('rp1', cnum);
+			setHtml('replynum',cnum+"条回复");
+			setMyData();
+		}else{
+			uexWindow.toast('0','5','删除失败！',2000);
+		}
+	}, 'json', getJsonErr, 'POST');
+}
+
+function weiboShare(){
+	if(act){
+		uid = getstorage('UID');
+		var url = serverurl+'forum.php?mod=viewthread&tid='+tid;
+		sharestart(url, uid, subject, 'forum_detail');
+	}
+}
+function join(){
+	uescript('forum_detail','join();');
+}
+
+function update5(){
+	logs('success ~ ~ ~');
+	cnum++;
+	setHtml('rp1', cnum);
+	setHtml('replynum',cnum+"条回复");
+	loadListCom('');
+	
+	setMyData(0, '');
+}
+
+function setMyData(id, val){
+	var key = forum_url + "&mod=ajax&action=getpost&tid=" + tid + windWH +"&guid="+uid;
+	var obj = getStorJson(key);
+	if(obj){
+		if(id==0) obj.replies = cnum;
+		else if(id==1) obj.favorite = val;
+		setStorJson(key, obj);
+	}
+}
+
+function updateForum(){
+	uid = getstorage('UID');
+	var url = forum_url + "&mod=ajax&action=getpost&tid=" + tid + windWH +"&guid="+uid;
+	$.getJSON(url, updateForumCb, 'json', null, 'POST', '', '', '1');
+}
+function updateForumCb(json){
+	if(json){
+		var ss = Int(json.status);
+		if (ss<0) {
+			return;
+		}
+		
+		var o = json;
+		if(o.back=='1' && o.msg){
+			return;
+		}
+		
+		if(!o.tid){
+			return;
+		}	
+		
+		if(params.uid!=o.authorid && o.price && Int(o.price)>0){
+			return;
+		}
+		cnum = o.replies;
+		logs('updateForumCb()-->cunum='+cnum);
+		setHtml('rp1', cnum);
+		setHtml('replynum',cnum+"条回复");
+	}
+}
+
+var myEvt = null;
+function addListen(){
+	if(!isSML && !myEvt) 
+		myEvt = new zyEvent('myevt',moveCb,endCb,0,null);
+}
+function moveCb(ele,dX,dY){
+	//logs('moveCb()--------dX='+dX+', dy='+dY);
+	if(act && dY<-10){
+		var sc = getstorage('fscreen');
+		if (!sc) {	
+			uescript('forum_detail', 'openFscr();');
+			act = 0;
+			setTimeout('act=1;', 500);
+		}
+	}
+}
+function endCb(e,dX,dY,t){
+	//logs('endCb()--> dX='+dX+', dY='+dY+', t='+t);
+	/*var sc = getstorage('fscreen');
+	if (!sc) {
+		event.preventDefault();
+		event.stopPropagation();
+		
+		if (t != 'down') {//(dX>10 || dY>10)
+			uescript('forum_detail', 'openFscr();');
+			act = 0;
+			setTimeout('act=1;', 500);
+		}
+	}*/
+}
+
+function moveOutsc(){
+	var hh = getstorage('headerHeight');
+	var dy = hh;
+	var fsc = getstorage('fscreen');
+	if(fsc) dy = '-'+hh;
+	
+	logs('forum_detail_content-->moveOutsc()-->dy='+dy);
+	
+	disShowAnim('0', dy);
+}
+
+function activityCancel(){
+	var url = forum_url + '&mod=ajax&action=activitycancel&tid='+tid;
+	$.getJSON(url, function(json) {
+		var str = '取消成功';
+		if(json==0) str = '取消失败';
+		else uescript('forum_detail', 'joinResult("1")');
+
+		uexWindow.toast('0', '5', str, 2000);
+	}, 'json', getJsonErr, 'POST', '', '');
+}
+
+function go2new5(_uid, _username){
+	setstorage('params','{"uid":"'+_uid+'", "username":"'+_username+'"}');
+	openwin('friend_information','friend_information.html','10');
+}
+
+function showLZ(_auid, _auname){
+	logs('showLZ()-->auid='+_auid);
+	if(_auid!=uid && checkLogin()) go2new5(_auid, _auname)
+}
+</script>
+</html>

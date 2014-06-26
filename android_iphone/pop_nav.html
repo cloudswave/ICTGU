@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" style="padding:0 .1em">
+	<div class="ub c-bla tab2 uba us b-gra uc-a" style="opacity:.8;">	
+		<div ontouchstart="zy_touch('tp-click')" onclick="reply()" class="ub-f1 ub ub-ver">
+			<div class="ub-f1 ub-img5 tp-reply"></div>
+		</div>
+		<div ontouchstart="zy_touch('tp-click')" onclick="favorite()" class="ub-f1 ub ub-ver" id="fava">
+			<div class="ub-f1 ub-img5 tp-collect" id="imgfav"></div>
+		</div>
+		<div ontouchstart="zy_touch('tp-click')" onclick="share();" class="ub-f1 ub ub-ver">
+			<div class="ub-f1 ub-img5 tp-share"></div>
+		</div>
+		<div ontouchstart="zy_touch('tp-click')" onclick="deletet();" class="ub-f1 ub ub-ver" id="del">
+			<div class="ub-f1 ub-img5 tp-del"></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('popnav');
+var uid = getstorage('UID');
+var isAd = getstorage('isAd');
+var view = params.view;
+var tid = params.tid;
+var aid = params.aid;
+var bid = params.blogid;
+var picid = params.picid;
+
+var wname = {};
+wname['forum']='forum_detail';
+wname['portal']='portal_detail';
+wname['blog']='blog_detail';
+wname['album']='album_detail';
+var my5 = wname[view];
+
+window.uexOnload=function(type)
+{
+	//logs('pop_nav()-->params='+getstorage('popnav'));
+	//if(!isSML) moveOutsc();
+}
+
+function reply(){
+	if(!checkLogin()) return;
+	var str = '';
+	if(view=='forum') str = '{"type":"reply", "wname":"forum_detail", "tid":"'+tid+'", "pid":""}';
+	else if(view=='portal') str = '{"type":"portal", "wname":"portal_detail", "aid":"'+aid+'"}';
+	else if(view=='blog') str = '{"type":"breply", "wname":"blog_detail", "blogid":"'+bid+'"}';
+	else str = '{"type":"album", "wname":"album_detail", "picid":"'+picid+'"}';
+	setstorage('params',str);
+	openwin('editor', 'editor.html', '12');
+}
+function favorite(){
+	if(!checkLogin()) return;
+	ueppscript(my5, 'content', 'favorite()');
+}
+function share(){
+	if(!checkLogin()) return;
+	ueppscript(my5, 'content', 'weiboShare()');
+}
+function deletet(){
+	if(!checkLogin()) return;
+	ueppscript(my5, 'content', 'deletet()');
+}
+
+function favoriteUI(flag){
+	var id = 'imgfav';
+	var css1 = 'tp-favorited';
+	var css2 = 'tp-collect';
+	var txt = '';
+	if(!flag){
+		var c = css1;
+		css1 = css2;
+		css2 = c;
+	}
+	zy_anim_push(id,css1);
+	zy_anim_pop(id,css2);
+}
+
+function moveOutsc(){
+	var dy = '-500';
+	var fsc = getstorage('fscreen');
+	if(fsc) dy = '500';
+	
+	logs('pop_nav-->moveOutsc()-->dy='+dy);
+	/*浮动菜单动画效果*/
+	disShowAnim('0', dy);
+}
+
+var fav = params.fav;
+if(fav) favoriteUI(1);
+if(view=='portal') removeNode('del');
+else if(view=='blog'){
+	if(params.uid!=uid) removeNode('del');
+}
+else if(view=='forum'){
+	var del = params.del;
+	if(del!='1') removeNode('del');
+}
+else{
+	removeNode('fava');
+	if(params.uid!=uid) removeNode('del');
+}
+</script>
+</html>

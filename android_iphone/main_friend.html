@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+   	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_icache.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_slide.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>
+	<!--附近朋友-->
+	<div class="" id="page5" style="display:none;">
+		<!--列表开始-->
+		<div class="uba b-gra uc-a1">    
+		 	<div ontouchstart="zy_touch('btn-act')" class="ub ub-ac lis uc-a1 c-m7">     
+		 		<div class="ub-f1 ub b-gra sel"> 
+					<div class="ub-f1 ut-s ulev0 t-gra6 tx-l">500米内</div>  
+					<select name="sel0" selectedindex="0"  style="border:none !important; " id="fsel" onchange="selectmenu(this.id)">  
+				  		<option value="500">500米内</option>
+						<option value="3000">3公里内</option>  
+				  		<option value="10000">10公里内</option>
+						<option value="30000">30公里内</option>
+				 	</select> 
+				 </div>    
+		  		<div class="res11 lis-sw1 ub-img5"></div>   
+		 	</div>     
+		</div>
+		<!--列表结束-->
+		<div class="b-gra uc-n" id="list5">    	  	
+			<div></div>
+	  	</div>
+	</div>
+	
+	
+	<!--在线成员-->
+	<div class="" id="page6" style="display:none;">
+		<div class="b-gra uc-n" id="list6">
+	 		<div></div>
+	  	</div>
+	</div>
+	
+	
+	<!--好友列表-->
+	<div class="" id="page7" style="">
+		<div class="b-gra uc-n" id="list7">
+	 		<div></div>
+	  	</div>
+	</div>
+</body>
+<script>
+zy_init();
+var pages =  {curid:7, updr:'0'};
+pages[7] = {curpage:1, totpage:1, ld:0};
+var distance = 500; /*米*/
+var mySlide = null;
+var uid = getstorage('UID');
+var ele = $$('fsel');
+var ucurl = getstorage('ucurl');
+if(!ucurl) ucurl = guc;
+
+window.uexOnload=function(type)
+{
+	setPageBounce(downcb, upcb);
+	zy_initcache();
+	
+	//loadListNearby('', '');
+	updateLists();
+}
+
+function downcb(){
+	var i = pages.curid;
+	pages.updr = '0';
+	if(i==5){
+		uescript('root', 'getlocation(1)');
+		loadListNearby('', '');
+	}
+	else if(i==6) loadListOnline('', '');
+	else loadListFriends('', '');
+}
+function upcb(){
+	var i = pages.curid;
+	var o = pages[i];
+	if (o.curpage < o.totpage) {
+		pages.updr = '1';
+		var pn = o.curpage+1;
+		if(i==5) loadListNearby(pn, '');
+		else if(i==6) loadListOnline(pn, '');
+		else if(i==7) loadListFriends(pn, '');
+	}
+	else
+		resetBV('1');
+}
+
+function pageSwitch(i){
+	logs('pageSwitch()-->i='+i);
+	if(!pages[i]) pages[i] = {curpage:1, totpage:1, ld:0};
+
+	if (pages.curid != i) {
+		var p1 = 'page'+pages.curid;
+		var p2 = 'page'+i;
+		pages.curid = i;
+		my_page_switch(p1, p2);
+	}
+	
+	if(!pages[i].ld){
+		if(i==5) loadListNearby('', '');
+		else if(i==6) loadListOnline('', '');
+		else loadListFriends('', '');
+	}
+}
+
+function selectmenu(){
+	zy_selectmenu('fsel');
+	pages[5].ld = 0;
+	loadListNearby('', '');
+}
+
+function loadListNearby(pn, flag){
+	var dic = ele.options[ele.selectedIndex].value;
+	var url = search_url + "&mod=nearuser&distance="+ dic +"&searchsubmit=yes&z="+Int(Math.random()*100)+'&page='+pn;
+	if(!pages[5].ld) uexWindow.toast('1','5','搜索中...',"");
+	//logs('loadListNearby()-->url='+url);
+	$.getJSON(url, loadList1, 'json', getJsonErr, 'POST', '', '');
+}
+function loadListOnline(pn, flag){
+	var url = home_url+"&mod=space&do=friend&view=online&type=member&page="+ pn+"&z="+Int(Math.random()*100);
+	if(!pages[6].ld) uexWindow.toast('1','5','加载中...',"");
+	$.getJSON(url, loadList2, 'json', getJsonErr, 'POST', '', '');
+}
+function loadListFriends(pn, flag){
+	var url = home_url + '&mod=space&do=friend&page='+ pn;
+	//var url = home_url+"&mod=space&do=friend&view=all&type=friend&page="+ pn+"&z="+Math.random();
+	var aa = getstorage('Logout_4');
+	if(!checkKey(url) || aa) uexWindow.toast('1','5','加载中...',"");
+	var f = pn?'':'1';
+	$.getJSON(url, loadList3, 'json', getJsonErr, 'POST', '', flag, f);
+}
+
+function loadList1(json){
+	loadListCb(json, '5');
+}
+function loadList2(json){
+	loadListCb(json, '6');
+}
+function loadList3(json){
+	loadListCb(json, '7');
+}
+
+var pid = '';
+function loadListCb(json, id){
+	uexWindow.closeToast();
+	resetBV(pages.updr);
+	
+	if(json){
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var o = pages[id];
+		var cContent = $$('list'+id);
+		var res = '';
+		var list = json.list;
+		var length = zy_tmpl_count(list);
+		if(length>0){
+			var tmpl = '';
+			pid = id;
+			if(id==5){
+				tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${uid}, \'${nickname}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${uid}">' +
+								'<div class="lis-th2 ub-img uc-a1">'+
+		     						'<img src="images/mylogo.gif" class="inforpic" ${cb:img} id="'+pid+'_${uid}"/>'+
+		     					'</div> '+
+								'<div class="ub-f1 ub ub-ver">	' +
+								'<div class="ulev0">${nickname}<img src="${cb:isonline}" class="online"/></div>' +
+								'<div>' +
+								'<div class="ub-f1"></div>' +
+								'<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11">${cb:distance}</div>' +
+								'</div> ' +
+								'<div class="ulev-1 umh4 t-gra ut-s">${recentnote}</div>' +
+								'</div> ' +
+								'<div class="res8 lis-sw ub-img4"></div>' +
+					'</li>  ' +
+					'<li class="ubt1"></li>';
+			}
+			else{
+				
+				//+'<div class="lis-th ub-img" style="background-image: url(images/loading.gif);-webkit-background-size: auto; background-size: auto;${cb:img}" id="uid_${uid}"></div>  	 '
+				
+				tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${uid}, \'${username}\', \'${isfriend}\');" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${uid}">'
+				 			+'<div class="lis-th2 ub-img uc-a1">'
+	     						+'<img src="images/mylogo.gif" class="inforpic" ${cb:img} id="'+pid+'_${uid}"/>'
+	     					+'</div> '
+							+'<div class="ub-f1 ub ub-ver">	' 
+				 	    		+'<div class="ulev0">${username}<img src="${cb:isonline}" class="online"/></div>'
+								+'<div>'
+									+'<div class="ub-f1"></div>'
+									+'${cb:isfriend}'
+				    			+'</div> '
+				    			+'<div class="ulev-1 umh4 t-gra ut-s">${recentnote}</div>'	 
+				 			+'</div> '
+							+'<div class="res8 lis-sw ub-img4"></div>  '    
+				 		+'</li>  '
+						+'<li class="ubt1"></li>';
+			}
+			
+			res = zy_tmpl(tmpl,list,length,j2vCb);
+			if(res) o.ld = 1; 
+			
+			o.curpage = Int(json.zywy_curpage);
+			o.totpage = Int(json.zywy_totalpage);
+		}
+		else{
+			res = '<div class="uinn8 tx-c">暂无朋友列表</div>';
+		}
+		
+		if(o.curpage==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		
+		var node = document.createElement("ul");
+		node.innerHTML = res;;
+		cContent.insertBefore(node,cContent.lastElementChild);
+		
+	}
+}
+
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'isfriend':
+				if(d.isfriend==0) str = '<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11 umar-t">未添加</div>';
+			break;
+			case 'isonline':
+				if(d.islogin==1) str = 'images/online.png';
+				else str = 'images/offline.png';
+			break;	
+			case 'img':
+				var src = ucurl+d.uid;
+				var picid = pid+'_'+d.uid;
+				dis_imgcache(picid,src,src,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+			break;
+			case 'distance':
+				var s = Int(d.distance);
+				str = (s>=10000)?(s/1000+"公里"):(s+"米");
+			break;
+		}
+	 }
+	 return str;
+}
+
+function go2new5(uid, username, isf){
+	setstorage('params','{"uid":"'+uid+'", "username":"'+username+'", "isfriend":"'+isf+'"}');
+	openwin('friend_information','friend_information.html','10');
+}
+
+function updateLists(){
+	loadListFriends('', '1');
+	setstorage('Logout_4', '');
+}
+</script>
+</html>

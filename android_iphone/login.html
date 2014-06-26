@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script>
+	</script>
+</head>
+    <body class="um-vp c-gra5" ontouchstart>
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh">
+            	<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+					<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="backbtn();">
+					 	<div class="ulim">返回</div>
+					</a>
+	                <h1 class="ut ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="regist();" id="resg">
+					 	<div class="ulim">注册</div>
+					</a>
+				</div>
+            </div>
+            <!--header结束-->
+			
+			<!--content开始-->
+            <div id="content" class="ub-f1 tx-l t-bla c-gra">
+            	<!--登录-->
+				<div id="page1" style="" class="uinn18">
+					<div class="uba b-gra c-wh us uc-a">  
+						<div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">   
+					   		<div class="ut-s">帐号</div>    
+							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+								<div class="c-wh uc-n b-gra uinput uinn4">    
+									<input placeholder="UID/用户名/Email" id="uid" type="text" class="uc-n ulev0" value="">   
+								</div>
+							</div> 
+					 	</div>
+						<div class="uc-b c-m2 ub  t-bla ub-ac umh4 lis">     
+					 		<div class="ut-s">密码</div>
+							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+								<div class="c-wh uc-n b-gra uinput uinn4">    
+									<input placeholder="请输入密码" id="upass"  type="password" class="uc-n ulev0" value="">   
+								</div>
+							</div> 
+					    </div>   
+					</div>
+					<div class="t-bla uinn8">
+						<div class="uc-a1 b-gra ub ub-ac ub-pc">   
+							<div class="uinn17">
+								<input type="checkbox" id="cbrem" name="che1" class="uhide" checked="checked" value="">
+								<div onclick="zy_for(event)" ontouchstart="zy_touch('btn-act')" class="ub uc-t1 b-gra ub-f1 ub-con">            
+							 		<div class="che-icon ub-img5 umw1"></div>
+									<div class="ub-f1 ut-s tx-l">记录登录信息</div>
+							 	</div>
+							</div>
+							<div class="ub-f1"></div>
+						</div>
+					</div>
+			
+					<div ontouchstart="zy_touch('btn-act')" onclick="login();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">登录</div>
+				</div>
+            </div>
+            <!--content结束-->
+        </div>
+    </body>
+<script>
+zy_init();
+var flag = 0;
+var params = getStorJson('params');
+var view = params.view;
+var uname = params.uname;
+var going = 0;
+var ccW = $$("content").offsetHeight;
+var ost = getStorJson('usetting');
+if(ost.regstatus!="1") removeNode('resg');
+
+window.uexOnload = function(type){
+    if (!type) {
+        //zy_con("content", "login_content.html", 0, $$("header").offsetHeight);
+		if(!isSML) openRegist();
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+	
+	//logs('login-->params='+getstorage('params'));
+	var an = getstorage('appname');
+	if(an) setHtml('ttl', an);
+	
+	if(uname){
+		setValue('uid', uname);
+		setValue('upass', '');
+	}
+
+	if(view=='setlist_secure'){
+		var unm = getstorage('username');
+		setValue('uid', unm);
+	}
+	else if(view=='manageId'){}
+	else{
+		var obj = getStorJson('login_infor');
+		if(obj.uname){
+			setValue('uid', obj.uname);
+			setValue('upass', obj.upwd);
+		}
+	}
+
+	if(getstorage('simulate')){
+		setValue('uid', 'ccc');
+		setValue('upass', 'ccc');
+	}
+}
+function backbtn(){
+	if (!flag) 
+		closewin();
+	else {
+		logs('backbtn()--------->flag='+flag);
+		if(isSML){
+			if(flag) uexWindow.closePopover('regist');
+			else openRegist();
+		}
+		else ueppscript('login', 'regist', 'movepop();');
+		flag = 0;
+	}
+}
+function regist(){
+	logs('regist()--------->flag='+flag);
+	if(!flag){
+		if(isSML) openRegist();
+		else setTimeout(function(){
+			ueppscript('login', 'regist', 'movepop();');
+		}, 100);
+	}
+	else ueppscript('login', 'regist', 'register()');
+	flag = 1;
+}
+
+function openRegist(){
+	var e = $$('header');
+	var s = window.getComputedStyle(e,null);
+	var h = int(ccW);
+	var w = int(window.innerWidth);
+	var f = int(s.fontSize);
+	var y = int(e.offsetHeight);
+	var x = w;
+	if(isSML) x = 0;
+	logs('openRegist()-->x='+x+', y='+y+', w='+w+', h='+h+', 1em='+f);
+	uexWindow.openPopover('regist',"0","login_content.html","",x,y,w,h,f,"0");
+}
+
+function login(){
+	if(going) return;
+	var name = $$("uid").value;
+	var pwd = $$("upass").value;
+	
+	if("" == name){
+		uexWindow.toast('0', '5', "账号不能为空或空格，请输入账号", 2000);
+		return;
+	}
+	if("" == pwd){
+		uexWindow.toast('0','5',"密码不能为空，请输入密码",2000);
+		return;
+	}
+	
+	var name2 = encodeURIComponent(name);
+	var pwd2 = encodeURIComponent(pwd);
+	
+	var url = login_url + "&mod=logging&action=login&username=" + name2 + "&password=" + pwd2;
+	logs('login()-->url='+url);
+	going = 1;
+	uexWindow.toast('1', '5', "登录中", '');
+	
+	$.getJSON(url, function(msg) {
+		logs('login-->json='+JSON.stringify(msg));
+		going = 0;
+		uexWindow.closeToast();
+		if (msg.status == 'LoginSuccess') {
+			var uid = msg.uid;
+			var obj = getStorJson('loginObj');
+			var ele = $$('cbrem');
+			if(ele){
+				if(ele.checked) setstorage('login_infor', '{"uname":"'+name+'","upwd":"'+pwd+'"}');
+				else{
+					pwd = '';
+					setstorage('login_infor', '');
+				}
+			}
+			
+			if(!obj[uid]) obj[uid]={'uid':uid};
+			obj[uid].uname =  name;
+			obj[uid].upwd = pwd;
+			setStorJson('loginObj', obj);
+			setstorage('UID', uid); 
+			
+			
+			setstorage('showimage'+uid, (msg.imagemode=='1')?false:true);
+			
+			uexWindow.toast('0', '5', '登陆成功', 2000);
+			uescript('main', 'loginsuccess();');
+			setTimeout("closewin();", 2000);
+			
+			if(view=='manageId') ueppscript(view, 'content', 'adduser();');
+		}else if(msg.status == 'password_error'){
+			uexWindow.toast('0', '5', '您的密码错误', 2000);
+		}else{
+			uexWindow.toast('0', '5', '登录失败', 2000);
+		}
+	}, 'json', getJsonErr, 'POST', '', '');
+}
+
+function regSuccess(r_name, r_psw1){
+	setValue('uid', r_name);
+	setValue('upass', r_psw1);
+	flag = 0;
+}
+</script>
+</html>

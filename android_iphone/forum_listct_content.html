@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+    <script>
+	</script>
+  </head>
+<body class="um-vp" ontouchstart>
+	<div id="all">
+		<div class="" id="page0"> <!--- 普通帖子　全部 ---->
+			<div></div>
+		</div>
+		
+		<div style="display:none;" id="page99999"> <!--- 置顶帖子 ---->
+			<div></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var fid = params.fid;
+var view = params.view;
+var uid = getstorage('UID');
+var cContent = $$('all');
+var pages =  {curid:0, precid:0, updr:'0', tpid:''};
+pages[0] = {curpn:1, totpn:1, ld:0};
+
+var childList = null;
+var updated = 0;
+
+window.uexOnload=function(type)
+{
+	if(!type){
+		setPageBounce(downcb, upcb);
+		var flag = params.update;
+		loadList('', '0', '1');
+		//if(updated) loadList('', '0', '');
+	}
+}
+function downcb(){
+	var i = pages.curid;
+	pages.updr = '0';
+	if(view == "child") resetBV('0');
+	else loadList('', i, '');
+}
+function upcb(){
+	var i = pages.curid;
+	var o = pages[i];
+	if (o.curpn < o.totpn) {
+		pages.updr = '1';
+		loadList(o.curpn + 1, i, '');
+	}
+	else resetBV('1');
+}
+
+function pagesCb(pid){
+	pages.curid = pid;
+}
+function loadList(pn, tpid, flag){	
+	var url = '';
+	var type = '';
+ 	if (Int(tpid)>0) {
+		type = '&typeid=' + tpid;
+	}
+	if(view=="com") url =  forum_url + "&mod=forumdisplay&fid="+ fid + "&page=" + pn + type;// + pw + type;
+	else url = forum_url+"&mod=ajax&action=gettopthread&fid=" + fid;
+	logs('url='+url);
+
+	if (url) {
+		updated = checkKey(url);
+		if(!updated) uexWindow.toast('1','5','加载中...',"");
+		var f = pn?'':'1';
+		$.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag, f);
+	}
+}
+function getJsonCallback(json){
+	uexWindow.closeToast();
+	if (pages.updr) {
+		resetBV(pages.updr);
+		pages.updr = '';
+	}
+	
+	if (json) {
+		if (Int(json.status)<1) {
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+			
+		var list = json[1] || json.list;
+		var length = zy_tmpl_count(list);
+		var id = json.catid || pages.curid;
+		var pid = 'page' + id;
+		var cContent = $$(pid);
+		var o = pages[id];
+		if (view=='com' && id==0) childList=json[3];
+		if(length<1){
+			while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+			
+			var notes = '暂无版块内容';
+			if (json.back=='1' && json.message) notes = json.message;
+			
+			var node = createEle("div");
+			node.className = 'uinn10 tx-c';
+			node.innerHTML = notes;
+			cContent.insertBefore(node,cContent.lastElementChild);
+			return;
+		}
+		
+		if(o.ld){
+			//logs('loadCatCb()-->aid1='+cContent.children[0].children[0].id+', aid2='+list[0].tid);
+			//if(cContent.children[0].children[0].id==list[0].tid) return;
+		}
+		
+		var tmpl = '<li class="ub ub-ac ub-pc umh6 uinn ubb b-gra" id="${tid}" ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});">'
+					+'<div class="ub-f1 ub ub-ver">'
+						+'<div class="t-bla ulev0 ut-s">${subject}</div>'
+						+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh">'
+							+'${message}'
+						+'</div>'
+						+'<div class="ub ub-ac t-gra ulev-2 umar-t"> '
+			 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic ub-posl"></div> '
+			 		    	+'${replies}'
+			 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic ub-posl"></div> '
+			 		    	+'<div class="ub-f1">${views}</div>'
+							+'<div class="umh2 umw2 ub-img5 im5 lpic"></div>'
+		 		    	+'${lastpost}'
+			 		   +'</div>'
+					+'</div>'
+					+'<div class="res8 lis-sw ub-img4"></div>'
+				+'</li><li class="ubt1"></li>';
+
+		var res = zy_tmpl(tmpl,list,length,j2vCb);
+		
+		if(json.zywy_curpage) o.curpn = int(json.zywy_curpage);
+		if(json.zywy_totalpage) o.totpn = int(json.zywy_totalpage);
+		
+       	if(o.curpn==1)
+       	{
+       		while(cContent.childElementCount>1)
+       		{
+       			cContent.removeChild(cContent.firstElementChild);
+       		}
+       	}
+		var node = document.createElement("ul");
+		node.className = 'b-gra c-gra uc-n';
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+		
+		if(res) o.ld=1;
+	}
+}
+function j2vCb(d,c)
+{
+	var str = '';
+	 if(c.length>1)
+	 {
+		switch(c[1])
+		{
+			case 'imgid':
+				str = d.picid || d.aid;
+				break;
+		}
+	 }
+	 return str;
+}
+
+function myclass(i){
+	if(!(pages[i])) pages[i] = {ld:0, curpn:1, totpn:1};	
+	if(pages.curid == i){
+		//update ???
+	}
+	else{
+		pages.precid = pages.curid;
+		pages.curid = i;
+		
+		var p1 = 'page'+pages.precid;
+		var p2 = 'page'+i;		
+		if(pages[i].ld){
+			my_page_switch(p1,p2);
+		}
+		else{
+			var e = $$(p2);
+			if(!e){
+				var node = createEle("div");
+				node.id = p2;
+				node.innerHTML = '<div></div>';;
+				cContent.insertBefore(node,cContent.lastElementChild);
+			}
+			my_page_switch(p1,p2);
+			if(view == "child") loadchildJson(childList);
+			else loadList('', i, '');
+		}
+	}
+}
+
+function loadchildJson(json){
+	var cContent = $$('page88888');
+	while(cContent.childElementCount>1)
+	{
+		cContent.removeChild(cContent.firstElementChild);
+	}
+	if (json) {			
+		var list = json;
+		var length = zy_tmpl_count(list);
+		var o = pages[88888];
+
+		if(length<1){
+			var node = createEle("div");
+			node.className = 'tx-c';
+			node.innerHTML = '<div class="umh1"></div><div>暂无子版块</div>';
+			cContent.insertBefore(node,cContent.lastElementChild);
+			return;
+		}
+		
+		if(o.ld){
+			logs('loadCatCb()-->aid1='+cContent.children[0].children[0].id+', aid2='+list[0].tid);
+			//if(cContent.children[0].children[0].id==list[0].tid) return;
+		}
+		
+		var tmpl = '<div ontouchstart="zy_touch(\'onbg\')" onclick="go2newlist(${fid})" class="uc-n ubb ub b-gra t-bla ub-ac umh4 lis" id="${fid}">  ' 
+				   		+'<div class="ub-f1 ut-s">${name}</div>'
+						+'<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11">${todayposts}</div>'
+				 		+'<div class="res8 lis-sw ub-img4"></div>  ' 
+				 	+'</div>'
+					+'<div class="ubt1"></div> ';
+
+		var res = zy_tmpl(tmpl,list,length,j2vCb);
+		var node = document.createElement("div");
+		node.className = 'uc-n';
+		node.innerHTML = res;
+		cContent.insertBefore(node,cContent.lastElementChild);
+		
+		if(res) o.ld=1;
+	}
+	else{
+		var node = createEle("div");
+		node.className = 'tx-c';
+		node.innerHTML = '<div class="umh1"></div><div>暂无子版块</div>';
+		cContent.insertBefore(node,cContent.lastElementChild);
+	}
+}
+function loadcom(id){
+	view = "com";
+	myclass(id);
+}
+function loadtop(){
+	view = "top";
+	myclass(99999);
+}
+function loadchild(){
+	view = "child";
+	myclass(88888);
+}
+function go2newlist(fid){
+	setstorage('params', '{"fid":"'+fid+'", "noPop":"1"}');
+	openwin('forum_list11', 'forum_listct.html', '10');
+}
+function go2new5(tid, uid){
+	setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'"}');
+	
+	//var o = getStorJson('params');
+	openwin('forum_detail','forum_detail.html','10');
+}
+</script>
+</html>
