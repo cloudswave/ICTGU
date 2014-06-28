@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/dis_upload.js"></script>
+	<script src="js/zy_icache.js"></script>
+    <script>
+	</script>
+	<style>
+	.uc-l {
+	-webkit-border-top-left-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	-webkit-border-bottom-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em
+	}
+	.uc-r {
+	-webkit-border-top-right-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	-webkit-border-bottom-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em
+	}
+	.ubrw0 {
+	border-right-width: 0;
+	}
+	.pad2{
+		padding:.3em 0;
+	}
+	</style>
+  </head>
+<body class="um-vp c-gra5" ontouchstart>
+	<!--列表开始-->
+	
+	<div class="uinn13">
+		<div class="ub uc-a1 ub-ac ub-pc">
+			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con uc-l pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(1);">
+				<div class="t-blu2" id="tn">0</div>
+				<div class="ulev-1">帖子</div>
+			</div>
+			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(2);">
+				<div class="t-blu2" id="bn">0</div>
+				<div class="ulev-1">日志</div>
+			</div>
+			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(3);">
+				<div class="t-blu2" id="an">0</div>
+				<div class="ulev-1">相册</div>
+			</div>
+			<div class="ub-f1 uba b-gra c-blu5 tx-c ub-con uc-r pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(4);">
+				<div class="t-blu2" id="rn">0</div>
+				<div class="ulev-1">记录</div>
+			</div>
+		</div>
+	</div>
+	<!--列表结束-->
+	
+	<!--个人资料页，设置列表-->
+	<div class="uhide" id="slist" ontouchstart="zy_cc(this);">
+		<div class="uba b-gra c-wh uc-a uinn8">  
+	  		<div ontouchstart="zy_touch('us-i')" onclick="go2new5(5);" class="uc-t ubb ub b-gra t-bla ub-ac lis">     
+	 			<div class="ub-img5 im12 morepic"></div>   
+	   			<div class="ub-f1 ut-s ulev0">提醒</div>
+				<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11 umar-t" id="rnn">0</div>  
+	 			<div class="res8 lis-sw ub-img4"></div>   
+	 		</div>     
+			<div ontouchstart="zy_touch('us-i')" onclick="go2new5(6);" class="uc-b ub  t-bla ub-ac lis">    
+	  			<div class="ub-img5 im13 morepic"></div>    
+	 			<div class="ub-f1 ut-s ulev0">收藏</div>  
+				<div class="ufr c-blu4 t-wh uc-a ulev-2 uinn11 umar-t" id="fvn">0</div> 
+	 			<div class="res8 lis-sw ub-img4"></div>
+	    	</div>   
+	  	</div>
+		
+		<div class="uba b-gra c-wh uc-a uinn8">  
+	  		<div ontouchstart="zy_touch('us-i')" onclick="go2new5(7);" class="uc-t ub b-gra t-bla ub-ac lis">     
+	 			<div class="ub-img5 im14 morepic"></div>  
+	   			<div class="ub-f1 ut-s ulev0">搜索</div>    
+	 			<div class="res8 lis-sw ub-img4"></div>   
+	 		</div>
+	  	</div>
+	</div>
+	
+	<!--他人资料页，帖子列表-->
+	<div class="uba  b-gra c-wh us uc-a1 uinn8 uhide" id="tlist">    	 
+	 	<div ontouchstart="zy_touch('btn-act')" class="uc-t1 c-m2 c-gra2 ubb ub b-gra t-bla ub-ac lis">	   	 
+	 		<div class="ulev-1 t-wh">帖子：<span id="fns">0</span></div>		    	 
+	 	</div> 
+		<div id="threadlist"></div>   
+	 	<div ontouchstart="zy_touch('btn-act')"  class="uc-b1 ub c-gra3 t-bla ub-ac lis">         
+			<div class="ulev-1 t-wh">最多显示10个帖子，剩余点击帖子进入详细类表查询</div>	 
+	 	</div> 
+	</div>
+</body>
+<script>
+zy_init();
+var uid = '';
+var params = getStorJson('params');
+var view = params.view;
+var nmage = '';
+var iconi = 0;
+var update = 0;
+var myUpload = null;
+var ucurl = getstorage('ucurl');
+var act = 0;
+if(!ucurl) ucurl = guc;
+if(view=='me'){
+	uid = getstorage('UID');
+	zy_anim_pop('slist','uhide');
+	zy_anim_pop('tpic','uhide');
+}
+else{
+	view = 'other';
+	uid = params.uid;
+	nmage = params.username;
+	zy_anim_pop('tlist','uhide');
+	var src = '<span class="afbtn ub-img5" ontouchstart="zy_touch(\'afbtn1\')" onclick="friendAdd();"></span>';
+	iconi = 1;
+	if (params.isfriend) {
+		iconi = 2;
+		src='<span class="dfbtn ub-img5" ontouchstart="zy_touch(\'dfbtn1\')" onclick="friendDel();"></span>';
+	}
+	setHtml('isfd',src);
+}
+
+window.uexOnload=function(type)
+{
+	setPageBounce(downcb, '');
+	zy_initcache();
+	
+	rminders();
+	
+	loadInfor('1');
+	if(view!='me') loadList('1');
+	else setstorage('Logout_5', '');
+}
+function downcb(){
+	update = 1;
+	loadInfor('');
+	if(view!='me') loadList('');
+	else uescript('main', 'msg_check();');
+}
+
+function avatChange(){
+	if(view!='me') return;
+	if(!act) return;
+	var uc = getstorage('uc');
+	if(uc){
+		avatarUpload(uc);
+		return;
+	}
+	
+	var url = home_url + "&mod=spacecp&ac=avatar";
+	logs('avatChange()-->url='+url);
+	act = 0;
+	$.getJSON(url, function(json) {
+		act = 1;
+		if (json.message) {
+			uexWindow.toast('0','5',json.message,2000);
+		}else{
+			if(json.uc){
+				setstorage('uc', json.uc);
+				avatarUpload(json.uc);
+			}
+		}
+	});
+}
+
+function avatarUpload(uc){
+	var ulUrl = uc_url + "&m=user&a=uploadavatar&" + uc;
+	logs('showAvatat->uploadHttp='+ulUrl);
+	myUpload = new disUpload(ulUrl, 'avatar', actCb, susCb);
+	myUpload.upSelect();
+}
+function actCb(val){
+	
+}
+function susCb(val){
+	logs('susCb()-->val='+val);
+	var e = $$('avat');
+	if(e) e.src = val;
+	
+	var pic = ucurl + uid;
+	logs('removeItem-->key='+pic);
+	var lsg = window.localStorage;
+	if(lsg) lsg.removeItem(pic);
+}
+
+function logOutCf(){
+	uexWindow.cbConfirm = function(opId, dataType, data){
+ 		if(int(data)==0) logout();
+	}
+	
+	var mycars = ['确定', '取消'];
+	uexWindow.confirm('提示', '注销登录', mycars);
+}
+function friendDel(){
+	uexWindow.cbConfirm = function(opId, dataType, data){
+ 		if(int(data)==0) friendDel2();
+	}
+	
+	var mycars = ['确定', '取消'];
+	uexWindow.confirm('提示', '解除好友关系', mycars);
+}
+
+function friendAdd(){
+	var url = home_url + "&mod=spacecp&ac=friend&op=add&uid="+uid+"&gid=0&note=&addsubmit=1";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, friendAddCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendAddCb(json){
+	uexWindow.closeToast();
+	if(json && json.status){
+		uexWindow.toast('0','5',json.status,2000);
+	}
+	else uexWindow.toast('0','5',"操作失败", 2000);
+}
+function friendDel2(){
+	var url = home_url + "&mod=spacecp&ac=friend&op=ignore&confirm=1&uid="+uid+"&friendsubmit=true";
+	uexWindow.toast('1','5','请稍候...',"");
+	$.getJSON(url, friendDelCb, 'json', getJsonErr, 'POST', '', '');
+}
+function friendDelCb(json){
+	uexWindow.closeToast();
+	if(json && json.status){
+		uexWindow.toast('0','5',json.status,2000);
+		
+		iconi = 1;
+		//$$('isfd').src = 'images/addfriend.png';
+		setHtml('isfd', '<span class="afbtn" ontouchstart="zy_touch(\'afbtn1\')" onclick="friendAdd();"></span>');
+	}
+	else uexWindow.toast('0','5',"操作失败", 2000);
+}
+function logout(){
+	setstorage('UID', '');
+	uid = '';
+	uexWindow.toast('1','5','请稍候...',"");
+	var url = login_url+"&mod=logging&action=logout";
+	$.getJSON(url,function(json){
+		uexWindow.toast('0','5',"注销成功", 2000);
+		uescript('main', 'logoutSuccess();');
+	},'json', function(){uexWindow.toast('0','5',"注销失败", 2000);});
+}
+
+function go2new5(i){
+	var wnm = 'morelist';
+	var url = 'morelist.html';
+	var str = '{"view":"'+view+'", "uid":"'+uid+'", "username":"'+nmage+'"}';
+	
+	switch(i)
+	{
+		case 1:
+			wnm = 'forum_list';
+			url = 'forum_list.html';
+		break;
+		case 2:
+			wnm = 'blog';
+			url = 'blog.html';
+		break;
+		case 3:
+			wnm = 'album';
+			url = 'album.html';
+		break;
+		case 4:
+			wnm = 'record';
+			url = 'record.html';
+		break;
+		case 5:
+			str = '{"view":"reminder"}';
+		break;
+		case 6:
+			str = '{"view":"favorite"}';
+		break;
+		case 7:
+			str = '{"view":"search"}';
+		break;
+		case 8:
+			str = '{"view":"friendreq"}';
+		break;
+		case 9:
+			str = '{"view":"visitor"}';
+		break;
+		case 10:
+			str = '{"view":"trace"}';
+		break;
+		case 11:
+			wnm = 'manageId';
+			url = 'manageId.html';
+		break;
+	}
+	
+	logs('go2new5()-->i='+i+', wnm='+wnm+', url='+url+', str='+str);
+	if(str) setstorage('params', str);
+	if(url){
+		//var o = getStorJson('params');
+		openwin(wnm,url,'10');
+	}
+}
+
+function loadInfor(f){
+	var zz = "&z="+int(Math.random()*100);
+	if(view=='me') uid = getstorage('UID');
+	var url = home_url + "&mod=space&do=profile&uid="+uid;
+	logs('more::loadInfor()-->url='+url);
+	var aaa = getstorage('Logout_5');
+	if(!checkKey(url) || aaa) uexWindow.toast('1','5','更新中...',"");
+	$.getJSON(url, loadInforCb, 'json', getJsonErr, 'POST', '', f, 1);
+}
+function loadInforCb(json){
+	act = 1;
+	uexWindow.closeToast(); 
+	if(update){
+		update = 0;
+		resetBV('0');
+	}
+	
+	var o = json;
+	if(o){
+		if (Int(o.status)<0) {
+			uexWindow.toast('0','5',o.message,2000);
+			return;
+		}
+		
+		if (json.nologin=='1') {
+			setstorage('UID', '');
+			checkLogin();
+			return;
+		}
+		
+		/*头像*/
+		var pic = ucurl+o.uid; // "<img src="http://discuz.3g2win.com/uc_server/avatar.php?uid=2611&size=middle" />"
+		//$$('avat').src = pic;
+		dis_imgcache('avat',pic,pic,imgLoadSucSrc,imgLoadErrSrc,null,'',1);
+		
+		setHtml('nick', o.username);
+		setstorage('username', o.username);
+		if(o.group) setHtml("gtitle", o.group.grouptitle);
+		
+		setHtml('note', o.spacenote?o.spacenote:'&nbsp;');
+		
+		var sx = '保密，'
+		if((o.profiles && o.profiles.gender)) sx=o.profiles.gender.value+'，';
+		setHtml('sex', sx);
+		
+		var ag = '0岁，';
+		if(o.age) ag=o.age+'岁，';
+		setHtml('age', ag);
+		
+		var add = o.resideprovince || o.address;
+		add = add?add:'暂无地址信息';
+		setHtml("place", add);
+		
+		if(view!='me' && o.button){
+			var srcf = '<span class="afbtn" ontouchstart="zy_touch(\'afbtn1\')" onclick="friendAdd();"></span>';
+			iconi = 1;
+			if(o.button.title=='ignore') {
+				iconi = 2;
+				srcf = '<span class="dfbtn" ontouchstart="zy_touch(\'dfbtn1\')" onclick="friendDel();"></span>';
+			}
+			setHtml('isfd',srcf);
+		}
+		
+		if(view=='me') setHtml("tn", o.threads);
+		
+		if(o.blogs) setHtml("bn", o.blogs);
+		if(o.albums) setHtml("an", o.albums);
+		if(o.doings) setHtml("rn", o.doings);
+		
+		if(o.favidnum) setHtml('fvn', o.favidnum);
+		
+		if(o.isfriend && o.isfriend!=params.isfriend){
+			if (params.isfriend) {
+				src='<span class="dfbtn ub-img5" ontouchstart="zy_touch(\'dfbtn1\')" onclick="friendDel();"></span>';
+			}
+			setHtml('isfd',src);
+		}
+	}
+}
+
+function loadList(f){
+	var url = home_url + "&mod=space&do=thread&uid="  + uid + '&type=thread';
+	if(!checkKey(url)) uexWindow.toast('1','5','更新中...',"");
+	logs('more::loadList()-->url='+url);
+	$.getJSON(url, loadListCb, 'json', getJsonErr, 'POST', '', f, 1);
+}
+function loadListCb(json){
+	uexWindow.closeToast();
+	var o = json;
+	if (o) {
+		if (Int(o.status) < 0) {
+			uexWindow.toast('0', '5', o.message, 2000);
+			return;
+		}
+		
+		var list = o.list;
+		var length = zy_tmpl_count(list);
+		
+		if(o.total){
+			setHtml('tn', o.total);
+			setHtml('fns', o.total);
+		}
+		
+		if(length>0){
+			var tmpl = '<div ontouchstart="zy_touch(\'onbg\')" onclick="go2thread5(${tid});" class=" ub ubb b-gra t-bla ub-ac lis"> 	 '     
+					 		+'<div class="ub-f1 ub ub-ver">'
+					 		    +'<div class="ulev-3 t-gra">板块：<span>${forumname}</span></div> '
+					 		    +'<div class="ulev0 umh4 t-bla ut-s umar-t">${subject}</div> '
+					 		    +'<div class="ub ub-ac t-gra ulev-2"> '
+					 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic"></div>' 
+					 		    	+'${replies}'
+					 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic"></div> '
+					 		    	+'<div class="ub-f1">${views}</div>'
+									+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
+					 		    	+'${lastpost}'
+					 		   +' </div>'
+					 		+'</div>'
+							+'<div class="res8 lis-sw ub-img4"></div>'	 
+					 	+'</div>';
+			var res = zy_tmpl(tmpl,list,length,j2vCb);
+			
+			setHtml('threadlist', res);
+		}
+	}
+}
+function j2vCb(d,c)
+{
+}
+function go2thread5(tid){
+	setstorage('params','{"tid":"'+tid+'", "spaceid":"spaceid"}');
+	
+	//var o = getStorJson('params');
+	openwin('forum_detail','forum_detail.html','10');
+}
+
+function rminders(){
+	var rn = getstorage('rn');
+	var fn = getstorage('fn');
+	
+	if(rn) setHtml('rnn',rn);
+	if(fn) setHtml('fn',fn);
+}
+
+function updateLists(){
+	loadInfor('');
+	setstorage('Logout_5', '');
+}
+</script>
+</html>
