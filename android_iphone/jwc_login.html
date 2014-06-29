@@ -117,15 +117,17 @@ var ost = getStorJson('usetting');
 var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
 var login_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
 var course_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
+var checklogin_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";
 
 
 if(ost.regstatus!="1") removeNode('resg');
 
 window.uexOnload = function(type){
+	checkLogin();
+	
 	//验证码
 	var ele = $$("img_seccode");
 	ele.src = surl +"&r="+ Int(Math.random()*1000);
-
 
     if (!type) {
         //zy_con("content", "login_content.html", 0, $$("header").offsetHeight);
@@ -261,20 +263,31 @@ function seccode() {
 
 
 function getCourse(){
-
 	$.getJSON(course_url, function(data) {
 		alert(data);
 		var data = JSON.parse(data);
 		uexWindow.closeToast();
 		if (data.result == 'success') {
-
 			setStorJson('course',data.books);
 			uexWindow.toast('0', '5', '获取数据成功', 2000);
 			alert(JSON.stringify(data.books)); //将JSON对象转化为JSON字符
-			
-		
 		}else{
 			uexWindow.toast('0', '5', '获取数据失败', 2000);
+		}
+	}, 'text', getJsonErr, 'GET', '', 'true');
+}
+
+function checkLogin(){
+	$.getJSON(checklogin_url, function(data) {
+		alert(data);
+		var data = JSON.parse(data);
+		uexWindow.closeToast();
+		if (data.result == 'yes') {
+			uexWindow.toast('0', '5', data.data, 2000);
+			return true
+	
+		}else{
+			return false;
 		}
 	}, 'text', getJsonErr, 'GET', '', 'true');
 }
