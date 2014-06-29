@@ -210,13 +210,17 @@ var zy_json_session = new Object;
 		},
 		getJSON : function(a, b,c,d,e,f,g,h) {
 			c = c ||'json';
-			if(window.location.href.substring(0,7).toLowerCase()=="file://")
+			if(window.location.href.substring(0,7).toLowerCase()=="file://"||window.location.href.substring(0,7).toLowerCase()=="http://")
 			{
+			
 				if(a.substring(0,4).toLowerCase()=="http")
 				{
 					uexXmlHttpMgr.onData = function (_opid, status, result)
 					{
 						var str = result;
+						
+						//alert(str);
+						
 						var st = parseInt(status);
 						var json = '';
 						//logs('zy_jsCB-->opid='+_opid+', result='+result);

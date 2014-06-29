@@ -46,7 +46,7 @@
 					   		<div class="ut-s">帐号</div>    
 							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
 								<div class="c-wh uc-n b-gra uinput uinn4">    
-									<input placeholder="学号" id="uid" type="text" class="uc-n ulev0" value="2010112101">   
+									<input placeholder="学号" id="uid" type="text" class="uc-n ulev0" value="2011112108">   
 								</div>
 							</div> 
 					 	</div>
@@ -54,7 +54,7 @@
 					 		<div class="ut-s">密码</div>
 							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
 								<div class="c-wh uc-n b-gra uinput uinn4">    
-									<input placeholder="请输入密码" id="upass"  type="password" class="uc-n ulev0" value="317412">   
+									<input placeholder="请输入密码" id="upass"  type="password" class="uc-n ulev0" value="Laily11815">   
 								</div>
 							</div> 
 					    </div> 
@@ -70,7 +70,7 @@
 
 		<div style="text-align:center;">
 
-			<img src="http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage" id="img_seccode" style="width:20%; height:1.5em;"/>
+			<img src="" id="img_seccode" style="width:20%; height:1.5em;"/>
 			<img class="sxpig" src="images/sx.png" style="width:1.5em; height:1.5em;" ontouchstart="zy_touch('sxpic1')" onclick="seccode();">
 
 		</div>
@@ -94,6 +94,13 @@
 			
 					<div ontouchstart="zy_touch('btn-act')" onclick="login();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">登录</div>
 				</div>
+
+				<a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
+				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin">login?</a>
+				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json">课表</a>
+				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout">退出</a>
+				<a href="javascript:alert(JSON.stringify(getStorJson('course')))">ccc</a>
+
             </div>
             <!--content结束-->
         </div>
@@ -108,7 +115,8 @@ var going = 0;
 var ccW = $$("content").offsetHeight;
 var ost = getStorJson('usetting');
 var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
-var login_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_ajax";
+var login_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
+var course_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
 
 
 if(ost.regstatus!="1") removeNode('resg');
@@ -129,31 +137,20 @@ window.uexOnload = function(type){
 	}
 	
 	//logs('login-->params='+getstorage('params'));
-	var an = getstorage('appname');
-	if(an) setHtml('ttl', an);
+
 	
 	if(uname){
 		setValue('uid', uname);
 		setValue('upass', '');
 	}
 
-	if(view=='setlist_secure'){
-		var unm = getstorage('username');
-		setValue('uid', unm);
-	}
-	else if(view=='manageId'){}
-	else{
-		var obj = getStorJson('login_infor');
-		if(obj.uname){
-			setValue('uid', obj.uname);
-			setValue('upass', obj.upwd);
-		}
-	}
+	
+//		var obj = getStorJson('jwclogin_infor');
+//		if(obj.uname){
+//			setValue('uid', obj.uname);
+//			setValue('upass', obj.upwd);
+//		}
 
-	if(getstorage('simulate')){
-		setValue('uid', 'ccc');
-		setValue('upass', 'ccc');
-	}
 }
 function backbtn(){
 	if (!flag) 
@@ -168,36 +165,11 @@ function backbtn(){
 		flag = 0;
 	}
 }
-function regist(){
-	logs('regist()--------->flag='+flag);
-	if(!flag){
-		if(isSML) openRegist();
-		else setTimeout(function(){
-			ueppscript('login', 'regist', 'movepop();');
-		}, 100);
-	}
-	else ueppscript('login', 'regist', 'register()');
-	flag = 1;
-}
 
-function openRegist(){
-	var e = $$('header');
-	var s = window.getComputedStyle(e,null);
-	var h = int(ccW);
-	var w = int(window.innerWidth);
-	var f = int(s.fontSize);
-	var y = int(e.offsetHeight);
-	var x = w;
-	if(isSML) x = 0;
-	logs('openRegist()-->x='+x+', y='+y+', w='+w+', h='+h+', 1em='+f);
-	uexWindow.openPopover('regist',"0","login_content.html","",x,y,w,h,f,"0");
-}
+
 
 function login(){
-	alert("message");
-	logs("okkkk");
-
-	//if(going) return;
+	if(going) return;
 	var name = $$("uid").value;
 	var pwd = $$("upass").value;
 	var r_seccode = getValue("j_seccode");
@@ -226,46 +198,47 @@ function login(){
 	//going = 1;
 	uexWindow.toast('1', '5', "登录中", '');
 	
-	$.getJSON(url, function(msg) {
-		logs('login-->json='+JSON.stringify(msg));
+	$.getJSON(url, function(data) {
+		var msg = JSON.parse(data);
+
+       alert(data);
+		
 		going = 0;
 		uexWindow.closeToast();
 		if (msg.result == 'success') {
 			var uid = name;
-			var obj = getStorJson('loginObj');
+			var obj = getStorJson('jwcloginObj');
 			var ele = $$('cbrem');
 			if(ele){
-				if(ele.checked) setstorage('login_infor', '{"uname":"'+name+'","upwd":"'+pwd+'"}');
+				if(ele.checked) setstorage('jwclogin_infor', '{"uname":"'+name+'","upwd":"'+pwd+'"}');
 				else{
 					pwd = '';
-					setstorage('login_infor', '');
+					setstorage('jwclogin_infor', '');
 				}
 			}
 			
 			if(!obj[uid]) obj[uid]={'uid':uid};
 			obj[uid].uname =  name;
 			obj[uid].upwd = pwd;
-			setStorJson('loginObj', obj);
+			setStorJson('jwcloginObj', obj);
 			setstorage('UID', uid); 
 			
 		
 			
 			uexWindow.toast('0', '5', '登陆成功', 2000);
-			uescript('main', 'loginsuccess();');
-			setTimeout("closewin();", 2000);
+			
+			alert("toGetCourse...");
+			getCourse();
 			
 		
 		}else{
 			uexWindow.toast('0', '5', '登录失败', 2000);
 		}
-	}, 'json', getJsonErr, 'POST', '', '');
+	}, 'text', getJsonErr, 'GET', '', '');
+
+
 }
 
-function regSuccess(r_name, r_psw1){
-	setValue('uid', r_name);
-	setValue('upass', r_psw1);
-	flag = 0;
-}
 
 
 
@@ -284,6 +257,26 @@ function seccode() {
 	logs('seccode()-->src='+p_seccode.src);
 	nextimg.src = "images/sx-r.png";
 	setTimeout("changeseccodeimg();", 200);
+}
+
+
+function getCourse(){
+
+	$.getJSON(course_url, function(data) {
+		alert(data);
+		var data = JSON.parse(data);
+		uexWindow.closeToast();
+		if (data.result == 'success') {
+
+			setStorJson('course',data.books);
+			uexWindow.toast('0', '5', '获取数据成功', 2000);
+			alert(JSON.stringify(data.books)); //将JSON对象转化为JSON字符
+			
+		
+		}else{
+			uexWindow.toast('0', '5', '获取数据失败', 2000);
+		}
+	}, 'text', getJsonErr, 'GET', '', 'true');
 }
 </script>
 </html>
