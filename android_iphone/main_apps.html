@@ -51,11 +51,11 @@
 		<div class="ub uc-a1 ub-ac ub-pc">
 			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con uc-l pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(1);">
 				<div class="t-blu2" id="tn">0</div>
-				<div class="ulev-1">帖子</div>
+				<div class="ulev-1">课表</div>
 			</div>
 			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(2);">
 				<div class="t-blu2" id="bn">0</div>
-				<div class="ulev-1">日志</div>
+				<div class="ulev-1">一键评教</div>
 			</div>
 			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(3);">
 				<div class="t-blu2" id="an">0</div>
@@ -234,38 +234,15 @@ function friendDel2(){
 	uexWindow.toast('1','5','请稍候...',"");
 	$.getJSON(url, friendDelCb, 'json', getJsonErr, 'POST', '', '');
 }
-function friendDelCb(json){
-	uexWindow.closeToast();
-	if(json && json.status){
-		uexWindow.toast('0','5',json.status,2000);
-		
-		iconi = 1;
-		//$$('isfd').src = 'images/addfriend.png';
-		setHtml('isfd', '<span class="afbtn" ontouchstart="zy_touch(\'afbtn1\')" onclick="friendAdd();"></span>');
-	}
-	else uexWindow.toast('0','5',"操作失败", 2000);
-}
-function logout(){
-	setstorage('UID', '');
-	uid = '';
-	uexWindow.toast('1','5','请稍候...',"");
-	var url = login_url+"&mod=logging&action=logout";
-	$.getJSON(url,function(json){
-		uexWindow.toast('0','5',"注销成功", 2000);
-		uescript('main', 'logoutSuccess();');
-	},'json', function(){uexWindow.toast('0','5',"注销失败", 2000);});
-}
 
-function go2new5(i){
-	var wnm = 'morelist';
-	var url = 'morelist.html';
-	var str = '{"view":"'+view+'", "uid":"'+uid+'", "username":"'+nmage+'"}';
-	
+
+
+function go2new5(i){	
 	switch(i)
 	{
 		case 1:
-			wnm = 'forum_list';
-			url = 'forum_list.html';
+			wnm = 'jwc_course';
+			url = 'jwc_course.html';
 		break;
 		case 2:
 			wnm = 'blog';
@@ -279,32 +256,10 @@ function go2new5(i){
 			wnm = 'record';
 			url = 'record.html';
 		break;
-		case 5:
-			str = '{"view":"reminder"}';
-		break;
-		case 6:
-			str = '{"view":"favorite"}';
-		break;
-		case 7:
-			str = '{"view":"search"}';
-		break;
-		case 8:
-			str = '{"view":"friendreq"}';
-		break;
-		case 9:
-			str = '{"view":"visitor"}';
-		break;
-		case 10:
-			str = '{"view":"trace"}';
-		break;
-		case 11:
-			wnm = 'manageId';
-			url = 'manageId.html';
+		
 		break;
 	}
 	
-	logs('go2new5()-->i='+i+', wnm='+wnm+', url='+url+', str='+str);
-	if(str) setstorage('params', str);
 	if(url){
 		//var o = getStorJson('params');
 		openwin(wnm,url,'10');

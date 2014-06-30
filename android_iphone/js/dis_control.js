@@ -1,5 +1,20 @@
 ﻿/*Creat at 2012-07-09 for discuz v3.0 by JetCheung*/
 
+function zy_slectmenu(id){
+    var sl = document.getElementById(id);
+    if (sl) {
+        var sp = sl.parentElement; //<span>
+        if (sp) {
+            var ch = sp.getElementsByTagName("div")[0];
+            var t = sl.options[sl.selectedIndex].text;
+            if (ch) {
+                ch.innerHTML = t;
+            }
+        }
+    }
+}
+
+
 function logs(s){
 	//uexLog.sendLog(s);
 }
@@ -296,3 +311,4 @@ function my_con(id,url,x,y)
 }
 var isSML = getstorage('simulate');
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
