@@ -1,295 +1,371 @@
 <!DOCTYPE html>
 <html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
-<head>
-	<title></title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="stylesheet" href="css/ui-btn.css">
-    <link rel="stylesheet" href="css/ui-input.css">
-    <link rel="stylesheet" href="css/ui-img.css">
-    <link rel="stylesheet" href="css/ui-res.css">
-    <link rel="stylesheet" href="css/ui-list.css">
-    <link rel="stylesheet" href="css/ui-base.css">
-    <link rel="stylesheet" href="css/ui-box.css">
-    <link rel="stylesheet" href="css/ui-color.css">
-	<link rel="stylesheet" href="css/style.css">
-	<script src="js/zy_control.js"></script>
-    <script src="js/zy_click.js"></script>
-	<script src="js/config.js"></script>
-	<script src="js/dis_control.js"></script>
-	<script src="js/zy_json.js"></script>
-	<script src="js/zy_anim.js"></script>
-	<script>
-	</script>
-</head>
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/ui-btn.css">
+        <link rel="stylesheet" href="css/ui-input.css">
+        <link rel="stylesheet" href="css/ui-img.css">
+        <link rel="stylesheet" href="css/ui-res.css">
+        <link rel="stylesheet" href="css/ui-list.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/zy_control.js">
+        </script>
+        <script src="js/zy_click.js">
+        </script>
+        <script src="js/config.js">
+        </script>
+        <script src="js/dis_control.js">
+        </script>
+        <script src="js/zy_json.js">
+        </script>
+        <script src="js/zy_anim.js">
+        </script>
+        <style>
+            input[type = "radio"] + div.ip-sta {
+                display: none !important;
+            }
+            
+            input[type =
+            "radio"]:checked + div.ip-sta {
+                display: block !important;
+            }
+            
+            .m-maxh {
+                height: 1.2em;
+            }
+            
+        </style>
+    </head>
     <body class="um-vp c-gra5" ontouchstart>
         <div id="page_0" class="up ub ub-ver" tabindex="0">
             <!--header开始-->
             <div id="header" class="uh">
-            	<div class="umh015"></div>
-            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
-					<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="backbtn();">
-					 	<div class="ulim">返回</div>
-					</a>
-	                <h1 class="ut ulev0 ut-s tx-c" id="ttl">登录到教务处</h1>
-
-				</div>
+                <div class="umh015">
+                </div>
+                <div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+                    <a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="backbtn();">
+                        <div class="ulim">
+                            返回
+                        </div>
+                    </a>
+                    <h1 class="ut ulev0 ut-s tx-c" id="ttl">登陆到教务处</h1>
+                </div>
             </div>
-            <!--header结束-->
-			
-			<!--content开始-->
+            <!--header结束--><!--content开始-->
             <div id="content" class="ub-f1 tx-l t-bla c-gra">
-            	<!--登录-->
-				<div id="page1" style="" class="uinn18">
-					<div class="uba b-gra c-wh us uc-a">  
-						<div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">   
-					   		<div class="ut-s">帐号</div>    
-							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
-								<div class="c-wh uc-n b-gra uinput uinn4">    
-									<input placeholder="学号" id="uid" type="text" class="uc-n ulev0" value="2011112108">   
-								</div>
-							</div> 
-					 	</div>
-						<div class="uc-b c-m2 ub  t-bla ub-ac umh4 lis">     
-					 		<div class="ut-s">密码</div>
-							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
-								<div class="c-wh uc-n b-gra uinput uinn4">    
-									<input placeholder="请输入密码" id="upass"  type="password" class="uc-n ulev0" value="Laily11815">   
-								</div>
-							</div> 
-					    </div> 
-
-						<div class="uc-b c-m2 ub  t-bla ub-ac umh4 lis">     
-					 		<div class="ut-s">验证码</div>
-							<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
-								<div class="c-wh uc-n b-gra uinput uinn4">    
-									<input placeholder="请输入验证码" id="j_seccode"  type="text" class="uc-n ulev0" value="">   
-								</div>
-							</div> 
-					    </div> 
-
-		<div style="text-align:center;">
-
-			<img src="" id="img_seccode" style="width:20%; height:1.5em;"/>
-			<img class="sxpig" src="images/sx.png" style="width:1.5em; height:1.5em;" ontouchstart="zy_touch('sxpic1')" onclick="seccode();">
-
-		</div>
-
-
-  
-
-					</div>
-					<div class="t-bla uinn8">
-						<div class="uc-a1 b-gra ub ub-ac ub-pc">   
-							<div class="uinn17">
-								<input type="checkbox" id="cbrem" name="che1" class="uhide" checked="checked" value="">
-								<div onclick="zy_for(event)" ontouchstart="zy_touch('btn-act')" class="ub uc-t1 b-gra ub-f1 ub-con">            
-							 		<div class="che-icon ub-img5 umw1"></div>
-									<div class="ub-f1 ut-s tx-l">记录登录信息</div>
-							 	</div>
-							</div>
-							<div class="ub-f1"></div>
-						</div>
-					</div>
-			
-					<div ontouchstart="zy_touch('btn-act')" onclick="login();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">登录</div>
-				</div>
-
-				<a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
-				<a href="javascript:openwin('login-1','http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin','10');">login?</a>
-				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json">课表</a>
-				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout">退出</a>
-				<a href="javascript:alert(JSON.stringify(getStorJson('course')))">ccc</a>
-
+                <input class="uhide" type="radio" name="pages" id="coursePage">
+                <div style="" class="uinn18 ip-sta">
+                    <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
+                        <div class="ut-s">
+                            年份:&nbsp;
+                        </div>
+                        <div class='ub uba1 uc-a1 c-wh b-bla us-i sel'>
+                            <div class='ub-f1 ut-s uinn ulev-1 tx-l'>
+                                2014
+                            </div>
+                            <div class='ubl b-bla c-bla c-m2 umw2 ub ub-pc uc-r2 ub-ac'>
+                                <div class='ub-img umw1 umh1 res3'>
+                                </div>
+                            </div>
+                            <select name='year' id='year' onchange='zy_slectmenu(this.id)'>
+                                <option value="2014">2014</option>
+                                <option value="2013">2013</option>
+                                <option value="2012">2012</option>
+                                <option value="2017">2017</option>
+                            </select>
+                        </div>
+                        &nbsp;&nbsp;
+                        <div class="ut-s">
+                            学期:&nbsp;
+                        </div>
+                        <div class='ub uba1 uc-a1 c-wh b-bla us-i sel'>
+                            <div class='ub-f1 ut-s uinn ulev-1 tx-l'>
+                                当前
+                            </div>
+                            <div class='ubl b-bla c-bla c-m2 umw2 ub ub-pc uc-r2 ub-ac'>
+                                <div class='ub-img umw1 umh1 res3'>
+                                </div>
+                            </div>
+                            <select name='term' selectedindex='0' id='term' onchange='zy_slectmenu(this.id)'>
+                                <option value='0'>当前</option>
+                                <option value='1'>春</option>
+                                <option value='3'>秋</option>
+                            </select>
+                        </div>
+                        <div ontouchstart="zy_touch('btn-act')" onclick="getCourse();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
+                            导入
+                        </div>
+                    </div>
+                </div>
+                <!--登录--><input class="uhide" type="radio" name="pages" checked="true" id="loginPage">
+                <div style="" class="uinn18 ip-sta">
+                    <div class="uba b-gra c-wh us uc-a">
+                        <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
+                            <div class="ut-s">
+                                帐号
+                            </div>
+                            <div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+                                <div class="c-wh uc-n b-gra uinput uinn4">
+                                    <input placeholder="学号" id="uid" type="text" class="uc-n ulev0" value="2011112108">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uc-b c-m2 ub  t-bla ub-ac umh4 lis">
+                            <div class="ut-s">
+                                密码
+                            </div>
+                            <div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+                                <div class="c-wh uc-n b-gra uinput uinn4">
+                                    <input placeholder="请输入密码" id="upass" type="password" class="uc-n ulev0" value="Laily11815">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uc-b c-m2 ub  t-bla ub-ac umh4 lis">
+                            <div class="ut-s">
+                                验证码
+                            </div>
+                            <div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+                                <div class="c-wh uc-n b-gra uinput uinn4">
+                                    <input placeholder="请输入验证码" id="j_seccode" type="text" class="uc-n ulev0" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <img src="" id="img_seccode" style="width:20%; height:1.5em;"/><img class="sxpig" src="images/sx.png" style="width:1.5em; height:1.5em;" ontouchstart="zy_touch('sxpic1')" onclick="seccode();">
+                        </div>
+                    </div>
+                    <div class="t-bla uinn8">
+                        <div class="uc-a1 b-gra ub ub-ac ub-pc">
+                            <div class="uinn17">
+                                <input type="checkbox" id="cbrem" name="che1" class="uhide" checked="checked" value="">
+                                <div onclick="zy_for(event)" ontouchstart="zy_touch('btn-act')" class="ub uc-t1 b-gra ub-f1 ub-con">
+                                    <div class="che-icon ub-img5 umw1">
+                                    </div>
+                                    <div class="ub-f1 ut-s tx-l">
+                                        记录登录信息
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ub-f1">
+                            </div>
+                        </div>
+                    </div>
+                    <div ontouchstart="zy_touch('btn-act')" onclick="login();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
+                        登录
+                    </div>
+                </div>
+                <a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
+                <a href="javascript:openwin('login-1','http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin','10');">login?</a>
+                <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json">课表</a>
+                <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout">退出</a>
+                <a href="javascript:alert(JSON.stringify(getStorJson('course')))">ccc</a>
+                <a href="javascript:getCourse();">导入course</a>
+                <a href="javascript:openwin('login-2','jwc_course.html','10');">course2</a>
+                <a href="javascript:openwin('login-2','debug.html','10');">debug</a>
             </div>
             <!--content结束-->
         </div>
     </body>
-<script>
-zy_init();
-var flag = 0;
-var params = getStorJson('params');
-var view = params.view;
-var uname = params.uname;
-var going = 0;
-var ccW = $$("content").offsetHeight;
-var ost = getStorJson('usetting');
-var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
-var login_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
-var course_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
-var checklogin_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";
-
-
-if(ost.regstatus!="1") removeNode('resg');
-
-window.uexOnload = function(type){
-	checkLogin();
-	
-	//验证码
-	var ele = $$("img_seccode");
-	ele.src = surl +"&r="+ Int(Math.random()*1000);
-
-    if (!type) {
-        //zy_con("content", "login_content.html", 0, $$("header").offsetHeight);
-		if(!isSML) openRegist();
-    }
-	window.onorientationchange=window.onresize=function()
-	{
-		zy_resize("content",0,$$("header").offsetHeight);				
-	}
-	
-	//logs('login-->params='+getstorage('params'));
-
-	
-	if(uname){
-		setValue('uid', uname);
-		setValue('upass', '');
-	}
-
-	
-//		var obj = getStorJson('jwclogin_infor');
-//		if(obj.uname){
-//			setValue('uid', obj.uname);
-//			setValue('upass', obj.upwd);
-//		}
-
-}
-function backbtn(){
-	if (!flag) 
-		closewin();
-	else {
-		logs('backbtn()--------->flag='+flag);
-		if(isSML){
-			if(flag) uexWindow.closePopover('regist');
-			else openRegist();
-		}
-		else ueppscript('login', 'regist', 'movepop();');
-		flag = 0;
-	}
-}
-
-
-
-function login(){
-	if(going) return;
-	var name = $$("uid").value;
-	var pwd = $$("upass").value;
-	var r_seccode = getValue("j_seccode");
-	
-	if("" == name){
-		uexWindow.toast('0', '5', "账号不能为空或空格，请输入账号", 2000);
-		return;
-	}
-	if("" == pwd){
-		uexWindow.toast('0','5',"密码不能为空，请输入密码",2000);
-		return;
-	}
-	
-
-	if (r_seccode == '') {
-		uexWindow.toast('0', '5', "请填写验证码", 2000);
-		return;
-	}
-
-	var name2 = encodeURIComponent(name);
-	var pwd2 = encodeURIComponent(pwd);
-	
-	var url = login_url + "&username=" + name2 + "&password=" + pwd2+"&checkcode="+r_seccode;
-
-	logs('login()-->url='+url);
-	//going = 1;
-	uexWindow.toast('1', '5', "登录中", '');
-	
-	$.getJSON(url, function(data) {
-		var msg = JSON.parse(data);
-
-       alert(data);
-		
-		going = 0;
-		uexWindow.closeToast();
-		if (msg.result == 'success') {
-			var uid = name;
-			var obj = getStorJson('jwcloginObj');
-			var ele = $$('cbrem');
-			if(ele){
-				if(ele.checked) setstorage('jwclogin_infor', '{"uname":"'+name+'","upwd":"'+pwd+'"}');
-				else{
-					pwd = '';
-					setstorage('jwclogin_infor', '');
-				}
-			}
-			
-			if(!obj[uid]) obj[uid]={'uid':uid};
-			obj[uid].uname =  name;
-			obj[uid].upwd = pwd;
-			setStorJson('jwcloginObj', obj);
-			setstorage('UID', uid); 
-			
-		
-			
-			uexWindow.toast('0', '5', '登陆成功', 2000);
-			
-			alert("toGetCourse...");
-			getCourse();
-			
-		
-		}else{
-			uexWindow.toast('0', '5', '登录失败', 2000);
-		}
-	}, 'text', getJsonErr, 'GET', '', '');
-
-
-}
-
-
-
-
-
-var nextimg = null;
-var ii = 100;
-function changeseccodeimg() {
-	if (isDefine(nextimg))
-		nextimg.src = "images/sx.png";
-}
-
-function seccode() {
-	var p_seccode = $$("img_seccode");
-	nextimg = p_seccode.nextElementSibling;
-	p_seccode.src = surl +"&r="+ Int(Math.random()*1000);
-	logs('seccode()-->src='+p_seccode.src);
-	nextimg.src = "images/sx-r.png";
-	setTimeout("changeseccodeimg();", 200);
-}
-
-
-function getCourse(){
-	$.getJSON(course_url, function(data) {
-		alert(data);
-		var data = JSON.parse(data);
-		uexWindow.closeToast();
-		if (data.result == 'success') {
-			setStorJson('course',data.books);
-			uexWindow.toast('0', '5', '获取数据成功', 2000);
-			alert(JSON.stringify(data.books)); //将JSON对象转化为JSON字符
-		}else{
-			uexWindow.toast('0', '5', '获取数据失败', 2000);
-		}
-	}, 'text', getJsonErr, 'GET', '', 'true');
-}
-
-function checkLogin(){
-	$.getJSON(checklogin_url, function(data) {
-		alert(data);
-		var data = JSON.parse(data);
-		uexWindow.closeToast();
-		if (data.result == 'yes') {
-			uexWindow.toast('0', '5', data.data, 2000);
-			return true
-	
-		}else{
-			return false;
-		}
-	}, 'text', getJsonErr, 'GET', '', 'true');
-}
-</script>
+    <script>
+        zy_init();
+        var flag = 0;
+        var params = getStorJson('params');
+        var view = params.view;
+        var uname = params.uname;
+        var going = 0;
+        var ccW = $$("content").offsetHeight;
+        var hasLogin = false;
+        
+        var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
+        var login_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
+        var course_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
+        var checklogin_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";
+        
+        
+        window.uexOnload = function(type){
+      
+            checkLogin();
+          
+        }
+        function backbtn(){
+            closewin();
+        }
+        
+        
+        
+        function login(){
+            if (going) 
+                return;
+            var name = $$("uid").value;
+            var pwd = $$("upass").value;
+            var r_seccode = getValue("j_seccode");
+            
+            if ("" == name) {
+                uexWindow.toast('0', '5', "账号不能为空或空格，请输入账号", 2000);
+                return;
+            }
+            if ("" == pwd) {
+                uexWindow.toast('0', '5', "密码不能为空，请输入密码", 2000);
+                return;
+            }
+            if (r_seccode == '') {
+                uexWindow.toast('0', '5', "请填写验证码", 2000);
+                return;
+            }
+            
+            var name2 = encodeURIComponent(name);
+            var pwd2 = encodeURIComponent(pwd);
+            
+            var url = login_url + "&username=" + name2 + "&password=" + pwd2 + "&checkcode=" + r_seccode;
+            
+            logs('login()-->url=' + url);
+            //going = 1;
+            uexWindow.toast('1', '5', "登录中", '');
+            
+            $.getJSON(url, function(data){
+                var msg = JSON.parse(data);
+                
+                alert(data);
+                
+                going = 0;
+                uexWindow.closeToast();
+                if (msg.result == 'success') {
+                    var uid = name;
+                    var obj = getStorJson('jwcloginObj');
+                    var ele = $$('cbrem');
+                    if (ele) {
+                        if (ele.checked) 
+                            setstorage('jwclogin_infor', '{"uname":"' + name + '","upwd":"' + pwd + '"}');
+                        else {
+                            pwd = '';
+                            setstorage('jwclogin_infor', '');
+                        }
+                    }
+                    
+                    if (!obj[uid]) 
+                        obj[uid] = {
+                            'uid': uid
+                        };
+                    obj[uid].uname = name;
+                    obj[uid].upwd = pwd;
+                    setStorJson('jwcloginObj', obj);
+                    setstorage('UID', uid);
+                    uexWindow.toast('0', '5', '登陆成功', 2000);
+                    
+                    switchPage("coursePage");
+                    //getCourse();	
+                
+                
+                }
+                else {
+                    uexWindow.toast('0', '5', '登录失败', 2000);
+                }
+            }, 'text', getJsonErr, 'GET', '', '');
+            
+            
+        }
+        
+        
+        
+        
+        
+        var nextimg = null;
+        var ii = 100;
+        function changeseccodeimg(){
+            if (isDefine(nextimg)) 
+                nextimg.src = "images/sx.png";
+        }
+        
+        function seccode(){
+            var p_seccode = $$("img_seccode");
+            nextimg = p_seccode.nextElementSibling;
+            p_seccode.src = surl + "&r=" + Int(Math.random() * 1000);
+            logs('seccode()-->src=' + p_seccode.src);
+            nextimg.src = "images/sx-r.png";
+            setTimeout("changeseccodeimg();", 200);
+        }
+        
+        
+        function getCourse(){
+            course_url = course_url + "&year=" + $$('year').value + "&term=" + $$('term').value;
+            alert(course_url);
+            $.getJSON(course_url, function(ret){
+                var ret = JSON.parse(ret);
+                uexWindow.closeToast();
+                if (ret.result == 'success') {
+                    setStorJson('course', ret.data);
+                    setstorage('course_time', '{"year":' + $$('year').value + ',"term":' + $$('term').value + '}');
+                    uexWindow.toast('0', '5', '获取数据成功', 2000);
+                    alert(JSON.stringify(ret.data)); //将JSON对象转化为JSON字符
+                }
+                else {
+                    uexWindow.toast('0', '5', '获取数据失败', 2000);
+                }
+            }, 'text', getJsonErr, 'GET', '', 'true');
+        }
+        
+        
+        function checkLogin(){
+        
+            $.getJSON(checklogin_url, function(data){
+                var data = JSON.parse(data);
+                uexWindow.closeToast();
+                if (data.result == 'yes') {
+                    hasLogin = true;
+                    uexWindow.toast('0', '5', data.data, 2000);
+                    switchPage("coursePage");
+                }
+                else {
+                    //验证码
+                    var ele = $$("img_seccode");
+                    ele.src = surl + "&r=" + Int(Math.random() * 1000);
+                    window.onorientationchange = window.onresize = function(){
+                        zy_resize("content", 0, $$("header").offsetHeight);
+                    }
+                    
+                    if (uname) {
+                        setValue('uid', uname);
+                        setValue('upass', '');
+                    }
+                }
+            }, 'text', getJsonErr, 'GET', '', 'true');
+            
+            
+        }
+        
+        
+        function switchPage(pageName){
+            alert(pageName);
+            switch (pageName) {
+                case "coursePage":
+                    //coursePage 导入课表
+                    var myDate = new Date();
+                    var curYear = 2013;//myDate.getFullYear();
+                    var tmpl = "";
+                    for (var i = curYear - 4; i <= curYear + 4; i++) {
+                        tmpl += "<option value='" + i + "'>" + i + "</option>";
+                    }
+                    $$('year').innerHTML = tmpl;
+                    setValue('year', curYear);
+                    zy_slectmenu('year');
+                    
+                    uexWindow.toast('0', '5', "请选择好课表时间导入课表!", 2000);
+                    //-------------	
+                    break;
+                default:
+                    default_statement;
+            }
+            
+            var ch = $$(pageName);
+            if (ch && !ch.checked) 
+                ch.checked = true;
+            
+            
+        }
+    </script>
 </html>

@@ -5,14 +5,17 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" href="css/ui-fold.css">
+
     <link rel="stylesheet" href="css/ui-img.css">
-    <link rel="stylesheet" href="css/ui-res.css">
-    <link rel="stylesheet" href="css/ui-list.css">
-    <link rel="stylesheet" href="css/ui-base.css">
-    <link rel="stylesheet" href="css/ui-box.css">
-    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
 	<link rel="stylesheet" href="css/style.css">
+	
     <script src="js/zy_control.js"></script>
     <script src="js/zy_click.js"></script>
 	<script src="js/dis_control.js"></script>
@@ -26,58 +29,85 @@
     <script>
 	</script>
 	<style>
-	input[type="radio"]+div.dis-sta{
-		display:none;
+	input[type="radio"]+div.ip-sta{
+		display:none !important;
 	}
-	input[type="radio"]:checked+div.dis-sta{
-		display:block;
-	}
-	
-	input[type="radio"]:checked+span.ad-sta{
-		background-color: #FFF;
+	input[type="radio"]:checked+div.ip-sta{	
+		display:block !important;
 	}
 	
-	input[type="radio"]:checked+span.ady{
-		background-color: #FFF;
-	}
+	.m-maxh{
+		height:1.2em;
+	}		
+		
+	
+	
+	
 	</style>
   </head>
 <body class="um-vp c-gra5" ontouchstart>
+	
+            <div id="header1" class="uh ip-sta">
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" id="ttl1">我的课表</h1>
+						 <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right();">       
+			        	<div class="ulim" id="btnr">更新导入</div>
+			        </a>
+				</div>
+				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
+					<input class="uhide" type="radio" name="menus" checked="true" id="menu1">
+					<div class="ub-con ub-f1 tx-c dis-sta ut-s" ontouchstart="zy_touch('focuss')" onclick="menuSelected(1);">一</div>
+					<input class="uhide" type="radio" name="menus" id="menu2">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(2);">二</div>
+					<input class="uhide" type="radio" name="menus" id="menu3">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(3);">三</div>
+					<input class="uhide" type="radio" name="menus" id="menu4">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(4);">四</div>
+					<input class="uhide" type="radio" name="menus" id="menu5">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(5);">五</div>
+					<input class="uhide" type="radio" name="menus" id="menu6">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(6);">六</div>
+					<input class="uhide" type="radio" name="menus" id="menu7">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(7);">天</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
 	<div>
 	<!--星期1-->
-	<input class="uhide" type="radio" name="pages" id="rd1" checked="true">
-	<div class="c-gra5 dis-sta" id="page1">
+	<input class="uhide" type="radio" name="pages" id="rd1" >
+	<div class="c-gra5 ip-sta" id="page1">
 		<div></div>
 	</div>
 	
-	<input class="uhide" type="radio" name="pages" id="rd2">
-	<div class="c-gra5 dis-sta" id="page2">
+	<input class="uhide" type="radio" name="pages" id="rd2" checked="true">
+	<div class="c-gra5 ip-sta" id="page2">
 		<div></div>
 	</div>
 	
 
 	<input class="uhide" type="radio" name="pages" id="rd3">
-	<div class="c-gra5 dis-sta" id="page3" ontouchstart="zy_cc(this);">
+	<div class="c-gra5 ip-sta" id="page3">
 		<div></div>
 	</div>
 	
 	<input class="uhide" type="radio" name="pages" id="rd4">
-	<div class="c-gra5 dis-sta" id="page4">
+	<div class="c-gra5 ip-sta" id="page4">
 		<div></div>
 	</div>
 	
 		<input class="uhide" type="radio" name="pages" id="rd5">
-	<div class="c-gra5 dis-sta" id="page5">
+	<div class="c-gra5 ip-sta" id="page5">
 		<div></div>
 	</div>
 	
 		<input class="uhide" type="radio" name="pages" id="rd6">
-	<div class="c-gra5 dis-sta" id="page6">
+	<div class="c-gra5 ip-sta" id="page6">
 		<div></div>
 	</div>
 	
 		<input class="uhide" type="radio" name="pages" id="rd7">
-	<div class="c-gra5 dis-sta" id="page7">
+	<div class="c-gra5 ip-sta" id="page7">
 		<div></div>
 	</div>
 	
@@ -85,383 +115,100 @@
 	</div>
 </body>
 <script>
+
 var pages =  {curid:1, updr:'0'};
-pages[1] = {ld:0};
-pages[3] = {ld:0};
+var course;
+
 zy_init();
 
 var updated = 0;
 window.uexOnload=function(type)
 {
-	setPageBounce(downcb, upcb);
+	//setPageBounce(downcb, upcb);
 	zy_initcache();
 	
-	loadListHot('1');
-	if(updated) loadListHot('');
-	
-	if(!isSML) loadListForum('1');
-	
-	setstorage('Logout_1', '');
-	
-	addflip('', 'main_forum');
-	
-	logs('window width=='+window.innerWidth+', height=='+window.innerHeight);
+	course=getStorJson('course');
+	var time=getStorJson('course_time');
+		 
+	 var t=time.year+"_";
+	 switch(time.term) {
+	case 1:
+	    t+="春季学期";
+		break;
+	case 3:
+	    t+="秋季学期";
+		break;		
+	default: 
+		t+="当前学期";
+   }
+
+
+	 $$("ttl1").innerHTML="我的课表_"+t;
+	 
+	 
+	showCourse();
 }
-function downcb(){
-	var i = pages.curid;
-	pages.updr = '0';
+
+
+function radioSelect(id){
+	var ret = 0;
+	var e = $$(id);
+	if(e && !e.checked){
+		e.checked = true;
+		ret = 1;
+	}
+	return ret;
+}
+
+function menuSelected(i){
+	if (i==4 && !checkLogin()) return;
 	
-	pages[i].ld = 0;
-	if(i==1) loadListHot('');
-	else if(i==2){
-		resetBV('0');
-	}
-	else if(i==3){
-		loadListForum('');
-	}
-	else {
-		loadListThread('', '');
-	}
+	pageSwitch(i);
+	radioSelect('menu'+i);
 }
-function upcb(){
-	var i = pages.curid;
-	pages.updr = '1';
-	if(i==4 && pages[4].curpage<pages[4].totpage) loadListThread('', pages[4].curpage+1);
-	else resetBV('1');
-}
+
+
 function pageSwitch(i){
 	if(i==pages.curid) return;
-	if(!pages[i]) pages[i] = {curpage:1, totpage:1, ld:0};
 	pages.curid = i;
 	
 	var ch = $$('rd'+i);
 	if(ch && !ch.checked) ch.checked = true;
-	
-	if(getstorage('Logout_1') && pages[4]){
-		pages[4].ld = 0;
-		setstorage('Logout_1', '');
-	}
-	
-	//var pg = $$('page'+i);
-	var pg = '';
-	if(pg){
-		logs('clientHeight='+pg.clientHeight);
-		logs('offsetHeight='+pg.offsetHeight);
-		logs('scrollHeight='+pg.scrollHeight);
-	}
-	
-	if(!pages[i].ld){
-		if(i==1) loadListHot('1');
-		else if(i==2) pages[i].ld = 1;
-		else if(i==3){
-			loadListForum(true);
-		}
-		else {
-			loadListThread(true, '');
-		}
-	}
-	
-	if(i==1){
-		//loadListHot('1');
-		fliptimerSet();
-	}
-	else fliptimerCancel();
-}
-function goNewWin(i){
-	var name = '';
-	var url = '';
-	var str = '';
-
-	if(i==1 || i==2){
-		name = 'forum_list';
-		url = 'forum_list.html';
-		
-		str = '{"view":"thread"}';
-		if(i==2) str = '{"view":"reply"}';
-	}
-	else{
-		name = 'album_list';
-		url = 'album_list.html';
-		str = '{"view":"newest"}';
-	}
-	
-	setstorage('params', str);
-	openwin(name,url,'10');
 }
 
-/* 热帖 */
-function loadListHot(update){
-	var url = newest_url+'&mod=hot&page=1';
-	updated = checkKey(url);
-	if(!updated) uexWindow.toast('1','5','加载中...',"");
-	logs("hot thread: updated="+updated);
-	logs("hot thread: url="+url);
-	if(isSML) update='';
-	$.getJSON(url, loadListHotCb, 'json', getJsonErr, 'POST', '', update, '1');
-}
-function loadListHotCb(json){
-	uexWindow.closeToast();
-	resetBV(pages.updr);
-	logs("loadListHotCb(): json="+json);
-	if(json){
-		if(parseInt(json.status) < 0)
-		{
-			uexWindow.toast('0','5',json.message,2000);
-			return;
-		}
-		var cContent = $$('listhot');
-		var list = json.hotThread;
-		
-		if(list && list[0]){
-			var id0 = 0;
-			var id1 = list[0].tid;
-			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
-			if (id0 == id1) {
-				pages[1].ld = 1;
-				return;
-			}
-		}
-		
-		var tmpl = '<li class="ub umh6 uinn ubb b-gra" id="${tid}" ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});">'
-					+'<div class="ub-f1 ub ub-ver">'
-						+'<div class="t-bla ulev0 ut-s">${subject}</div>'
-						+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh maxh uof">'
-							+'${message}'
-						+'</div>'
-						+'<div class="ub ub-ac t-gra ulev-2 umar-t"> '
-			 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic"></div> '
-			 		    	+'<div class="">${replies}</div> '
-			 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic ub-posl"></div> '
-			 		    	+'<div class="">${views}</div>'
-			 		   +' </div>'
-					+'</div>'
-					+'${cb:img}'
-				+'</li><li class="ubt1"></li>';
-		
-		var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);		
 
-		if(res) pages[1].ld = 1;
-		if(json.zywy_curpage) pages[1].curpage = int(json.zywy_curpage);
-		else pages[1].curpage = 1;
-		if(json.zywy_totalpage) pages[1].totpage = int(json.zywy_totalpage);
-		
-		if(pages[1].curpage==1)
-       	{
-       		while(cContent.childElementCount>1)
-       		{
-       			cContent.removeChild(cContent.firstElementChild);
-       		}
-       	}
-		var node = document.createElement("ul");
-		node.className = "";
-		node.innerHTML = res;;
-		cContent.insertBefore(node,cContent.lastElementChild);
-	}
-}
-function j2vCb(d,c)
-{
-	var str = '';
-	 if(c.length>1)
-	 {
-		switch(c[1])
-		{
-			case 'todayposts':
-				var tp = Int(d.todayposts);
-				str = (tp>99)? '99+':tp;
-			break;
-			case 'img':
-				if(d.img){
-					var picid = 'i'+d.tid;
-					str = '<div class="umw5 ulpic us ">'
-								+'<div class="uabs1 umw6 umh8">'
-									+'<img src="images/mylogo.gif" class="inforpic1" id="'+picid+'"/>'
-								+'</div>'
-							+'</div>';
-							
-					dis_imgcache(picid,d.img,d.img,imgLoadSucSrc,imgLoadErrSrc,null,'');
-				}
-			break;
-		}
-	 }
-	 return str;
-}
-
-function go2new5(tid, aid){
-	setstorage('params','{"tid":"'+tid+'", "uid":"'+aid+'"}');
-	
-	//var o = getStorJson('params');
-	openwin('forum_detail','forum_detail.html','10');
-}
-
-/*版块列表*/
-function loadListForum(update){
-	var url = forum_url;
-	//if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
-	$.getJSON(url, loadListForumCb, 'json', getJsonErr, 'POST', '', update, '1');
-}
-function loadListForumCb(json){
-	//uexWindow.closeToast();
-	resetBV(pages.updr);
-	if(json){
-		if(parseInt(json.status) < 0)
-		{
-			uexWindow.toast('0','5',json.message,2000);
-			return;
-		}
-		
-		var catlist = json[0];
-		var forumlist = json[1];
-		var res = '';
-		var res1 = '';
-		var res2 = '';
-		var res3 = '';
-		
-		var forums = {};
-		for (var k1 in catlist) {
-			var obj = catlist[k1];
-			
-			if(obj.forumscount==0) continue;
-			else if(obj.forums.length==0) continue;
-			
-			res1 = '<input type="checkbox" class="uhide"><div ontouchstart="zy_touch(\'\')" onclick="zy_for(event,zy_fold);" class="col uc-n t-bla ub uinn ub-ac c-gra ulev0 umh4 ubb b-gra"><div class="ub-f1 ut-s">'+obj.name+'</div><div class="umh1 umw1 ub-img5 col-icon1 uc-a"></div></div>';
-			
-			var tmpl = '';
-			for (var k2 in obj.forums) {
-				var val = obj.forums[k2];
-				var item = forumlist[val];
-				if(item){
-					var fname = item.name;
-					var fid = item.fid;
-					var hasCls = 0;
-					
-					forums[val] = {};
-					forums[val].name = fname;
-					forums[val].fid = fid;
-					var il = zy_tmpl_count(item.threadtypes.types);
-					if(item.threadtypes && item.threadtypes.types && il>0){
-						forums[val].cls = item.threadtypes.types;
-						forums[val].req = item.threadtypes.required;
-						hasCls = 1;
-					}
-							
-					tmpl += '<div ontouchstart="zy_touch(\'onbg\')" onclick="go2ForumLists(\''+fid+'\', \''+hasCls+'\')" class="uc-n ubb c-m2 ub b-gra t-bla ub-ac lis uinn10">'    
-					 		+'<div class="ub-img5 c-blu4 listy"></div>'   
-					   		+'<div class="ub-f1 ut-s">'+fname+'</div>'
-							+'<div class="c-blu4 uinn11 uc-a2 ulev-1 t-wh">'+item.todayposts+'</div>'    
-					 		+'<div class="res8 lis-sw ub-img4"></div>'  
-					 	+'</div>';
-				}	
-			}
-			
-			res2 = '<div class="t-bla us-i c-wh col-c uof"><div class="b-gra c-wh1 us uc-n  ulev0">' + tmpl + '</div></div>';	
-			res += res1+ res2;
-		}
-		if(res) pages[3].ld = 1;
-		setHtml('forumlist', res);
-		
-		var data = JSON.stringify(forums);
-		setstorage('forums', data);
-	}
-}
-function go2ForumLists(fid, fg){
-	setstorage('params', '{"fid":"'+fid+'", "hasCls":"'+fg+'"}');
-	openwin('forum_listct', 'forum_listct.html', '10');
-}
-
-/*我的帖子*/
-function loadListThread(update, pn){
-	var uid = getstorage('UID');
-	var url= home_url + "&mod=space&do=thread&uid=" + uid + '&type=thread'+'&page=' + pn;
-	logs('load my thread--->url='+url);
-	if(!checkKey(url)) uexWindow.toast('1','5','更新中...',"");
-	var f = pn?'':'1';
-	$.getJSON(url, loadListThreadCb, 'json', getJsonErr, 'POST', '', update, f);
-}
-function loadListThreadCb(json){
-	uexWindow.closeToast();
-	resetBV(pages.updr);
-	if (json) {
-		if (parseInt(json.status) < 0) {
-			uexWindow.toast('0', '5', json.message, 2000);
-			return;
-		}
-		
-		var cContent = $$('page4');
-		var list = json.list;
-		var forums = json.forums;
-		var obj = pages[4];
-		
-		if(list && list[0]){
-			var id0 = 0;
-			var id1 = list[0].tid;
-			if(cContent && cContent.children[0] && cContent.children[0].children[0]) id0=cContent.children[0].children[0].id;
-			if (id0 == id1) {
-				obj.ld = 1;
-				//return;
-			}
-		}
-		
-		if(json.zywy_curpage) obj.curpage = int(json.zywy_curpage);
-		else obj.curpage = 1;
-		if(json.zywy_totalpage) obj.totpage = int(json.zywy_totalpage);
-		if(obj.curpage==1)
-       	{
-       		while(cContent.childElementCount>1)
-       		{
-       			cContent.removeChild(cContent.firstElementChild);
-       		}
-       	}
-		
-		var lth = zy_tmpl_count(list);
-		if(lth>0){
-			var tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${tid}">'
+function showCourse(){
+	//alert(JSON.stringify(course));
+	for(var i=1;i<=7;i++){
+					var tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="">'
 				 		+'<div class="ub-f1 ub ub-ver">'	 
-				 	    	+'<div class="ulev0 ut-s">${subject}</div>	'	    
-				    		+'<div class="ulev-1 umh3 t-gra umar-t">版块：${forumname}</div>' 
+				 	    	+'<div class="ulev0 ut-s">${'+i+'}</div>	'	    
+				    		+'<div class="ulev-1 umh3 t-gra umar-t">节次：${'+0+'}</div>' 
 				 	    	+'<div class="ub ub-ac t-gra ulev-2 umar-t">'
 				 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic ub-posl"></div>'
-				 		    	+'${replies}'
+				 		    	+''
 				 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic ub-posl"></div> '
-				 		    	+'<div class="ub-f1">${views}</div>'
+				 		    	+'<div class="ub-f1"></div>'
 								+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
-				 		    	+'${lastpost}'
+				 		    	+''
 				 		   +' </div>'
 				 		+'</div> '
 						+'<div class="res8 lis-sw ub-img4"></div>  '   
 				 	+'</li><li class="ubt1"></li>';
-		
-			var res = zy_tmpl(tmpl,list,zy_tmpl_count(list),j2vCb);
-			
-			if(res) obj.ld = 1;
-			
+					
+			var res = zy_tmpl(tmpl,course,zy_tmpl_count(course),null);
 			var node = document.createElement("ul");
 			node.className = "b-gra c-gra uc-n";
 			node.innerHTML = res;
+			var cContent = $$('page'+i);
 			cContent.insertBefore(node,cContent.lastElementChild);
-		}
-		else{
-			var cc = $$('nocc');
-			if(!cc){
-				var node = document.createElement("div");
-				node.className = "uc-n";
-				node.innerHTML = '<div class="uinn8 tx-c">暂无帖子</div>';
-				node.id = 'nocc';
-				cContent.insertBefore(node,cContent.lastElementChild);
-			}
-		}
-		document.body.scrollTop = 0;
 	}
 }
 
-function updateLists(){
-	if(pages.curid==4){
-		loadListThread('1', '');
-		setstorage('Logout_1', '');
-	}
-}
-
-function loadCourse(){
-		
+function btn_right(){
+	//var str = '{"action":"'+course+'", "uid":"'+uid+'", "username":"'+nmage+'"}';
+	//if(str) setstorage('params', str);
+	openwin('jwc_login','jwc_login.html','10');
 }
 
 </script>

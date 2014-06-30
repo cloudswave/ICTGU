@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-img.css">
+	<link rel="stylesheet" href="css/ui-list.css">
+	<link rel="stylesheet" href="css/ui-tab.css">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_anim.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/zy_slide.js"></script>
+	<script src="js/config.js"></script>
+	<script>
+	</script>
+	<style>
+	input[type="radio"]+div.ip-sta{
+		display:none !important;
+	}
+	input[type="radio"]:checked+div.ip-sta{	
+		display:block !important;
+	}
+	
+	.m-maxh{
+		height:1.2em;
+	}
+	</style>
+</head>
+    <body class="um-vp c-gra5" ontouchstart>
+        <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+            <!--header开始-->
+			<!--论坛-->
+			<input class="uhide" type="radio" name="headers" checked="true" id="iheader1">
+            <div id="header1" class="uh ip-sta">
+            	<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+            		<div class="uhide" id="acc">
+	            		<a class="btn btn-l ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="signIn(1);">       
+				        	<div class="signpic" id="sign"></div>            
+				        </a>
+					</div>
+	                <h1 class="ut ulev0 ut-s tx-c" id="ttl1">Discuz</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right();">       
+			        	<div class="ulim" id="btnr">登录</div>             
+			        </a>
+				</div>
+				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
+					<input class="uhide" type="radio" name="menus" checked="true" id="menu1">
+					<div class="ub-con ub-f1 tx-c dis-sta ut-s" ontouchstart="zy_touch('focuss')" onclick="menuSelected(1);">热帖</div>
+					<input class="uhide" type="radio" name="menus" id="menu2">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(2);">最新</div>
+					<input class="uhide" type="radio" name="menus" id="menu3">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(3);">版块</div>
+					<input class="uhide" type="radio" name="menus" id="menu4">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(4);">我的帖子</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+				
+			<!--资讯-->
+			<input class="uhide" type="radio" name="headers" id="iheader2">
+			<div id="header2" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id='titp'>头条</h1>
+				</div>
+				<div class="c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6 uof">
+					<div class="ub-fh ub" id="pcats">
+						<div class="ub-fh ub ub-ac ub-pc">
+							<input class="uhide" type="radio" checked="true">
+							<div class="ub-f1 tx-c dis-sta ub-con"><div class="m-maxh uof">头条</div></div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
+			<!--消息-->
+			<input class="uhide" type="radio" name="headers" id="iheader3">
+			<div id="header3" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">消息</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="addmsg();">       
+			        	<div class="ulim"><img src="images/rbtn.png" class="rbtn" /></div>             
+			        </a>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
+			<!--找朋友-->
+			<input class="uhide" type="radio" name="headers" id="iheader4">
+			<div id="header4" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">好友</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="searchfriend();">       
+			        	<div class="ulim">找朋友</div>             
+			        </a>
+				</div>
+				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
+					<input class="uhide" type="radio" name="friend" checked="true" id="menu7">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(7);">好友列表</div>
+					<input class="uhide" type="radio" name="friend" id="menu6">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(6);">在线成员</div>
+					<input class="uhide" type="radio" name="friend" id="menu5">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(5);">附近朋友</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+			
+			<!--更多-->
+			<input class="uhide" type="radio" name="headers" id="iheader5">
+			<div id="header5" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">更多</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="setting();">       
+			        	<div class="ulim">设置</div>             
+			        </a>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+
+			<!--应用-->
+			<input class="uhide" type="radio" name="headers" id="iheader6">
+			<div id="header6" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">其他应用</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="setting();">       
+			        	<div class="ulim">设置</div>             
+			        </a>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+
+            <!--header结束-->
+			
+			<!--content开始-->
+			<input class="uhide" type="radio" name="contents" checked="true" id="icontent1">
+            <div id="content1" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent2">
+			<div id="content2" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent3">
+			<div id="content3" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent4">
+			<div id="content4" class="ub-f1 tx-l t-bla ip-sta"> </div>
+			
+			<input class="uhide" type="radio" name="contents" id="icontent5">
+			<div id="content5" class="ub-f1 tx-l t-bla ip-sta"> </div>
+
+
+		    <input class="uhide" type="radio" name="contents" id="icontent6">
+			<div id="content6" class="ub-f1 tx-l t-bla ip-sta"> </div>
+            <!--content结束-->
+			
+	
+        </div>
+    </body>
+
+</html>
