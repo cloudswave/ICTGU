@@ -67,8 +67,8 @@
 					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(5);">五</div>
 					<input class="uhide" type="radio" name="menus" id="menu6">
 					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(6);">六</div>
-					<input class="uhide" type="radio" name="menus" id="menu7">
-					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(7);">天</div>
+					<input class="uhide" type="radio" name="menus" id="menu0">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected(0);">天</div>
 				</div>
 				<div style="height:1px;"></div>
             </div>
@@ -106,8 +106,8 @@
 		<div></div>
 	</div>
 	
-		<input class="uhide" type="radio" name="pages" id="rd7">
-	<div class="c-gra5 ip-sta" id="page7">
+		<input class="uhide" type="radio" name="pages" id="rd0">
+	<div class="c-gra5 ip-sta" id="page0">
 		<div></div>
 	</div>
 	
@@ -124,8 +124,14 @@ zy_init();
 var updated = 0;
 window.uexOnload=function(type)
 {
+	
 	//setPageBounce(downcb, upcb);
 	zy_initcache();
+	
+	var day=new Date().getDay();
+	//alert(day);
+	menuSelected(day);//切换到当天
+	
 	
 	course=getStorJson('course');
 	var time=getStorJson('course_time');
@@ -142,10 +148,7 @@ window.uexOnload=function(type)
 		t+="当前学期";
    }
 
-
 	 $$("ttl1").innerHTML="我的课表_"+t;
-	 
-	 
 	showCourse();
 }
 
@@ -178,6 +181,7 @@ function pageSwitch(i){
 
 
 function showCourse(){
+	
 	//alert(JSON.stringify(course));
 	for(var i=1;i<=7;i++){
 					var tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="">'
@@ -200,15 +204,16 @@ function showCourse(){
 			var node = document.createElement("ul");
 			node.className = "b-gra c-gra uc-n";
 			node.innerHTML = res;
-			var cContent = $$('page'+i);
+			var cContent = $$('page'+i%7);
+			cContent.innerHTML="";//初始化
 			cContent.insertBefore(node,cContent.lastElementChild);
 	}
 }
 
 function btn_right(){
-	//var str = '{"action":"'+course+'", "uid":"'+uid+'", "username":"'+nmage+'"}';
-	//if(str) setstorage('params', str);
-	openwin('jwc_login','jwc_login.html','10');
+	  var str = '{"view":"course"}';
+	  if(str) setstorage('params', str);
+	   openwin('jwc_login','jwc_login.html','10');
 }
 
 </script>

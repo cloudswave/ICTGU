@@ -59,11 +59,11 @@
 			</div>
 			<div class="ub-f1 uba ubrw0 b-gra c-blu5 tx-c ub-con pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(3);">
 				<div class="t-blu2" id="an">0</div>
-				<div class="ulev-1">相册</div>
+				<div class="ulev-1">成绩查询</div>
 			</div>
 			<div class="ub-f1 uba b-gra c-blu5 tx-c ub-con uc-r pad2" ontouchstart="zy_touch('onbg t-wh')" onclick="go2new5(4);">
 				<div class="t-blu2" id="rn">0</div>
-				<div class="ulev-1">记录</div>
+				<div class="ulev-1">教务通知</div>
 			</div>
 		</div>
 	</div>
@@ -249,19 +249,20 @@ function go2new5(i){
 			url = 'blog.html';
 		break;
 		case 3:
-			wnm = 'album';
-			url = 'album.html';
+			wnm = 'jwc_score_list';
+			url = 'jwc_score_list.html';
+			params.view="score";
 		break;
 		case 4:
-			wnm = 'record';
-			url = 'record.html';
+			wnm = 'jwc_notice_list';
+			url = 'jwc_notice_list.html';
 		break;
 		
 		break;
 	}
 	
 	if(url){
-		//var o = getStorJson('params');
+		setStorJson('params',params);
 		openwin(wnm,url,'10');
 	}
 }
