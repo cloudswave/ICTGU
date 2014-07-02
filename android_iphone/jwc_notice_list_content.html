@@ -23,13 +23,14 @@
 	</script>
 </head>
 <body class="um-vp" ontouchstart>
-	<!--最新帖子-->
+
 	<div class="" id="page1">
 		<div></div>
 	</div>
 </body>
 <script>
 zy_init();
+var jwtz_url  = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=jwtz';
 var params = getStorJson('params');
 var view = params.view;
 var curpage = 1;
@@ -38,15 +39,15 @@ var upt = '';
 var update = {};
 var cContent = $$('page1');
 var uid = '';
-if(view=='other') uid = params.uid;
-else uid = getstorage('UID');
+
 var updated = 0;
 window.uexOnload=function(type)
 {
 	if(!type){
-		setPageBounce(downcb, upcb);
+		//setPageBounce(downcb, upcb);
 		loadList('', '1');
-		if(updated) loadList('', '');
+		//alert(updated);
+		//if(updated) loadList('', '');
 	}
 }
 function downcb(){
@@ -63,33 +64,31 @@ function upcb(){
 	else resetBV('1');
 }
 
-function loadList(pn, flag){
-	var url = '';
-	
-	if(view=='thread') url =newest_url+'&mod=thread&page='+pn;
-	else if(view=='reply') url = newest_url+'&mod=reply&page='+pn;
-	else url = home_url + "&mod=space&do=thread&uid=" + uid + '&type=thread'+'&page=' + pn; //if(view=='myreply')
-
-	logs('forum_list-->loadList()-->url='+url);
+function loadList(pn, flag){	
+	//alert(url);
+	url=jwtz_url+"&page="+pn;
+	//alert(url);
 	if(url){
 		updated = checkKey(url);
 		if(!updated) uexWindow.toast('1','5','更新中...',"");
-		var f = pn?'':'1';
-		$.getJSON(url, getJsonCallback, 'json', getJsonErr, 'POST', '', flag, f);
+		var f = pn?'':'1';//f标志是否刷新
+		$.getJSON(url, getJsonCallback, 'text', getJsonErr, 'GET', '', flag, f);
 	}
 }
 function getJsonCallback(json){
 	uexWindow.closeToast();
 	resetBV('0');
 	resetBV('1');
+	
+	 var json = JSON.parse(json);	
 		
 	if (json) {
 		if (Int(json.status)<1) {
-				uexWindow.toast('0','5',json.message,2000);
+				uexWindow.toast('0','5',json.info,2000);
 				return;
 			}
 			
-		var list = json.newThread || json.newReply || json.list;
+		var list = json.data;
 		var length = zy_tmpl_count(list);
 
 		if(list && list[0]){
@@ -101,58 +100,28 @@ function getJsonCallback(json){
 		}
 		
 		var tmpl = '';
-		if (view == 'thread') {
-			tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${tid}">' +
+
+			tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(\'${url}\')" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="">' +
 			'<div class="ub-f1 ub ub-ver">' +
-			'<div class="ulev0 ut-s">${subject}</div>' +
-			'<div class="ulev-1 umh3 t-gra umar-t">${message}</div>' +
+			'<div class="ulev0 ut-s">${title}</div>' +
+			'<div class="ulev-1 umh3 t-gra umar-t">教务通知</div>' +
 			'<div class="ub ub-ac t-gra ulev-2 umar-t">' +
 			'<div class="umh2 umw2 ub-img5 im3 lpic ub-posl"></div> ' +
-			'${replies}' +
+			'' +
 			'<div class="umh2 umw2 ub-img5 im4 lpicl lpic ub-posl"></div>' +
-			'<div class="ub-f1">${views}</div>' +
+			'<div class="ub-f1"></div>' +
 			'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>' +
-			'${dateline}' +
+			'${time}' +
 			'</div>' +
 			'</div>' +
 			'<div class="res8 lis-sw ub-img4"></div>' +
 			'</li><li class="ubt1"></li>';
-		}
-		else if(view=='reply'){
-			tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${tid}">' +
-			'<div class="ub-f1 ub ub-ver">	' +
-			'<div class="ulev0 ut-s">${subject}</div>	' +
-			'<div class="ulev-1 umh3 t-gra umar-t ut-s"><span class="t-blu1">${lastposter}</span><span class="lpicl lpic2">回复</span><span>${message}</span></div>' +
-			'<div class="ub ub-ac t-gra ulev-2 umar-t"> ' +
-			'<div class="ub-f1"></div>' +
-			'<div class="umh2 umw2 ub-img5 im5 lpic"></div>' +
-			'${lastpost}' +
-			'</div>' +
-			'</div>' +
-			'<div class="res8 lis-sw ub-img4"></div> ' +
-			'</li><li class="ubt1"></li>';
-		}
-		else{
-			tmpl = '<li ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});" class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${tid}">'
-				 		+'<div class="ub-f1 ub ub-ver">'	 
-				 	    	+'<div class="ulev0 ut-s">${subject}</div>	'	    
-				    		+'<div class="ulev-1 umh3 t-gra umar-t">版块：${forumname}</div>' 
-				 	    	+'<div class="ub ub-ac t-gra ulev-2 umar-t">'
-				 		    	+'<div class="umh2 umw2 ub-img5 im3 lpic"></div>'
-				 		    	+'${replies}'
-				 		    	+'<div class="umh2 umw2 ub-img5 im4 lpicl lpic"></div> '
-				 		    	+'<div class="ub-f1">${views}</div>'
-								+'<div class="umh2 umw2 ub-img5 im5 lpicl lpic"></div>'
-				 		    	+'${lastpost}'
-				 		   +' </div>'
-				 		+'</div> '
-						+'<div class="res8 lis-sw ub-img4"></div>  '   
-				 	+'</li><li class="ubt1"></li>';
-		}
-		var res = zy_tmpl(tmpl,list,length,j2vCb);
 		
-		if(json.zywy_curpage) curpage = int(json.zywy_curpage);
-		if(json.zywy_totalpage) totpage = int(json.zywy_totalpage);
+		
+		var res = zy_tmpl(tmpl,list,length,null);
+		
+		if(json.zywy_curpage) curpage = int(1);
+		if(json.zywy_totalpage) totpage = int(5);
 		
        	if(curpage==1)
        	{
@@ -161,7 +130,7 @@ function getJsonCallback(json){
        			cContent.removeChild(cContent.firstElementChild);
        		}
        	}
-		if(!res) res='<div class="tx-c"><div class="umh1"></div><div>暂无帖子</div></div>';
+		if(!res) res='<div class="tx-c"><div class="umh1"></div><div>暂无数据</div></div>';
 		var node = document.createElement("ul");
 		node.className = "b-gra c-gra uc-n";
 		node.innerHTML = res;
@@ -183,10 +152,16 @@ function j2vCb(d,c)
 	 return str;
 }
 
-function go2new5(tid, uid){
-	setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'"}');
-	openwin('forum_detail','forum_detail.html','10');
+function go2new5(url){
+	//alert(url);
+	setstorage('newsUrl',url);
+	openwin('jwc_notice_detail','jwc_notice_detail.html','10');
 }
 
+function reflash(){
+	 $.clearLS(url);
+	loadList(curpage+1, '');
+	curpage++;
+}
 </script>
 </html>

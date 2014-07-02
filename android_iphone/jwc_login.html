@@ -54,12 +54,21 @@
                         </div>
                     </a>
                     <h1 class="ut ulev0 ut-s tx-c" id="ttl">登陆到教务处</h1>
+					    <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="newLogin();">
+                         <div class="ulim">
+                            重新登陆
+                         </div>
+                    </a>
                 </div>
             </div>
             <!--header结束--><!--content开始-->
             <div id="content" class="ub-f1 tx-l t-bla c-gra">
-                <input class="uhide" type="radio" name="pages" id="coursePage">
+                <input class="uhide" type="radio" name="pages" id="coursePage" checked="true">
                 <div style="" class="uinn18 ip-sta">
+                	 <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
+                	 	课表助手
+                	 </div>
+					
                     <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
                         <div class="ut-s">
                             年份:&nbsp;
@@ -85,24 +94,27 @@
                         </div>
                         <div class='ub uba1 uc-a1 c-wh b-bla us-i sel'>
                             <div class='ub-f1 ut-s uinn ulev-1 tx-l'>
-                                当前
+                                春
                             </div>
                             <div class='ubl b-bla c-bla c-m2 umw2 ub ub-pc uc-r2 ub-ac'>
                                 <div class='ub-img umw1 umh1 res3'>
                                 </div>
                             </div>
                             <select name='term' selectedindex='0' id='term' onchange='zy_slectmenu(this.id)'>
-                                <option value='0'>当前</option>
                                 <option value='1'>春</option>
                                 <option value='3'>秋</option>
                             </select>
                         </div>
-                        <div ontouchstart="zy_touch('btn-act')" onclick="getCourse();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
+
+                    </div>
+					
+					   <div ontouchstart="zy_touch('btn-act')" onclick="getCourse();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
                             导入
                         </div>
-                    </div>
                 </div>
-                <!--登录--><input class="uhide" type="radio" name="pages" checked="true" id="loginPage">
+				
+                <!--登录-->
+				<input class="uhide" type="radio" name="pages" id="loginPage">
                 <div style="" class="uinn18 ip-sta">
                     <div class="uba b-gra c-wh us uc-a">
                         <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
@@ -163,20 +175,24 @@
                 <a href="javascript:openwin('login-1','http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin','10');">login?</a>
                 <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json">课表</a>
                 <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout">退出</a>
-                <a href="javascript:alert(JSON.stringify(getStorJson('course')))">ccc</a>
                 <a href="javascript:getCourse();">导入course</a>
-                <a href="javascript:openwin('login-2','jwc_course.html','10');">course2</a>
-                <a href="javascript:openwin('login-2','debug.html','10');">debug</a>
+                <a href="javascript:openwin('jwc','jwc_course.html','10');">course2</a>
+                <a href="javascript:openwin('jwc','debug.html','10');">debug</a>
+				<a href="javascript:getScore();">成绩查询</a>
+				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json">成绩查询2</a>
+				 <a href="uescript('jwc_course', 'window.uexOnload();');">debug</a>
             </div>
             <!--content结束-->
         </div>
     </body>
     <script>
+    	
         zy_init();
         var flag = 0;
         var params = getStorJson('params');
+		var jwclogin_infor = getStorJson("jwclogin_infor");
+		
         var view = params.view;
-        var uname = params.uname;
         var going = 0;
         var ccW = $$("content").offsetHeight;
         var hasLogin = false;
@@ -184,14 +200,19 @@
         var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
         var login_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
         var course_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
+		var score_url = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
         var checklogin_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";
+		var loginout_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout";
         
         
         window.uexOnload = function(type){
-      
-            checkLogin();
+
+      		uexWindow.toast('1', '5', "正在检验是否登陆...", '');
+            checkLogin(view);
           
         }
+		
+		
         function backbtn(){
             closewin();
         }
@@ -230,7 +251,7 @@
             $.getJSON(url, function(data){
                 var msg = JSON.parse(data);
                 
-                alert(data);
+                //alert(data);
                 
                 going = 0;
                 uexWindow.closeToast();
@@ -254,10 +275,10 @@
                     obj[uid].uname = name;
                     obj[uid].upwd = pwd;
                     setStorJson('jwcloginObj', obj);
-                    setstorage('UID', uid);
                     uexWindow.toast('0', '5', '登陆成功', 2000);
                     
-                    switchPage("coursePage");
+					switchPage(view);
+                    //switchPage("coursePage");
                     //getCourse();	
                 
                 
@@ -270,10 +291,7 @@
             
         }
         
-        
-        
-        
-        
+
         var nextimg = null;
         var ii = 100;
         function changeseccodeimg(){
@@ -293,45 +311,56 @@
         
         function getCourse(){
             course_url = course_url + "&year=" + $$('year').value + "&term=" + $$('term').value;
-            alert(course_url);
+            //alert(course_url);
             $.getJSON(course_url, function(ret){
                 var ret = JSON.parse(ret);
                 uexWindow.closeToast();
                 if (ret.result == 'success') {
                     setStorJson('course', ret.data);
                     setstorage('course_time', '{"year":' + $$('year').value + ',"term":' + $$('term').value + '}');
-                    uexWindow.toast('0', '5', '获取数据成功', 2000);
-                    alert(JSON.stringify(ret.data)); //将JSON对象转化为JSON字符
+                    uexWindow.toast('0', '5', '数据导入成功', 2000);
+					uescript('jwc_course', 'window.uexOnload();');//更新窗口数据
+                    //alert(JSON.stringify(ret.data)); //将JSON对象转化为JSON字符
                 }
                 else {
                     uexWindow.toast('0', '5', '获取数据失败', 2000);
                 }
             }, 'text', getJsonErr, 'GET', '', 'true');
         }
+		
+		 function getScore(){
+           // alert(score_url);
+            $.getJSON(score_url, function(ret){
+				//alert(ret);
+                var ret = JSON.parse(ret);
+                uexWindow.closeToast();
+                if (ret.status == 1) {
+                    //setStorJson('score', ret.data);
+                    uexWindow.toast('0', '5', '获取数据成功', 2000);
+                    alert(JSON.stringify(ret.data)); //将JSON对象转化为JSON字符
+                }
+                else {
+                    uexWindow.toast('0', '5', '获取数据失败', 2000);
+                }
+            }, 'text', getJsonErr, 'GET', '','', true);
+        }
+		
         
         
-        function checkLogin(){
-        
+        function checkLogin(view){
             $.getJSON(checklogin_url, function(data){
                 var data = JSON.parse(data);
                 uexWindow.closeToast();
                 if (data.result == 'yes') {
                     hasLogin = true;
                     uexWindow.toast('0', '5', data.data, 2000);
-                    switchPage("coursePage");
+					
+					switchPage(view);
+					
                 }
                 else {
-                    //验证码
-                    var ele = $$("img_seccode");
-                    ele.src = surl + "&r=" + Int(Math.random() * 1000);
-                    window.onorientationchange = window.onresize = function(){
-                        zy_resize("content", 0, $$("header").offsetHeight);
-                    }
-                    
-                    if (uname) {
-                        setValue('uid', uname);
-                        setValue('upass', '');
-                    }
+					uexWindow.toast('0', '5', '请登陆', 2000);
+					switchPage("login");
                 }
             }, 'text', getJsonErr, 'GET', '', 'true');
             
@@ -339,13 +368,17 @@
         }
         
         
-        function switchPage(pageName){
-            alert(pageName);
-            switch (pageName) {
-                case "coursePage":
+        function switchPage(view){
+           // alert(view);
+			var pageName=view+"Page";
+            switch (view) {
+                case "course":
                     //coursePage 导入课表
+
+					$$('ttl').innerHTML='导入课表';
+					
                     var myDate = new Date();
-                    var curYear = 2013;//myDate.getFullYear();
+                    var curYear = myDate.getFullYear();
                     var tmpl = "";
                     for (var i = curYear - 4; i <= curYear + 4; i++) {
                         tmpl += "<option value='" + i + "'>" + i + "</option>";
@@ -357,15 +390,50 @@
                     uexWindow.toast('0', '5', "请选择好课表时间导入课表!", 2000);
                     //-------------	
                     break;
+				case "score":
+				$$('ttl').innerHTML= jwclogin_infor.uname+"欢迎你！";
+				setTimeout("closewin();", 2000);
+				
+  				openwin("jwc_score_list","jwc_score_list.html",'10');
+				ueppscript('jwc_score_list','content',"reflash();");
+ 				
+				break;	
+				
                 default:
-                    default_statement;
+                     //验证码 登陆页
+                    var ele = $$("img_seccode");
+                    ele.src = surl + "&r=" + Int(Math.random() * 1000);
+                    window.onorientationchange = window.onresize = function(){
+                        zy_resize("content", 0, $$("header").offsetHeight);
+                    }
+                    
+                    if (jwclogin_infor.uname) {
+                        setValue('uid', jwclogin_infor.uname);
+                        setValue('upass', jwclogin_infor.upwd);
+                    }
             }
-            
+			
+			
+       
             var ch = $$(pageName);
             if (ch && !ch.checked) 
                 ch.checked = true;
             
-            
         }
+		
+		
+		function newLogin(){
+			 $.getJSON(loginout_url, function(ret){
+                var ret = JSON.parse(ret);
+                if (ret.status == 1) {
+                    //setStorJson('score', ret.data);
+                    uexWindow.toast('0', '5',ret.info, 2000);
+					switchPage('login');
+                }
+                else {
+                    uexWindow.toast('0', '5', 'error', 2000);
+                }
+            }, 'text', getJsonErr, 'GET', '', '');
+		}
     </script>
 </html>
