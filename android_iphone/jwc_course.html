@@ -134,8 +134,16 @@ window.uexOnload=function(type)
 	
 	
 	course=getStorJson('course');
+	//alert(course[0]);
+
+	if(!course[0]){
+
+		  uexWindow.toast('0', '5', '请导入课表', 2000);
+           btn_right();
+	}
+
+
 	var time=getStorJson('course_time');
-		 
 	 var t=time.year+"_";
 	 switch(time.term) {
 	case 1:
@@ -163,9 +171,7 @@ function radioSelect(id){
 	return ret;
 }
 
-function menuSelected(i){
-	if (i==4 && !checkLogin()) return;
-	
+function menuSelected(i){	
 	pageSwitch(i);
 	radioSelect('menu'+i);
 }
@@ -211,6 +217,9 @@ function showCourse(){
 }
 
 function btn_right(){
+	//setStorJson('course',"0");
+	//alert(getStorJson('course'));
+
 	  var str = '{"view":"course"}';
 	  if(str) setstorage('params', str);
 	   openwin('jwc_login','jwc_login.html','10');

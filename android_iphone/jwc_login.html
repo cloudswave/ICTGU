@@ -123,7 +123,7 @@
                             </div>
                             <div class="ub-f1 tx-r t-gra ulev-3 umar-l">
                                 <div class="c-wh uc-n b-gra uinput uinn4">
-                                    <input placeholder="学号" id="uid" type="text" class="uc-n ulev0" value="2011112108">
+                                    <input placeholder="学号" id="uid" type="text" class="uc-n ulev0" value="">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                             </div>
                             <div class="ub-f1 tx-r t-gra ulev-3 umar-l">
                                 <div class="c-wh uc-n b-gra uinput uinn4">
-                                    <input placeholder="请输入密码" id="upass" type="password" class="uc-n ulev0" value="Laily11815">
+                                    <input placeholder="请输入密码" id="upass" type="password" class="uc-n ulev0" value="">
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                         登录
                     </div>
                 </div>
-                <a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
+<!--                 <a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
                 <a href="javascript:openwin('login-1','http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin','10');">login?</a>
                 <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json">课表</a>
                 <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout">退出</a>
@@ -180,7 +180,7 @@
                 <a href="javascript:openwin('jwc','debug.html','10');">debug</a>
 				<a href="javascript:getScore();">成绩查询</a>
 				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json">成绩查询2</a>
-				 <a href="uescript('jwc_course', 'window.uexOnload();');">debug</a>
+				 <a href="uescript('jwc_course', 'window.uexOnload();');">debug</a> -->
             </div>
             <!--content结束-->
         </div>
@@ -206,6 +206,7 @@
         
         
         window.uexOnload = function(type){
+
 
       		uexWindow.toast('1', '5', "正在检验是否登陆...", '');
             checkLogin(view);
@@ -320,6 +321,7 @@
                     setstorage('course_time', '{"year":' + $$('year').value + ',"term":' + $$('term').value + '}');
                     uexWindow.toast('0', '5', '数据导入成功', 2000);
 					uescript('jwc_course', 'window.uexOnload();');//更新窗口数据
+                    closewin();
                     //alert(JSON.stringify(ret.data)); //将JSON对象转化为JSON字符
                 }
                 else {

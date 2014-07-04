@@ -405,10 +405,14 @@ function submit(){
 			uexWindow.alert('  ', '请选择分类', '确定');
 			return;
 		}
+
 		
 		url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid + '&typeid=' + typeid
 				+ '&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=?&subject=' + sub2 + "&message=" + msg2 + str + '&longitude='
 				+ log + '&latitude=' + lat + '&device=' + mfr;
+
+
+				alert(url);
 	}
 	else if(type=='reply'){
 		url = forum_url + '&mod=post&action=reply&tid=' + tid + '&pid=' + pid +  '&replysubmit=1&allownoticeauthor=1&message=' + msg2 +str+ '&special=1'+ '&longitude='

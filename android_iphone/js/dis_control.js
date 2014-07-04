@@ -1,5 +1,25 @@
 ﻿/*Creat at 2012-07-09 for discuz v3.0 by JetCheung*/
 
+
+/***by ehtanzhu qq:764724624***/
+function dial(tel){//手机拨号
+  if(tel==""){
+    alert("请输入号码");
+  }else{
+    uexCall.dial(tel);
+  }
+}
+
+//查找替换手机号
+function repPhoneNum(message){
+	var rep="<span onclick='dial($1);'><font color='blue'><u>$1</u></font></span>";
+	return message.replace(/(1\d{10})/g,rep);//替换电话号码
+	//alert(message);
+}
+
+/***end**/
+
+
 function zy_slectmenu(id){
     var sl = document.getElementById(id);
     if (sl) {
@@ -17,6 +37,7 @@ function zy_slectmenu(id){
 
 function logs(s){
 	//uexLog.sendLog(s);
+	//alert(s);
 }
 
 function uescript(wn, scr){
@@ -311,4 +332,7 @@ function my_con(id,url,x,y)
 }
 var isSML = getstorage('simulate');
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+
 
