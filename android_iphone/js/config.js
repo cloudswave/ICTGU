@@ -2,7 +2,7 @@
 * All urls of widget communicate width server   
 */
 
-var ip = "bbs.xlanlab.com/source/plugin/zywx/rpc";
+var ip = "xlantek.com/weicam/source/plugin/zywx/rpc";
 
 var serverurl="http://"+ip.replace('/source/plugin/zywx/rpc','/');
 var guc="http://"+ip.replace('source/plugin/zywx/rpc','uc_server')+"/avatar.php?&size=middle&uid=";

@@ -158,6 +158,10 @@ function loadListForum(fg){
 	var url = forum_url + "&mod=ajax&action=getpost&tid=" + tid + windWH +"&guid="+uid;
 	logs('forum-->url='+url);
 	if(!checkKey(url)) uexWindow.toast('1','5','加载中...',"");
+
+	//uexWindow.prompt('url','sdf',url,["1","2"]);
+	//alert(url);
+
 	$.getJSON(url, loadListForumCb, 'json', getJsonErr, 'POST', '', fg, '1');
 }
 function threadPay(){
@@ -167,6 +171,9 @@ function threadPay(){
 function threadPayCb(){}
 function loadListForumCb(json){
 	logs('loadListForumCb-->json='+JSON.stringify(json));
+
+	//alert(JSON.stringify(json));
+
 	if(json){
 		var ss = Int(json.status);
 		if (ss<0) {
@@ -231,6 +238,7 @@ function loadListForumCb(json){
 		var maps = '';
 		var device = '';
 		var activity = '';
+
 		var simgid = getstorage('showimage'+uid);
 		
 		if(o.address) maps = '<span class="t-blu ulev-3 ufl ub-f1" style="text-decoration:underline; margin-top:.5em;" onclick="lookmap('+o.latitude+','+o.longitude+');"><img src="images/goto3.png" class="ub-f1" style="width:1em;">'+o.address+'</span>';
@@ -274,6 +282,66 @@ function loadListForumCb(json){
 			if(simgid=='false') pic = 'images/imgno.png';
 			dis_imgcache('aapic',pic,pic,imgLoadSucSrc2,imgLoadErrSrc,null,'',1);				
 		}
+
+
+/**
+ * 商品信息
+ */
+var trade_info="";
+
+if(o.trade){
+
+
+			var trade = o.trade;
+			var transport="线下交易";
+			var ts = '&nbsp;';
+		    switch(trade.transport){
+		    	case "1":
+		    	transport="卖家承担运费";
+		    	break;
+		    	case "2":
+		    	transport="平邮:"+trade.ordinaryfee+"元，快递:"+trade.expressfee+"元，EMS:"+trade.emsfee+"元";
+		    	break;
+		    	case "3":
+		    	transport="虚拟物品无运费";
+		    	break;
+		    	case "4":
+		    	transport="买家收到货物后直接支付给物流公司，"+"平邮:"+trade.ordinaryfee+"元，快递:"+trade.expressfee+"元，EMS:"+trade.emsfee+"元";
+		    	break;		    	
+		    	default:
+		    	transport="线下交易";
+
+
+		    }
+			
+
+				
+			trade_info = '<div style="margin:.5em; line-height:1.5em;">'
+							+'<div>商品类型：'+(trade.itemtype==1?'全新':'二手')+'</div>'
+							+'<div>运费：'+transport+'</div>'
+							+'<div>过期时间：'+trade.expiration+'</div>'
+							+'<div>商品数量：'+ trade.amount+'</div>'
+							+'<div>地点：'+trade.locus+'</div>'
+							+'<div>累计售出：'+trade.totalitems+' </div>'
+							+'<div>剩余数量：'+(trade.amount-trade.totalitems)+'</div>'
+							+'<div>现价：'+trade.price+'</div>'
+							+'<div>原价：<del>'+trade.costprice+'</del></div>'
+							+'<div>卖家名：'+trade.seller+'</div>'
+							+'<div id="ts">'+ts+'</div>'
+						+'</div>'
+						+'<div class="uc-a">'
+							+'<img src="images/mylogo.gif" class="uba uc-a b-gra c-wh"  style="padding:.35em .35em .2em .35em;" id="aapic"/>'
+						+'</div><div>&nbsp;</div>';
+							
+
+			var pic = trade.attachurl;
+			if(simgid=='false') pic = 'images/imgno.png';
+			dis_imgcache('aapic',pic,pic,imgLoadSucSrc2,imgLoadErrSrc,null,'',1);
+				
+		}
+
+		//**end
+		
 		
 		var author = o.author;
 		if(ams=='1') author='匿名';
@@ -299,6 +367,7 @@ function loadListForumCb(json){
 					+'<div class="b-gra uof"  style="position:relative; padding:.5em;">'
 						//+'<img src="images/line.png" class="uh" style="position:absolute; top:0em; left:0; height:.2em;"/>'
 						+activity
+						+trade_info
 						+'<div onclick="hyperlinkHandle(event);" class="wba-all">'+o.message+'</div>'
 						+maps
 						+device

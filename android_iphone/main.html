@@ -3,7 +3,7 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"> -->
 	<link rel="stylesheet" href="css/ui-img.css">
 	<link rel="stylesheet" href="css/ui-list.css">
 	<link rel="stylesheet" href="css/ui-tab.css">
@@ -239,6 +239,8 @@ window.uexOnload = function(type){
 		var osH = $$("header1").offsetHeight;
 		var idc = "content1";
 		zy_con(idc, "main_forum.html", 0, osH);
+
+
 		pages[1].ld = 1;
 		if(!isSML) getPortalLists(1);
 			
@@ -289,27 +291,29 @@ window.uexOnload = function(type){
 	setTimeout('clearTemp();', 1000);
 	
 /*
-	uexDevice.cbGetInfo = function(opCode, dataType, data){
-		logs("deviceToken=" + data);
-	}
-	uexDevice.getInfo('11');
+	消息推送
 */
-	
+	uexWidget.setPushNotifyCallback("cbNotify");
 	uexWidget.cbGetPushInfo = function(opCode, dataType, data){
 		logs("cbGetPushInfo=" + data);
+		alert(data);
 	}
+    uexWidget.setPushInfo("windeidolon","");
+    uexDevice.getInfo('11');
+    
 	uexWidget.getPushInfo();
-	uexWidget.setPushNotifyCallback("cbNotify");
+	
 }
 
 function cbNotify(){
 	logs("cbNotifytttt");
+
 	uexWidget.getPushInfo();
 }
 
 function btn_right(){
 	var e = $$('btnr');
-	var wnm = 'editor';
+	var wnm = 'editor_trade';
 	if(e.innerText=='登录') wnm='login';
 	else{
 		setstorage('params','{"type":"thread", "wname":"main"}');
@@ -330,6 +334,7 @@ function menuSelected(i){
 	if (i==4 && !checkLogin()) return;
 	
 	var cc = 'content'+pages.curid;
+
 	ueppscript('main', cc, 'pageSwitch('+i+')');
 	
 	radioSelect('menu'+i);
