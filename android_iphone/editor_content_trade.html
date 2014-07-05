@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-tab.css">
+    <link rel="stylesheet" href="css/ui-input.css">
+    <link rel="stylesheet" href="css/ui-img.css">
+    <link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-list.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/style.css">
+    <script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script src="js/zy_tmpl.js"></script>
+	<script src="js/dis_upload.js"></script>
+	<script type="text/javascript" src="js/ajax_json.js"></script>
+    <script>
+	</script>
+	<style>
+	.facepic{width:4.9em; height:1.5em;}
+	.tab1
+	{
+		height:1.75em; padding:0 0.1em
+	}
+	
+	.umh12 {
+	min-height: 8em;
+	}
+	</style>
+  </head>
+<body class="um-vp" ontouchstart="zy_cc(this);">
+	<div>
+		<div class="c-gra us uc-n" id="type">  
+		  	<div ontouchstart="zy_touch('btn-act')" onclick="addType();" class="ub ubb b-gra c-m7 t-bla ub-ac lis">     
+		 		<div class="ub-f1 ut-s ulev0 t-gra5">请选择发帖版块</div>    
+		  		<div class="res8 lis-sw ub-img4"></div>   
+		 	</div>     
+		</div>
+		<div class="c-wh uc-n b-gra2 ubb uinput" id="sub"> 
+			<div class="uinn16">
+				<input placeholder="添加标题（限40字）" type="text" class="uc-n ulev0" id="txt1" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div>  
+		</div>
+
+
+
+
+
+
+		<div class="c-wh uc-n uinput">
+
+	
+		   <div class="c-wh uc-n b-gra2 ubb uinput" > 
+	       <div class="uinn16">
+				<input placeholder="物品名称" type="text" class="uc-n ulev0" id="name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div> 
+		  </div>
+
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+                        <div class='ub uba1 uc-a1 c-wh b-bla us-i sel'>
+                            <div class='ub-f1 ut-s uinn ulev-1 tx-l'>
+                                全新
+                            </div>
+                            <div class='ubl b-bla c-bla c-m2 umw2 ub ub-pc uc-r2 ub-ac'>
+                                <div class='ub-img umw1 umh1 res3'>
+                                </div>
+                            </div>
+
+                            <select name='qualite' id='qualite' onchange='zy_slectmenu(this.id)'>
+                                <option value="全新">全新</option>
+                                <option value="二手">二手</option>
+                            </select>
+                        </div>
+
+
+			</div>
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="价格" type="text" class="uc-n ulev0" id="rice" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div>
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="地址" type="text" class="uc-n ulev0" id="place" onfocus="myOnfocus(0);inputMode(0);"   onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
+			</div>
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);inputMode(0);" onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
+			</div>
+
+
+			<div class="uinn16">
+				<textarea placeholder="添加详细描述"  onfocus="myOnfocus(1);inputMode(0);"  onblur="myOnfocus(0);inputMode(1);"  class="uc-n ulev0 umh11" id="txt2"  oninput="txtinput2(this);"></textarea>
+			</div>
+			<div class="ub tab1 t-wh" id="menus">	
+				<div ontouchstart="zy_touch('tp-click')" onclick="getLogLat();" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-dw" id="locss"></div>
+				</div>
+				<div ontouchstart="zy_touch('tp-click')" onclick="getpic(1);" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-tp"></div>
+				</div>
+				<div ontouchstart="zy_touch('tp-click')" onclick="getpic(0);" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-zx"></div>
+				</div>
+				<div ontouchstart="zy_touch('tp-click')" onclick="getFace();" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-bq"></div>
+				</div>
+			</div>
+			<!--
+			<div class="ub tab1 t-wh" id="menus1" style="border:1px solid red;">	
+				<div ontouchstart="zy_touch('tp-click')" onclick="getpic(1);" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-tp"></div>
+				</div>
+				<div ontouchstart="zy_touch('tp-click')" onclick="getpic(0);" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-zx"></div>
+				</div>
+				<div class="ub-f1 ub">
+				</div>
+				<div class="ub-f1 ub">
+				</div>
+			</div>
+			-->
+			<div class="ub tab1 t-wh" id="menus2" style="">	
+				<div ontouchstart="zy_touch('tp-click')" onclick="getFace();" class="ub-f1 ub ub-ver tab-act">
+					<div class="ub-f1 ub-img5 tp-bq"></div>
+				</div>
+				<div class="ub-f1 ub">
+				</div>
+				<div class="ub-f1 ub">
+				</div>
+				<div class="ub-f1 ub">
+				</div>
+			</div>
+			<div class="texbb"></div>
+		</div>
+		<div class="uinn3" id="imgs">
+			<div></div>
+		</div>
+	</div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var type = params.type;
+var special=params.special;
+var fid = '';
+var tid = '';
+var pid = '';
+var aid = '';
+var bid = '';
+var touid = '';
+var picid = '';
+var typeid = '';
+var mfr = '';
+var eimg = $$('imgs');
+var eee = $$("txt2");
+var uploadHttp = '';
+var attachnew = [];
+var log = '';
+var lat = '';
+var isok = true;
+var myUpload = null;
+var onFoc = [0, 0];
+var uid = getstorage('UID');
+var dataName = [uid+'_'+type+'_t', uid+'_'+type+'_C', uid+'_'+type+'_I'];
+var dataPre = ['', ''];
+var ImgObj = getStorJson(dataName[2]);
+
+if(params.fid) fid = params.fid;
+if(params.tid) tid = params.tid;
+if(params.pid) pid = params.pid;
+if(params.aid) aid = params.aid;
+if(params.blogid) bid = params.blogid;
+if(params.touid) touid = params.touid;
+if(params.picid) picid = params.picid;
+
+uploadHttp = forum_url + "&mod=ajax&action=uploadimage";
+if(type=='thread'){
+	setStorJson('selObj', {});
+	removeNode('menus2');
+	
+	dataPre[0] = getstorage(dataName[0]);
+	if(dataPre[0]) setValue('txt1', dataPre[0]);
+}
+else if(type == 'reply'){
+	removeNode('type');
+	removeNode('sub');
+	removeNode('menus2');
+	if(eee) eee.className = 'uc-n ulev0 umh12';
+}
+else if(type=='portal'){
+	removeNode('type');
+	removeNode('sub');
+	removeNode('menus');
+	removeNode('menus2');
+	if(eee) eee.className = 'uc-n ulev0 umh12';
+}
+else if(type=='blog'){
+	removeNode('type');
+	removeNode('menus2');
+	uploadHttp = home_url + "&mod=spacecp&ac=upload&albumid=0&uploadsubmit=true";
+	
+	dataPre[0] = getstorage(dataName[0]);
+	if(dataPre[0]) setValue('txt1', dataPre[0]);
+}
+else if(type=='breply' || type=='record' || type=='msg' || type=='album'){
+	removeNode('type');
+	removeNode('sub');
+	removeNode('menus');
+	if(eee) eee.className = 'uc-n ulev0 umh12';
+}
+dataPre[1] = getstorage(dataName[1]);
+if(dataPre[1]) setValue('txt2', dataPre[1]);
+	
+window.uexOnload=function(t)
+{
+	logs("editor-->params: "+JSON.stringify(params));
+	//if(!(type=='breply' || type=='record' || type=='msg'))
+		setPageBounce('', '');
+	
+	var data = getStorJson('forums');
+	var ct = zy_tmpl_count(data);
+	if(ct==0) getForums();
+	
+	var pf = getstorage('platform');
+	if(pf==0) mfr='iPhone';
+	else if(pf==1) mfr='Android';
+	
+	for(var k in ImgObj){
+		//var item = ImgObj[k];
+		susCb(k, 1);
+	}
+}
+
+function addType(){
+	uescript('editor_trade', 'addType();');
+}
+
+function trim(s) {
+	var count = s.length;
+	var st = 0; // start
+	var end = count - 1; // end
+
+	if (s == "")
+		return s;
+	while (st < count) {
+		if (s.charAt(st) == " ")
+			st++;
+		else
+			break;
+	}
+	while (end > st) {
+		if (s.charAt(end) == " ")
+			end--;
+		else
+			break;
+	}
+	return s.substring(st, end + 1);
+}
+
+function myOnfocus(i){
+	onFoc[i] = 1;
+}
+
+function myOnblur(i){
+	onFoc[i] = 0;
+}
+
+function getForums(){
+	$.getJSON(forum_url, function (json){
+		if(json){
+			var forumlist = json[1];
+			var forums = {};
+			for(var val in forumlist){
+				var item = forumlist[val];
+				forums[val] = {};
+				forums[val].name = item.name;
+				forums[val].fid = item.fid;
+				if(item.threadtypes && item.threadtypes.types){
+					forums[val].cls = item.threadtypes.types;
+					forums[val].req = item.threadtypes.required;
+				}
+			}
+			setStorJson('forums', forums);
+		}
+	});
+}
+
+function getLogLat(){
+	logs('getLogLat()-->1: log='+log+', lat='+lat);
+	if(lat && log) return;
+	uexLocation.onChange = function(lat2, log2){
+		if(lat2 && log2){
+			lat = lat2;
+			log = log2;
+			uexLocation.closeLocation();
+			logs('getLogLat()-->2: log='+log+', lat='+lat);
+			
+			var e = $$('locss');
+			if(e) e.className = 'ub-f1 ub-img5 tp-dws';
+		}
+	}
+	uexLocation.openLocation();
+}
+
+function getpic(i){
+	if(!myUpload) myUpload = new disUpload(uploadHttp, type, actCb, susCb);
+	myUpload.upMethod(i);
+}
+
+function actCb(val){
+	isok = val;
+}
+function susCb(val, f){
+	if(type=='thread' || type=='reply' || type=='blog' || type=='breply') {
+		attachnew.push(val);
+		addimgpreview(val);
+		if(f!=1) setAtt(val);
+		
+		if(myUpload) ImgObj[val] = myUpload.src;
+	}
+}
+
+function addimgpreview(val){
+	var src = '';
+	var ii = '';
+	if(type=='thread' || type=='reply' || type=='blog' || type=='breply'){
+		if(myUpload) src = myUpload.src;
+		else src = ImgObj[val];
+		ii = val;
+	}
+	logs('addimgpreview()-->ii='+val+', src='+src);
+	var node = document.createElement("span");
+	node.innerHTML = '<img src="'+src+'" class="uc-a1 edpic" ontouchstart="zy_touch()" onclick="imgoperate(\'i'+ii+'\');" id="i'+ii+'"/>';
+	eimg.insertBefore(node,eimg.lastElementChild);
+}
+
+var eleimg = null;
+function imgoperate(id){
+	logs('imgoperate-->id='+id);
+	eleimg = $$(id);
+	uexWindow.cbActionSheet = function(opId, dataType, data)
+	{
+		if (data == "0") {
+			src = '';
+			var id2 = eleimg.id;
+			removeNode(id2);
+			
+			var id3 = id2.replace('i', '');
+			logs('imgoperate-->id3='+id3);
+			id3 = Int(id3);
+			for(var k in attachnew){
+				var itm = attachnew[k];
+				if (itm == id3) {
+					attachnew.splice(k, 1);
+					delete ImgObj[itm];
+					removeAtt(id3);
+					break;
+				}
+			}
+		} else if (data == "1") {
+			var array = [];
+			array[0] = eleimg.src;
+			uexImageBrowser.open(array);
+		}
+	}
+	
+	var value = ["删除","预览"];
+	uexWindow.actionSheet('', '取消', value);
+}
+
+function getFace(){
+	var t = 1;
+	if(onFoc[0] || onFoc[1]) t = 500;
+	logs('getFace()----->t='+t);
+
+	setTimeout("uescript('editor_trade', 'opneFace()');inputMode(0);", t);
+	
+}
+
+function txtinput1(ts){
+/*
+	var v = ts.value;
+	var l = fucCheckLength(v);
+	logs('txtinput1(ts)--->l='+l+', v='+v);
+*/
+}
+function txtinput2(ts){
+/*
+	var v = ts.value;
+	var l = fucCheckLength(v);
+	logs('txtinput2(ts)--->l='+l+', v='+v);
+*/
+}
+
+function submit(){
+	var url = '';
+	var str = '';
+	var sub = '';
+	var msg = getValue("txt2");
+	var sub2 = '';
+	var msg2 = '';
+	
+	if(!isok) return;
+	
+	if(type=='thread' || type=='blog'){
+		sub = getValue("txt1");
+		sub = trim(sub);
+		if (sub == '') {
+			uexWindow.toast('0', '5', "标题不能为空", 2000);
+			return;
+		}
+		if (fucCheckLength(sub) > 80) {
+			uexWindow.toast('0', '5', "标题请小于40个字", 2000);
+			return;
+		}
+		sub2 = encodeURIComponent(sub);
+	}
+	
+	msg = trim(msg);
+	if (msg == '') {
+		uexWindow.toast('0', '5', "内容不能为空", 2000);
+		return;
+	}
+	if (fucCheckLength(msg) > 1000) {
+		uexWindow.toast('0', '5', "内容请小于500个字", 2000);
+		return;
+	}
+	msg2 = encodeURIComponent(msg);
+	
+	if (attachnew.length>0){
+		str = '&attachnew=' + attachnew.join(',');
+		if(type=='blog' || type=='breply') str = '&picids='+ attachnew.join(',');
+	}
+	
+	if(type=='thread'){
+		var selObj = getStorJson('selObj');
+		var typerq = selObj.typerq;
+		typeid = selObj.typeid;
+		if(!fid) fid = selObj.fid;
+		logs("selObj: "+JSON.stringify(selObj));
+		if(!fid){
+			uexWindow.alert('  ', '请选择版块', '确定');
+			return;
+		}
+		
+		if(!typeid && typerq){
+			uexWindow.alert('  ', '请选择分类', '确定');
+			return;
+		}
+
+		
+		url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid + '&typeid=' + typeid
+				+ str+'&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=? &longitude='
+				+ log + '&latitude=' + lat + '&device=' + mfr;
+
+
+				alert(url);
+	}
+	else if(type=='reply'){
+		url = forum_url + '&mod=post&action=reply&tid=' + tid + '&pid=' + pid +  '&replysubmit=1&allownoticeauthor=1&message=' + msg2 +str+ '&special=1'+ '&longitude='
+				+ log + '&latitude=' + lat + '&device='+mfr;
+	}
+	else if(type=='portal'){
+		url = portal_url + "&mod=ajax&act=postcomment&aid=" + aid+ "&message=" + msg2;
+	}
+	else if(type=='blog'){
+		url = home_url + "&mod=spacecp&ac=blog&subject=" + sub2
+				+ "&message=" + msg2 + str + "&classid=0"
+				+ "&blogsubmit=true" + '&longitude=' + log
+				+ '&latitude=' + lat + '&device=' + mfr;
+	}
+	else if(type=='breply' || type=='album'){
+		var idtype = 'blogid';
+		if(type=='album') idtype = 'picid';
+		var id = picid || bid;
+		url = home_url+"&mod=spacecp&ac=comment&idtype="+idtype+"&id="+ id +"&message="+ msg2 + "&commentsubmit=true&commentsubmit=true&device=" + mfr;;
+	}
+	else if(type=='record'){
+		url = home_url+"&mod=spacecp&ac=doing&addsubmit=true&message="+msg2;
+	}
+	else if(type=='msg'){
+		url = home_url + "&mod=spacecp&ac=pm&op=send&touid="+touid+"&pmsubmit=ture&message="+msg2;
+	}
+	
+	logs('submit()-->url='+url);
+	
+	uexWindow.toast('1', '5', "正在发表...", "");
+	isok = false;
+
+
+
+//准备数据。..
+var details="<hr>"
+           +"物品名称："+getValue("name")+"<br>"
+           +"新旧："+getValue("qualite")+"<br>"
+           +"价格："+getValue("rice")+"<br>"
+           +"地点："+getValue("place")
+           +"<br>手机号码："+getValue("phone")+"<br><hr>";
+
+//----
+
+	//$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
+	// 	//POST的第2个参数为需要post的数据
+	alert(details);
+
+	AJAX.post(url,{
+		'subject':sub,
+		'message':details+msg	
+	},submitCb,getJsonErr2);
+
+
+
+
+}
+function submitCb(json){
+	json=json.substring(3,json.length-1);
+	alert(json);
+	json=JSON.parse(json);
+	isok = true;
+	var str = '发表失败';
+	var succ = true;
+	if(json){
+		logs("submitCb()---json: "+JSON.stringify(json));
+		if(type=='blog' || type=='breply' || type=='msg' || type=='album'){
+			if (json.status == '1')  str = '发表成功';
+			else {
+				str = '发表失败';
+				succ = false;
+			}
+		}
+		else/*(type=='thread' || type=='reply' || type=='portal' || type=='record')*/{
+			if (json.tid){
+				if(json.status == '1') str = '此帖需要通过审核才能发表';
+				else str = '发帖成功';
+			}
+			else if (json.pid) {
+				str = '回帖成功';
+				if(pid) str = '回复成功';
+			}
+			else if(json.cid) str = '回复成功';	
+			else if(json.newdoid) str = '发表成功';
+			else {
+				if (json.message)  str = json.message;
+				else str = '发帖失败';
+				succ = false;
+			}
+		}
+	}
+	else succ = false;
+	uexWindow.toast('0', '5', str, 1500);
+	if(succ){
+		ueppscript(params.wname, 'content', 'update5();')
+		setTimeout("uescript('editor', 'closewin();');", 1500);
+		
+		for(var i=0; i<3; i++){
+			setstorage(dataName[i], '');
+		}
+	}
+}
+
+function getJsonErr2(s){
+	isok = true;
+	resetBV('0');
+	resetBV('1');
+	var str = '返回数据有误！';
+	if(s.status=='-1') str = '无网络，连接失败^_^！';
+	uexWindow.toast('0','5',str,"1500");
+	logs('getJsonErr2-->msg='+s.message);
+}
+
+function closeEditor(){
+	var v1 = getValue("txt1");
+	var v2 = getValue("txt2");
+	if(v1) setstorage(dataName[0], v1);
+	if(v2) setstorage(dataName[1], v2);
+	setStorJson(dataName[2], ImgObj);
+	uescript('editor_trade', 'closewin();');
+}
+
+/*获取论坛表情*/
+eval(function(p, a, c, k, e, d) {
+	e = function(c) {
+		return (c < a ? '' : e(parseInt(c / a)))
+				+ ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c
+						.toString(36))
+	};
+	if (!''.replace(/^/, String)) {
+		while (c--) {
+			d[e(c)] = k[c] || e(c)
+		}
+		k = [ function(e) {
+			return d[e]
+		} ];
+		e = function() {
+			return '\\w+'
+		};
+		c = 1
+	}
+	;
+	while (c--) {
+		if (k[c]) {
+			p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
+		}
+	}
+	return p
+}
+(
+	'n m(d){p(d){b 1:a\':)\';0;b 2:a\':(\';0;b 3:a\':D\';0;b 4:a\':\\\'(\';0;b 5:a\':@\';0;b 6:a\':o\';0;b 7:a\':c\';0;b 8:a\':$\';0;b 9:a\';c\';0;b q:a\':L\';0;b l:a\':r\';0;b t:a\':k\';0;b f:a\':e:\';0;b g:a\':u:\';0;b i:a\':j:\';0;b h:a\':s:\';0;b y:a\':N:\';0;b K:a\':G:\';0;b H:a\':J:\';0;b O:a\':M:\';0;b I:a\':E:\';0;b x:a\':w:\';0;b v:a\':F\';0;b z:a\':C:\';0;B:A(\'插入表情错误\');0}}',
+	51,
+	51,
+	'break||||||||||return|case|P|id|loveliness|13|14|16|15|curse|lol|11|getdiscuzSmiley|function||switch|10|Q|dizzy|12|funk|23|kiss|22|17|24|showmessage|default|call||time|handshake|sleepy|19|21|hug|18||victory|shutup|20'
+			.split('|'), 0, {}))
+			
+function insertface(i){
+	logs('insertface-->i='+i);
+	var ft = '';
+	if(type=="thread" || type=="msg" || type=='reply') ft = getdiscuzSmiley(i);
+	else ft = '[em:' + i + ':]';
+	
+	var e = eee;
+	if(e){
+		e.value += ft;
+		e.scrollTop=e.scrollHeight;
+	}
+}
+
+function setAtt(val){
+	var e = eee;
+	if(e){
+		if(type=="thread" || type == 'reply') e.value += '[attach]'+val+'[/attach]';
+		e.scrollTop=e.scrollHeight;
+	}
+}
+function removeAtt(val){
+	var e = eee;
+	if(e){
+		var str = '[attach]'+val+'[/attach]';
+		var sval = e.value;
+		sval = sval.replace(str, '');
+		e.value = sval;
+		e.scrollTop=e.scrollHeight;
+	}
+}
+
+
+function inputMode(type){ //解决输入框遮盖问题
+
+	//alert($$("header").offsetHeight);
+
+    uescript("editor_trade","inputMode('"+type+"')");
+  }
+
+</script>
+</html>

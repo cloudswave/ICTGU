@@ -26,9 +26,6 @@
 	<script src="js/dis_share.js"></script>
 	<script src="js/zy_event.js"></script>
     <script>
-
-
-
 	</script>
 	<style>
 	.quote{
@@ -78,12 +75,6 @@
 		border-radius: .4em;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, .3)
 	}
-
-
-     .um-vp {
-          -webkit-user-select:text;
-      }
-
   </style>
   </head> 
 <body class="um-vp c-gra5" ontouchstart id="myevt">
@@ -91,7 +82,6 @@
 	<div class="uc-n ub t-bla ub-ac lis uhide uinn uof-x" id="subject"></div>
 	
 	<!--帖子内容-->
-	
 	<div class="uinn1" id="content"></div>
 	
 	<div class="adcon uof uhide" id="adimg" style="height:5em; margin:.5em;">
@@ -351,10 +341,7 @@ if(o.trade){
 		}
 
 		//**end
-
-
-		o.message=repPhoneNum(o.message);
-
+		
 		
 		var author = o.author;
 		if(ams=='1') author='匿名';
@@ -389,14 +376,6 @@ if(o.trade){
 						//+'<img src="images/ad.jpg" class="uh umar-t" style="height:3em;" />'
 						//+'<div class="recpic"><img src="images/recommend.png" style="height:1.5em;" /></div>'
 					//+'</div>';
-					//
-		
-					
-
-		
-		
-
-		//alert(str2);
 		setHtml('content', str2);
 		
 		var pic = ucurl+ auid;
@@ -748,7 +727,6 @@ function replyDel(id, pid){
 }
 
 function weiboShare(){
-	//loadLink(serverurl+'forum.php?mod=viewthread&tid='+tid);
 	if(act){
 		uid = getstorage('UID');
 		var url = serverurl+'forum.php?mod=viewthread&tid='+tid;
@@ -872,13 +850,5 @@ function showLZ(_auid, _auname){
 	logs('showLZ()-->auid='+_auid);
 	if(_auid!=uid && checkLogin()) go2new5(_auid, _auname)
 }
-
-
-function loadLink2(){
-	//alert("message2");
-	loadLink(serverurl+'forum.php?mod=viewthread&tid='+tid);
-}
-
-
 </script>
 </html>
