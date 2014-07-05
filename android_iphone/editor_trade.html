@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/ui-btn.css">
+	<link rel="stylesheet" href="css/ui-base.css">
+	<link rel="stylesheet" href="css/ui-box.css">
+	<link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/zy_control.js"></script>
+	<script src="js/zy_click.js"></script>
+	<script src="js/dis_control.js"></script>
+	<script>
+	</script>
+</head>
+<body class="um-vp c-gra5" ontouchstart>
+    <div id="page_0" class="up ub ub-ver c-gra" tabindex="0">
+        <div id="header" class="uh">
+        	<div class="umh015"></div>
+        	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closeEditor();">       
+					<div class="ulim">返回</div>       
+				</a>
+                <h1 class="ut ulev0 ut-s tx-c" id="ttl">&nbsp;</h1>
+				<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="submit();">       
+					<div class="ulim">发商品</div>             
+				</a>
+			</div>
+        </div>
+        <div id="content" class="ub-f1 tx-l t-bla"></div>
+    </div>
+</body>
+<script>
+zy_init();
+var params = getStorJson('params');
+var type = params.type;
+var tts = '';
+
+if(type=='thread') tts='发商品';
+else if(type=='reply'){
+	tts='回帖';
+	if(params.pid) tts='帖子回复';
+}
+else if(type=='portal') tts='文章评论';
+else if(type=='blog') tts='写日志';
+else if(type=='breply') tts='日志评论';
+else if(type=='record') tts='写记录';
+else if(type=='msg') tts='发消息';
+else if(type=='album') tts='照片评论';
+if(tts) setHtml('ttl', tts);
+
+window.uexOnload = function(type){
+    if (!type) {
+        zy_con("content", "editor_content_trade.html", 0, $$("header").offsetHeight);
+    }
+	window.onorientationchange=window.onresize=function()
+	{
+		zy_resize("content",0,$$("header").offsetHeight);				
+	}
+}
+
+function inputMode(type){ //解决输入框遮盖问题
+
+	//alert($$("header").offsetHeight);
+
+    if(type==0) zy_resize("content", 0,$$("header").offsetHeight-400);
+    if(type==1) zy_resize("content",0,$$("header").offsetHeight);	
+ }
+
+function submit(){
+	ueppscript('editor_trade', 'content', 'submit();');
+}
+
+function cbForum(a, b, c){
+	logs('cbForum-->a='+a+', b='+b+', c='+c);
+}
+function addType2(){
+	//var str = '{"3":{"name":"cls3","fid":"3","req": 1,"cls":{"7":{"name":"cls1", "cid":"7"},"8":{"name":"cls2", "cid":"8"},"9":{"name":"cls3", "cid":"9"}}},"4":{"name":"pxt4","fid":"4"}}';
+	var str = '{"3":{"name":"cls3","fid":"3","cls":{"7":"cls1","8":"cls2","9":"cls3"}},"4":{"name":"pxt4","fid":"4"}}';
+	var ss = JSON.parse(str);
+	//str = getStorJson('forums');
+	//str = getstorage('forums');
+	logs('editor::addType-->str='+str);
+	uexDiscuz.cbForum = cbForum;
+	uexDiscuz.forum(str);
+}
+
+var onType = 0;
+function addType(){
+	if(!onType){
+		var e = $$('header');
+		var s = window.getComputedStyle(e,null);
+		var h = int(window.innerHeight);
+		var w = int(window.innerWidth);
+		var em = int(s.fontSize);
+		var x = 800;
+		var y = 0;
+		
+		if(isSML){
+			y = 4*em;
+			x = 0;
+		}
+		logs('addType()-->em='+em);
+		
+		uexWindow.openPopover('pop_type',"0","pop_type.html","",x,y,int(w),int(h),em,"0");
+		onType = 1;
+	}
+	else{
+		if(isSML){
+			onType = 0;
+			uexWindow.closePopover('pop_type');
+		}
+		else ueppscript('editor_trade', 'pop_type', 'movepop();');
+	}
+}
+
+
+var onface = 0;
+function opneFace(){
+	logs('opneFace()-->onface='+onface);
+	if(onface){
+		if(isSML){
+			onface = 0;
+			uexWindow.closePopover('pop_face');
+		}
+		else ueppscript('editor_trade', 'pop_face', 'movepop()');
+	}
+	else{
+		onface++;
+		var e = $$('header');
+		var s = window.getComputedStyle(e,null);
+		var em = int(s.fontSize);
+		var w = int(window.innerWidth);
+		var y = int(e.offsetHeight);
+		var ee = $$('content');
+		var h = int(ee.offsetHeight);
+		if(!isSML) y = y+h;
+		logs('opneFace()-->x=0, y='+y+', w='+w+', h='+h+', 1em='+em);
+		setstorage('offsetHeight', h);
+		uexWindow.openPopover('pop_face',"0","pop_face.html","",0,y,w,h,em,"0");
+	}
+}
+
+function closeEditor(){
+	ueppscript('editor_trade', 'content', 'closeEditor();');
+}
+
+</script>
+</html>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <widget appId="11306186" channelCode="000" height="480" pid="" sreensize="4.5" version="00.00.0000" viewmode="application" widgetId="" width="320">
 	
-	<name>同在三大</name>
+	<name>校园汇</name>
 	<description/>
-	<author email=""> </author>
+	<author email="764724624@qq.com"> 朱小波</author>
 	<icon src="icon.png"/>
 	<license href=""/>
 	<content encoding="utf-8" src="./index.html"/>
-	<updateurl/>
+	<updateurl>http://xlantek.com/weicam/source/plugin/zywx/update_app.php</updateurl>
 	<logserverip>192.168.24.214</logserverip> 
 	<showmyspace>false</showmyspace>
 	<obfuscation>false</obfuscation>

@@ -21,6 +21,7 @@
 	<script src="js/zy_json.js"></script>
 	<script src="js/zy_tmpl.js"></script>
 	<script src="js/dis_upload.js"></script>
+	<script type="text/javascript" src="js/ajax_json.js"></script>
     <script>
 	</script>
 	<style>
@@ -47,10 +48,57 @@
 			<div class="uinn16">
 				<input placeholder="添加标题（限40字）" type="text" class="uc-n ulev0" id="txt1" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
 			</div>  
-		</div>  
+		</div>
+
+
+
+
+
+
 		<div class="c-wh uc-n uinput">
+
+	
+		   <div class="c-wh uc-n b-gra2 ubb uinput" > 
+	       <div class="uinn16">
+				<input placeholder="物品名称" type="text" class="uc-n ulev0" id="name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div> 
+		  </div>
+
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+                        <div class='ub uba1 uc-a1 c-wh b-bla us-i sel'>
+                            <div class='ub-f1 ut-s uinn ulev-1 tx-l'>
+                                全新
+                            </div>
+                            <div class='ubl b-bla c-bla c-m2 umw2 ub ub-pc uc-r2 ub-ac'>
+                                <div class='ub-img umw1 umh1 res3'>
+                                </div>
+                            </div>
+
+                            <select name='qualite' id='qualite' onchange='zy_slectmenu(this.id)'>
+                                <option value="全新">全新</option>
+                                <option value="二手">二手</option>
+                            </select>
+                        </div>
+
+
+			</div>
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="价格" type="text" class="uc-n ulev0" id="rice" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div>
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="地址" type="text" class="uc-n ulev0" id="place" onfocus="myOnfocus(0);inputMode(0);"   onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
+			</div>
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);inputMode(0);" onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
+			</div>
+
+
 			<div class="uinn16">
-				<textarea placeholder="添加内容（限500字）" class="uc-n ulev0 umh11" id="txt2" onfocus="myOnfocus(1);" onblur="myOnblur(1);" oninput="txtinput2(this);"></textarea>
+				<textarea placeholder="添加详细描述"  onfocus="myOnfocus(1);inputMode(0);"  onblur="myOnfocus(0);inputMode(1);"  class="uc-n ulev0 umh11" id="txt2"  oninput="txtinput2(this);"></textarea>
 			</div>
 			<div class="ub tab1 t-wh" id="menus">	
 				<div ontouchstart="zy_touch('tp-click')" onclick="getLogLat();" class="ub-f1 ub ub-ver tab-act">
@@ -102,6 +150,7 @@
 zy_init();
 var params = getStorJson('params');
 var type = params.type;
+var special=params.special;
 var fid = '';
 var tid = '';
 var pid = '';
@@ -192,7 +241,7 @@ window.uexOnload=function(t)
 }
 
 function addType(){
-	uescript('editor', 'addType();');
+	uescript('editor_trade', 'addType();');
 }
 
 function trim(s) {
@@ -332,7 +381,9 @@ function getFace(){
 	var t = 1;
 	if(onFoc[0] || onFoc[1]) t = 500;
 	logs('getFace()----->t='+t);
-	setTimeout("uescript('editor', 'opneFace()');", t);
+
+	setTimeout("uescript('editor_trade', 'opneFace()');inputMode(0);", t);
+	
 }
 
 function txtinput1(ts){
@@ -408,7 +459,7 @@ function submit(){
 
 		
 		url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid + '&typeid=' + typeid
-				+ '&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=?&subject=' + sub2 + "&message=" + msg2 + str + '&longitude='
+				+ str+'&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=? &longitude='
 				+ log + '&latitude=' + lat + '&device=' + mfr;
 
 
@@ -444,9 +495,36 @@ function submit(){
 	
 	uexWindow.toast('1', '5', "正在发表...", "");
 	isok = false;
-	$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
+
+
+
+//准备数据。..
+var details="<hr>"
+           +"物品名称："+getValue("name")+"<br>"
+           +"新旧："+getValue("qualite")+"<br>"
+           +"价格："+getValue("rice")+"<br>"
+           +"地点："+getValue("place")
+           +"<br>手机号码："+getValue("phone")+"<br><hr>";
+
+//----
+
+	//$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
+	// 	//POST的第2个参数为需要post的数据
+	alert(details);
+
+	AJAX.post(url,{
+		'subject':sub,
+		'message':details+msg	
+	},submitCb,getJsonErr2);
+
+
+
+
 }
 function submitCb(json){
+	json=json.substring(3,json.length-1);
+	alert(json);
+	json=JSON.parse(json);
 	isok = true;
 	var str = '发表失败';
 	var succ = true;
@@ -505,7 +583,7 @@ function closeEditor(){
 	if(v1) setstorage(dataName[0], v1);
 	if(v2) setstorage(dataName[1], v2);
 	setStorJson(dataName[2], ImgObj);
-	uescript('editor', 'closewin();');
+	uescript('editor_trade', 'closewin();');
 }
 
 /*获取论坛表情*/
@@ -572,5 +650,14 @@ function removeAtt(val){
 		e.scrollTop=e.scrollHeight;
 	}
 }
+
+
+function inputMode(type){ //解决输入框遮盖问题
+
+	//alert($$("header").offsetHeight);
+
+    uescript("editor_trade","inputMode('"+type+"')");
+  }
+
 </script>
 </html>

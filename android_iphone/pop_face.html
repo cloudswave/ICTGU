@@ -81,6 +81,10 @@ function initshowface() {
 
 var moving = 0;
 function movepop(){
+	if(!show){
+		ueppscript('editor_trade', 'content', 'inputMode(1);');
+	}
+
 	if(moving) return;
 	
 	var dy = wh;
@@ -89,18 +93,21 @@ function movepop(){
 	disShowAnim('0', dy, animCb);
 	show = !show;
 	moving = 1;
+
+
 }
 
 function animCb(){
+
 	moving = 0;
 }
 
 function closeFace(){
-	if(!show) movepop()
+	if(!show) movepop();
 }
 
 function insertface(i){
-	ueppscript('editor', 'content', 'insertface('+i+');')
+	ueppscript('editor_trade', 'content', 'insertface('+i+');')
 }
 </script>
 </html>
