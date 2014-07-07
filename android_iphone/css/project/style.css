@@ -1,0 +1,151 @@
+.ufm1{
+	font-family:Arial;
+}
+.c-blu{
+	background-color:#218dd5;
+}
+.c-wh
+{
+	background-color:#FFF;
+}
+.c-wh2{
+	background-color:#f1f1f1;
+}
+.c-gra1{
+	background-color:#e8e8e8;
+}
+.c-org{
+	background-color:#f78c3e;
+}
+.t-wh
+{
+	color:white;
+}
+.t-bla
+{
+	color:#00000f;
+}
+.t-gra3{
+	color:#484848;
+}
+.t-blu{
+	color:#218dd5;
+}
+.t-red1
+{
+	color:#de1010;
+}
+.t-org{
+	color:#ef6413;
+}
+.t-org2{
+	color:#f78c3e;
+}
+.b-blu2{
+	border-color:#218dd5;
+}
+.b-gra2{
+	border-color:#c0c0c0;
+}
+.b-gra4{
+	border-color:#cccccc;
+}
+
+.uinn-a1{
+	padding:0.625em;
+}
+.uinn-a2{
+	padding:0.85em 0;
+}
+.uinn-a3{
+	padding:0 0.65em;
+}
+.uinn-a7{
+	padding:0 0.625em;
+}
+.uinn-a9{
+	padding:0.75em 0.625em;
+}
+.uinn-a10{
+	padding:1em 0;
+}
+.uinn-a11{
+	padding:0.625em 0;
+}
+.uinn-a12{
+	padding:0.5em 0;
+}
+.uinn-a16{
+	padding:0.125em;
+}
+.uinn-a17{
+	padding:0.82em 0.5em;
+}
+.uinn-at1{
+	padding-top:1em;
+}
+.mar-aL1{
+	margin-left:0.625em;
+}
+.mar-ar1{
+	margin-right:0.625em;
+}
+.umar-ar3{
+	margin-right:0.5em;
+}
+.umar-ar6{
+	margin-right:0.46875em;
+}
+.umar-at1{
+	margin-top:0.625em;
+}
+.umar-at2{
+	margin-top:1em;
+}
+
+.uwh-tBtn{
+	width:1.75em;
+	height:1.75em;
+}
+.btn_wh1{
+	width:1em;
+	height:1em;
+}
+.btn_wh2{
+	width:1.4em;
+	height:1.4em;
+}
+.arrow{
+	background-image:url('images/arrow.png');
+}
+.ulev-app1{
+	font-size:0.875em;
+}
+.ulev-app2{
+	font-size:0.9375em;
+}
+.ubas-5{
+	position: absolute;
+	left: 50%;
+	top: 0;
+	margin-left: 1em;
+}
+/*底部信息数*/
+.c-org-pS1{
+	background-color:#ef6413;
+}
+.uc-a-pS1 {
+	-webkit-border-radius: 0.625em;
+	border-radius: 0.625em;
+}
+/*header*/
+.t-btn-a1{
+	background-image:url('images/t-btn1.png');
+}
+.t-btn-a4
+{
+	background-image:url('images/t_del.png');
+}
+.b-btn-pSC1{
+	background-image:url('images/returnBtn.png');
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="../css/ui-box.css">
+		<link rel="stylesheet" href="../css/ui-base.css">
+		<link rel="stylesheet" href="../css/pro-header.css">
+		<link rel="stylesheet" href="../css/project/style.css">
+		<link rel="stylesheet" href="css/head1.css">
+		<script src="../js/zy_control.js"></script>
+        <script src="../js/zy_click.js"></script>
+        <script src="../js/dis_control.js"></script>
+    </head>
+    <body class="um-vp c-wh" ontouchstart>
+        <div id="page_0" class="up ub ub-ver" tabindex="0">
+            <!--header开始-->
+            <div id="header" class="uh t-wh ub c-blu">
+            	<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="closewin();">
+ 					<div class="t-btn-a1 ub-img uwh-tBtn"></div>
+            	</div>
+                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">应用列表</h1>
+				<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="">
+ 					<div class="t-btn-infor ub-img uwh-tBtn"></div>
+            	</div>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l t-bla c-gra1">
+                
+            </div>
+            <!--content结束-->
+		
+        </div>
+    </body>
+    <script>
+    	zy_init();
+        window.uexOnload = function(type){
+            if (!type) {
+              	zy_con("content", "../grid_content/grid_content.html", 0, $$("header").offsetHeight);
+            }
+			window.onorientationchange=window.onresize=function()
+			{
+				zy_resize("content",0,$$("header").offsetHeight);				
+			}
+        }
+    </script>
+</html>

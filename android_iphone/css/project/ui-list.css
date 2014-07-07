@@ -1,0 +1,22 @@
+
+.lis , .lis-m div
+{ 
+	padding:0.625em;
+}
+.lis-icon
+{ 
+	width:2em;
+	height:2em;
+	margin-right:0.625em;
+}
+.lis-th{
+	width:3.125em;
+	margin:0em 1em 0em 0px;
+	min-height:3.125em;
+}
+.lis-sw
+{
+	width:0.6em;
+	height:1em;
+	margin-left:0.625em;
+}

@@ -63,7 +63,7 @@
             </div>
             <!--header结束--><!--content开始-->
             <div id="content" class="ub-f1 tx-l t-bla c-gra">
-                <input class="uhide" type="radio" name="pages" id="coursePage" checked="true">
+                <input class="uhide" type="radio" name="pages" id="coursePage" >
                 <div style="" class="uinn18 ip-sta">
                 	 <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
                 	 	课表助手
@@ -112,9 +112,47 @@
                             导入
                         </div>
                 </div>
+
+
+
+
+                <input class="uhide" type="radio" name="pages" id="evaluationPage" >
+                <div style="" class="uinn18 ip-sta">
+                     <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
+                        评教助手
+                     </div>
+                    
+                    <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
+                        <div class="ut-s">
+                            统一打分:&nbsp;
+                        </div>
+
+
+                    </div>
+
+                       <div class='ub uba1 uc-a1 c-wh b-bla us-i sel'>
+                            <div class='ub-f1 ut-s uinn ulev-1 tx-l'>
+                                5
+                            </div>
+                            <div class='ubl b-bla c-bla c-m2 umw2 ub ub-pc uc-r2 ub-ac'>
+                                <div class='ub-img umw1 umh1 res3'>
+                                </div>
+                            </div>
+                            <select name='score' id='score' onchange='zy_slectmenu(this.id)'>
+                                <option value="5">5</option>
+     
+                            </select>
+                            
+                        </div>
+                    
+                       <div ontouchstart="zy_touch('btn-act')" onclick="toEvaluation();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
+                            一键评教
+                       </div>
+                </div>
+
 				
                 <!--登录-->
-				<input class="uhide" type="radio" name="pages" id="loginPage">
+				<input class="uhide" type="radio" name="pages" id="loginPage" checked="true">
                 <div style="" class="uinn18 ip-sta">
                     <div class="uba b-gra c-wh us uc-a">
                         <div class="uc-t ubb ub b-gra c-m2 t-bla ub-ac umh4 lis">
@@ -171,7 +209,7 @@
                         登录
                     </div>
                 </div>
-<!--                 <a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
+<!--                <a href="http://210.42.38.26:84/jwc_glxt/Stu_Notice/Notice_Query.aspx">jwc</a>
                 <a href="javascript:openwin('login-1','http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin','10');">login?</a>
                 <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json">课表</a>
                 <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout">退出</a>
@@ -180,7 +218,9 @@
                 <a href="javascript:openwin('jwc','debug.html','10');">debug</a>
 				<a href="javascript:getScore();">成绩查询</a>
 				<a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json">成绩查询2</a>
-				 <a href="uescript('jwc_course', 'window.uexOnload();');">debug</a> -->
+				 <a href="uescript('jwc_course', 'window.uexOnload();');">debug</a> 
+                <a href="http://xlanlab.com/index.php?app=jwc&mod=Index&act=evaluation&score=10">评教</a> -->
+
             </div>
             <!--content结束-->
         </div>
@@ -203,6 +243,9 @@
 		var score_url = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
         var checklogin_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";
 		var loginout_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout";
+        var evaluation_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=evaluation";
+        
+        
         
         
         window.uexOnload = function(type){
@@ -393,13 +436,25 @@
                     //-------------	
                     break;
 				case "score":
-				$$('ttl').innerHTML= jwclogin_infor.uname+"欢迎你！";
-				setTimeout("closewin();", 2000);
-				
-  				openwin("jwc_score_list","jwc_score_list.html",'10');
-				ueppscript('jwc_score_list','content',"reflash();");
+    				$$('ttl').innerHTML= jwclogin_infor.uname+"欢迎你！";
+    				setTimeout("closewin();", 2000);
+    				
+      				openwin("jwc_score_list","jwc_score_list.html",'10');
+    				ueppscript('jwc_score_list','content',"reflash();");
  				
-				break;	
+				break;
+
+               case "evaluation":
+                    $$('ttl').innerHTML= jwclogin_infor.uname+"欢迎你！";
+                    
+                    var tmpl="";
+                    for(var i=5;i<=25;i++){
+                        tmpl+="<option value='"+i+"'>"+i+"</option>";
+
+                    }
+                    $$('score').innerHTML=tmpl;
+                
+                break;  	
 				
                 default:
                      //验证码 登陆页
@@ -437,5 +492,22 @@
                 }
             }, 'text', getJsonErr, 'GET', '', '');
 		}
+
+
+        function toEvaluation(){
+            //alert(evaluation_url+"&score="+getValue("score"));
+           //openwin('jwc_eva',evaluation_url+"&score="+getValue("score"),'10');
+             $.getJSON(evaluation_url+"&score="+getValue("score"), function(ret){
+                var ret = JSON.parse(ret);
+                if (ret.status == 1) {
+                    //setStorJson('score', ret.data);
+                    uexWindow.toast('0', '5',ret.info, 2000);
+                    
+                }
+                else {
+                    uexWindow.toast('0', '5', 'error', 2000);
+                }
+            }, 'text', getJsonErr, 'GET', '', '');
+        }        
     </script>
 </html>
