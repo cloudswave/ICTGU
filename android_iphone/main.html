@@ -236,6 +236,7 @@ zy_anim_push('footer_hide', 'uhide');/*底部栏中转闪动*/
 
 window.uexOnload = function(type){
 	if (!type) {
+
 		var osH = $$("header1").offsetHeight;
 		var idc = "content1";
 		zy_con(idc, "main_forum.html", 0, osH);
@@ -245,6 +246,9 @@ window.uexOnload = function(type){
 		if(!isSML) getPortalLists(1);
 			
 		logs('main-->onload-->header width='+$$("header1").offsetWidth);
+
+
+		//openUrl("http://baidu.com","百度");
 	}
 	window.onorientationchange = window.onresize = function(){
 		var i = pages.curid;
@@ -306,6 +310,15 @@ window.uexOnload = function(type){
 	uexWidget.cbGetPushInfo = function(opCode, dataType, data){
 		logs("cbGetPushInfo=" + data);
 		//alert(data);
+		data = JSON.parse(data);
+		if(data.url){
+			uexWindow.toast('1', '5', "加载中...", '');
+			openUrl(data.url,data.title);
+			uexWindow.closeToast();
+		}
+		if(data.tid){
+			openThread(data.tid,uid);
+		}
 	}
     
 	uexWidget.getPushInfo();
@@ -320,7 +333,8 @@ function cbNotify(){
 
 function btn_right(){
 	var e = $$('btnr');
-	var wnm = 'editor_trade';
+	//var wnm = 'editor_trade';
+	var wnm = 'editor';
 	if(e.innerText=='登录') wnm='login';
 	else{
 		setstorage('params','{"type":"thread", "wname":"main"}');

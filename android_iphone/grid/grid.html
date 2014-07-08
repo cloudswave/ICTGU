@@ -20,7 +20,7 @@
             	<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="closewin();">
  					<div class="t-btn-a1 ub-img uwh-tBtn"></div>
             	</div>
-                <h1 class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">应用列表</h1>
+                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">应用列表</h1>
 				<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="">
  					<div class="t-btn-infor ub-img uwh-tBtn"></div>
             	</div>
@@ -35,9 +35,14 @@
     </body>
     <script>
     	zy_init();
+        var params = getStorJson('params');
+        var url = params.url;
+        var title = params.title;
         window.uexOnload = function(type){
             if (!type) {
-              	zy_con("content", "../grid_content/grid_content.html", 0, $$("header").offsetHeight);
+                setHtml("title",title);
+              	zy_con("content", url, 0, $$("header").offsetHeight);
+
             }
 			window.onorientationchange=window.onresize=function()
 			{

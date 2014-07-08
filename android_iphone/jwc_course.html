@@ -144,7 +144,7 @@ window.uexOnload=function(type)
 
 
 	var time=getStorJson('course_time');
-	 var t=time.year+"_";
+	 var t=time.year?time.year:""+"_";
 	 switch(time.term) {
 	case 1:
 	    t+="春季学期";

@@ -1,6 +1,8 @@
 ﻿/*Creat at 2012-07-09 for discuz v3.0 by JetCheung*/
 
 
+
+
 /***by ehtanzhu qq:764724624***/
 function dial(tel){//手机拨号
   if(tel==""){
@@ -17,6 +19,18 @@ function repPhoneNum(message){
 	//alert(message);
 }
 
+
+
+function openThread(tid, uid){
+	setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'"}');
+	openwin('forum_detail','forum_detail.html','10');
+}
+
+
+function openUrl(url,title){
+	setstorage('params','{"url":"'+url+'", "title":"'+title+'"}');
+	openwin('win_url','grid/grid.html','10');
+}
 /***end**/
 
 
@@ -217,10 +231,14 @@ function imgLoadSucSrc(id, src){
 }
 
 function loadLink(url){
+	//alert(url);
+
 	var appInfo = ''; 
 	var filter = '';
 	var dataInfo = url.toLowerCase();
 	var pf = getstorage('platform');
+
+
 	if(pf==1){
 		appInfo = 'android.intent.action.VIEW';
 		filter = 'text/html';
@@ -245,6 +263,7 @@ function hyperlinkHandle(evt){
 	evt.preventDefault();	
 
 	var toele = evt.toElement;
+
 	if(toele)
 	{
 		if(toele.tagName=="A")

@@ -11,6 +11,7 @@ window.AJAX = {
 		this._send(id);
 	},
 	post : function(url,data,succCall,errCall,timeout){
+
 		var id = this.index++;
 		this.callBack[id] = [succCall,errCall];
 		uexXmlHttpMgr.open(id,'post',url,(timeout||0));

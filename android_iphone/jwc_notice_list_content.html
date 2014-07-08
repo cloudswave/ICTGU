@@ -34,7 +34,7 @@ var jwtz_url  = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=jwtz';
 var params = getStorJson('params');
 var view = params.view;
 var curpage = 1;
-var totpage = 1;
+var totpage = 100;
 var upt = '';
 var update = {};
 var cContent = $$('page1');
@@ -44,7 +44,7 @@ var updated = 0;
 window.uexOnload=function(type)
 {
 	if(!type){
-		//setPageBounce(downcb, upcb);
+		setPageBounce(downcb, upcb);
 		loadList('', '1');
 		//alert(updated);
 		//if(updated) loadList('', '');
@@ -53,13 +53,14 @@ window.uexOnload=function(type)
 function downcb(){
 	upt = '0';
 	update['0'] = 1;
-	loadList('', '');
+	loadList('', "");
 }
 function upcb(){
 	if (curpage < totpage) {
 		upt = '1';
 		update['1'] = 1;
 		loadList(curpage + 1, '');
+		curpage++;
 	}
 	else resetBV('1');
 }
@@ -71,7 +72,7 @@ function loadList(pn, flag){
 	if(url){
 		updated = checkKey(url);
 		if(!updated) uexWindow.toast('1','5','更新中...',"");
-		var f = pn?'':'1';//f标志是否刷新
+		var f = pn?'':'1';//flag标志是否刷新
 		$.getJSON(url, getJsonCallback, 'text', getJsonErr, 'GET', '', flag, f);
 	}
 }
@@ -121,7 +122,7 @@ function getJsonCallback(json){
 		var res = zy_tmpl(tmpl,list,length,null);
 		
 		if(json.zywy_curpage) curpage = int(1);
-		if(json.zywy_totalpage) totpage = int(5);
+		if(json.zywy_totalpage) totpage = int(10);
 		
        	if(curpage==1)
        	{

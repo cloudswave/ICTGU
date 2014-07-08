@@ -459,7 +459,7 @@ function submit(){
 
 		
 		url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid + '&typeid=' + typeid
-				+ str+'&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=? &longitude='
+				+ str+'&extra='+str+'&topicsubmit=yes&allownoticeauthor=1&jsoncallback=? &longitude='
 				+ log + '&latitude=' + lat + '&device=' + mfr;
 
 
@@ -499,18 +499,18 @@ function submit(){
 
 
 //准备数据。..
-var details="<hr>"
-           +"物品名称："+getValue("name")+"<br>"
-           +"新旧："+getValue("qualite")+"<br>"
-           +"价格："+getValue("rice")+"<br>"
+var details="\n"
+           +"物品名称："+getValue("name")+"\n"
+           +"新旧："+getValue("qualite")+"\n"
+           +"价格："+getValue("rice")+"\n"
            +"地点："+getValue("place")
-           +"<br>手机号码："+getValue("phone")+"<br><hr>";
+           +"\n手机号码："+getValue("phone")+"\n\n";
 
 //----
 
 	//$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
 	// 	//POST的第2个参数为需要post的数据
-	alert(details);
+	//alert(details);
 
 	AJAX.post(url,{
 		'subject':sub,
