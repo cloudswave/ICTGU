@@ -121,7 +121,7 @@ window.uexOnload=function(type)
 		//uexWindow.showBounceView("0", "rgba(255,255,255,0)", "0");
         //uexWindow.showBounceView("1", "rgba(255,255,255,0)", "0");
 
-        if(!data){
+        if(!isDefine(data)){
         	toGetApps(0);
         }else{
         	loadList(data);
@@ -147,6 +147,7 @@ function toGetApps(f){
 		//alert(json);
 		json=JSON.parse(json);
 		setStorJson("apps",json.data);
+		data=json.data;
 		loadList(json.data);
 		uexWindow.closeToast();
 
@@ -244,16 +245,19 @@ function go2new5(id){
 	// 	break;
 	// }
 	
-	//alert(data[id].params);
+	//alert(data[id].url);
 
 	if(data[id].url){
       if(data[id].type=="webapp"){
-			uexWindow.toast('1', '5', "加载中...", '');
-			openUrl(data[id].url,"");
-			uexWindow.closeToast();
-	  }else{
+			uexWindow.toast('1', '5', "加载中...", '1500');
+			openUrl(data[id].url,data[id].name);
+			
+	  }else if(data[id].type=="local"){
 		setstorage('params',data[id].params);
+		//alert(getstorage("params"));
 		openwin(data[id].wnm,data[id].url,'10');
+	   }else{
+	   		//eval(data[id].jscode);
 	   }
 	}
 }

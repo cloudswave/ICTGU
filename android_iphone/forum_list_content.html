@@ -45,6 +45,7 @@ window.uexOnload=function(type)
 {
 	if(!type){
 		setPageBounce(downcb, upcb);
+
 		loadList('', '1');
 		if(updated) loadList('', '');
 	}
@@ -65,7 +66,6 @@ function upcb(){
 
 function loadList(pn, flag){
 	var url = '';
-	
 	if(view=='thread') url =newest_url+'&mod=thread&page='+pn;
 	else if(view=='reply') url = newest_url+'&mod=reply&page='+pn;
 	else url = home_url + "&mod=space&do=thread&uid=" + uid + '&type=thread'+'&page=' + pn; //if(view=='myreply')
@@ -184,9 +184,9 @@ function j2vCb(d,c)
 }
 
 
-}function go2new5(tid, uid){
+function go2new5(tid, uid){
 	setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'"}');
 	openwin('forum_detail','forum_detail.html','10');
-
+}
 </script>
 </html>

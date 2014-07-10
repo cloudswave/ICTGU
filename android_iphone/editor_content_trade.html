@@ -34,6 +34,18 @@
 	.umh12 {
 	min-height: 8em;
 	}
+
+
+    input[type = "radio"] + div.ip-sta {
+        display: none !important;
+    }
+    
+    input[type =
+    "radio"]:checked + div.ip-sta {
+        display: block !important;
+    }
+    
+
 	</style>
   </head>
 <body class="um-vp" ontouchstart="zy_cc(this);">
@@ -56,8 +68,10 @@
 
 
 		<div class="c-wh uc-n uinput">
-
 	
+
+		<input class="uhide" type="radio" name="pages" id="tradePage" >
+         <div style="" class="uinn18 ip-sta">
 		   <div class="c-wh uc-n b-gra2 ubb uinput" > 
 	       <div class="uinn16">
 				<input placeholder="物品名称" type="text" class="uc-n ulev0" id="name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
@@ -95,6 +109,26 @@
 			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
 				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);inputMode(0);" onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
 			</div>
+		</div>
+
+
+
+		<!-- 	//************* -->
+		<input class="uhide" type="radio" name="pages" id="commonPage" >
+         <div style="" class="uinn18 ip-sta">
+		   <div class="c-wh uc-n b-gra2 ubb uinput" > 
+	       <div class="uinn16">
+				<input placeholder="联系人" type="text" class="uc-n ulev0" id="c_name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div> 
+		  </div>
+
+
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="c_phone"   onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			</div>
+		</div>
+
+			<!-- //************* -->
 
 
 			<div class="uinn16">
@@ -150,6 +184,7 @@
 zy_init();
 var params = getStorJson('params');
 var type = params.type;
+var page = isDefine(params.page)?params.page:"0";
 var special=params.special;
 var fid = '';
 var tid = '';
@@ -189,6 +224,8 @@ if(type=='thread'){
 	
 	dataPre[0] = getstorage(dataName[0]);
 	if(dataPre[0]) setValue('txt1', dataPre[0]);
+
+	if(page) switchPage(page);
 }
 else if(type == 'reply'){
 	removeNode('type');
@@ -226,6 +263,9 @@ window.uexOnload=function(t)
 	//if(!(type=='breply' || type=='record' || type=='msg'))
 		setPageBounce('', '');
 	
+
+
+
 	var data = getStorJson('forums');
 	var ct = zy_tmpl_count(data);
 	if(ct==0) getForums();
@@ -459,7 +499,7 @@ function submit(){
 
 		
 		url = 'http://'+ip+'/forum.php?mod=post&action=newthread&fid=' + fid + '&typeid=' + typeid
-				+ str+'&extra='+str+'&topicsubmit=yes&allownoticeauthor=1&jsoncallback=? &longitude='
+				+ str+'&extra=&topicsubmit=yes&allownoticeauthor=1&jsoncallback=? &longitude='
 				+ log + '&latitude=' + lat + '&device=' + mfr;
 
 
@@ -499,18 +539,15 @@ function submit(){
 
 
 //准备数据。..
-var details="\n"
-           +"物品名称："+getValue("name")+"\n"
-           +"新旧："+getValue("qualite")+"\n"
-           +"价格："+getValue("rice")+"\n"
-           +"地点："+getValue("place")
-           +"\n手机号码："+getValue("phone")+"\n\n";
+//
+
+var details=getDetails(page);
 
 //----
 
 	//$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
 	// 	//POST的第2个参数为需要post的数据
-	//alert(details);
+	alert(details);
 
 	AJAX.post(url,{
 		'subject':sub,
@@ -658,6 +695,41 @@ function inputMode(type){ //解决输入框遮盖问题
 
     uescript("editor_trade","inputMode('"+type+"')");
   }
+
+
+
+function switchPage(view){
+	var pageName=view+"Page";
+    var ch = $$(pageName);
+    if (ch && !ch.checked) 
+        ch.checked = true;
+    
+} 
+
+
+function getDetails(page){
+    var details="";
+	switch(page){
+		case "trade":
+		details="\n"
+           +"物品名称："+getValue("name")+"\n"
+           +"新旧："+getValue("qualite")+"\n"
+           +"价格："+getValue("rice")+"\n"
+           +"地点："+getValue("place")
+           +"\n手机号码："+getValue("phone")+"\n\n";
+		break;
+		case "common":
+		details="\n"
+           +"联系人："+getValue("c_name")+"\n"
+           +"手机号码："+getValue("c_phone")+"\n\n"
+		break;
+		default:
+		break;
+	}
+
+	return details;
+    
+} 
 
 </script>
 </html>

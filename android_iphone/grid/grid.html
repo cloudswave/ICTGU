@@ -9,6 +9,13 @@
 		<link rel="stylesheet" href="../css/pro-header.css">
 		<link rel="stylesheet" href="../css/project/style.css">
 		<link rel="stylesheet" href="css/head1.css">
+
+        <link rel="stylesheet" href="../css/ui-btn.css">
+        <link rel="stylesheet" href="../css/ui-input.css">
+
+
+        <link rel="stylesheet" href="../css/style.css">
+
 		<script src="../js/zy_control.js"></script>
         <script src="../js/zy_click.js"></script>
         <script src="../js/dis_control.js"></script>
@@ -20,14 +27,27 @@
             	<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="closewin();">
  					<div class="t-btn-a1 ub-img uwh-tBtn"></div>
             	</div>
-                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">应用列表</h1>
-				<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="">
+                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">0.0</h1>
+				<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="runbrowser(url);">
  					<div class="t-btn-infor ub-img uwh-tBtn"></div>
             	</div>
             </div>
             <!--header结束--><!--content开始-->
             <div id="content" class="ub-f1 tx-l t-bla c-gra1">
-                
+                  <div style="" class="uinn18 ip-sta">
+
+                    <div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+                        <input placeholder="地址" id="url" type="text" class="uc-n ulev0" value="http://baidu.com">
+                    </div>
+
+                </div>
+                    <div ontouchstart="zy_touch('btn-act')" onclick="goUrl();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
+                        访问
+                    </div>
+                    <div ontouchstart="zy_touch('btn-act')" onclick="uexScanner.open();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
+                        扫描二维码
+                    </div>
+
             </div>
             <!--content结束-->
 		
@@ -38,16 +58,58 @@
         var params = getStorJson('params');
         var url = params.url;
         var title = params.title;
+        var action = params.action;
         window.uexOnload = function(type){
             if (!type) {
-                setHtml("title",title);
-              	zy_con("content", url, 0, $$("header").offsetHeight);
+                //alert(url);
+                if(isDefine(url)){
+                  setHtml("title",title);
+                  setValue("url",url);
+                  uexWindow.toast('1', '5', "加载中...", '1500');
+              	  zy_con16("content", url, 0, $$("header").offsetHeight);
+                }
+
+                if(isDefine(action)){
+                    switch(action)
+                    {
+                     case "scanner":
+                         //uexScanner.open();
+                     break;
+                     
+
+                     default:
+                     break;
+                    }
+                }
 
             }
 			window.onorientationchange=window.onresize=function()
 			{
 				zy_resize("content",0,$$("header").offsetHeight);				
 			}
+
+            if(window['uexScanner']){
+                        uexScanner.cbOpen = function (opCode, dataType, data) {
+                            try{
+                                var json = eval('('+data+')');
+                                url = json.code;
+                                zy_con16("content", url, 0, $$("header").offsetHeight);
+                            }catch(e){
+                                alert('二维码错误');
+                            }
+                        };
+             }
+
+
+
+        }
+
+        function goUrl(){
+
+    //var s=window.getComputedStyle($$("content"),null);
+    //uexWindow.openPopover("content","0",getValue("url"),"",0,$$("header").offsetHeight,int(s.width),int(s.height),int(s.fontSize),"16");
+            uexWindow.toast('1', '5', "加载中...", '1500');
+            zy_con16("content", getValue("url"), 0, $$("header").offsetHeight);
         }
     </script>
 </html>

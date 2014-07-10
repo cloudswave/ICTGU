@@ -254,8 +254,15 @@ function runbrowser(url)
 	uexWindow.cbActionSheet = function(opId, dataType, data)
 	{
 		if(data=="0") loadLink(brsurl);
+		if(data=="1") {
+			uexClipboard.copy(brsurl);
+			uexWindow.toast('0','5',"复制成功啦!","1500");
+		}
+		if(data=="2"){
+			uexWeiXin.sendTextContent(1,url);
+		}
 	}
-	var array = ['启动本地浏览器'];
+	var array = ['启动本地浏览器','复制链接','分享到...'];
 	uexWindow.actionSheet('', '取消', array);
 }
 

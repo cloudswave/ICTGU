@@ -93,7 +93,8 @@
 	<!--帖子内容-->
 	
 	<div class="uinn1" id="content"></div>
-	
+
+
 	<div class="adcon uof uhide" id="adimg" style="height:5em; margin:.5em;">
 		<div class="ub ub-ac ub-pc" id="box1"></div>
 		<div class="recpic"><img src="images/recommend.png" style="height:2em;" /></div>
@@ -875,7 +876,9 @@ function showLZ(_auid, _auname){
 
 
 function loadLink2(){
-	loadLink(serverurl+'forum.php?mod=viewthread&tid='+tid);
+	var url=serverurl+'forum.php?mod=viewthread&tid='+tid;
+	runbrowser(url);
+
 }
 
 

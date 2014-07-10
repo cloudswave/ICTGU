@@ -104,8 +104,10 @@ function addThread(){
 	var cid = '';
 	if(!checkLogin()) return;
 	if(clsid) cid = clsid;
-	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "clsid":"'+cid+'"}');
-	openwin('editor','editor.html','12');
+
+	var title=isDefine(params.title)?params.title:"";
+	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "clsid":"'+cid+'","page":"'+params.page+'","title":"'+title+'"}');
+	openwin('editor_trade','editor_trade.html','12');
 }
 
 function endFun(){}
