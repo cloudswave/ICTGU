@@ -51,7 +51,7 @@
 		</div>
 	</div> -->
    <div class="ub-f1 ub ub-ver" id="content">
-   		<div class="ub t-bla">
+ <!--   		<div class="ub t-bla">
    			<div class="ub-f1 ub ub-ver ub-ac ub-pc" onclick="go2new5(1);">
    				<div class="ub-img uwh-acc2 accIcon1 umar-at1"></div>
 				<div class="ulev-1 umar-t-acc1">课表查询</div>
@@ -105,7 +105,7 @@
    				<div class="ub-img uwh-acc2 accIcon8 umar-at1"></div>
 				<div class="ulev-1 umar-t-acc1">添加</div>
    			</div>
-   		</div>
+   		</div> -->
    </div>
 </div>
 </body>
@@ -113,6 +113,7 @@
 zy_init();
 var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList";
 var data=getStorJson("apps");
+var isFirstRun=getstorage("isFirstRun");
 window.uexOnload=function(type)
 {
 	if(!type){
@@ -120,11 +121,17 @@ window.uexOnload=function(type)
 		setPageBounce(downcb, upcb);
 		//uexWindow.showBounceView("0", "rgba(255,255,255,0)", "0");
         //uexWindow.showBounceView("1", "rgba(255,255,255,0)", "0");
+        
+
 
         if(!isDefine(data)){
         	toGetApps(0);
         }else{
         	loadList(data);
+        }
+        if(!isDefine(isFirstRun)){
+        	uexWindow.toast('0','5','试一试下滑页面刷新更多出应用(⊙o⊙)…',"5000");
+        	setstorage("isFirstRun","1");
         }
         
        //go2new5("jwc_score_list","jwc_score_list.html",'{"view":"score"}',"local");
@@ -250,7 +257,7 @@ function go2new5(id){
 	if(data[id].url){
       if(data[id].type=="webapp"){
 			uexWindow.toast('1', '5', "加载中...", '1500');
-			openUrl(data[id].url,data[id].name);
+			openUrl(data[id].url,data[id].name,data[id].wnm);
 			
 	  }else if(data[id].type=="local"){
 		setstorage('params',data[id].params);

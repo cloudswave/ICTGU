@@ -89,10 +89,10 @@ function zy_con(id,url,x,y)
 	uexWindow.openPopover(id,"0",url,"",int(x),int(y),int(s.width),int(s.height),int(s.fontSize),"0");
 }
 
-function zy_con16(id,url,x,y)
+function zy_content(id,url,x,y,f)
 {
     var s=window.getComputedStyle($$(id),null);
-    uexWindow.openPopover(id,"0",url,"",int(x),int(y),int(s.width),int(s.height),int(s.fontSize),"16");
+    uexWindow.openPopover(id,"2",url,"",int(x),int(y),int(s.width),int(s.height),int(s.fontSize),f);
 }
 function zy_resize(id,x,y)
 {

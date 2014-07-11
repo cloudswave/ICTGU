@@ -90,10 +90,11 @@ function sharestart(cont, uid, sub, wname){
 	uexWindow.cbActionSheet = function (opId, dataType, data){
 		logs('cbActionSheet-->data='+data);
 		var d = parseInt(data);
-		if(d<3) weibo_open(d);
+		if(d<2) weibo_open(d);
+		if(d==2) share_baidu();
 	}
 	
-	var array = ['腾讯微博', '新浪微博', '网易微博'];
+	var array = ['腾讯微博', '新浪微博','更多分享'];
 	uexWindow.actionSheet('', '取消', array);
 }
 

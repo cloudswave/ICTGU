@@ -19,6 +19,10 @@ function repPhoneNum(message){
 	//alert(message);
 }
 
+function getImg(html){
+
+}
+
 
 
 function openThread(tid, uid){
@@ -27,10 +31,14 @@ function openThread(tid, uid){
 }
 
 
-function openUrl(url,title){
+function openUrl(url,title,wnm){
+	if (arguments.length == 2) wnm="webapp";
 	setstorage('params','{"url":"'+url+'", "title":"'+title+'"}');
-	openwin('win_url','grid/grid.html','10');
+	openwin(wnm,'grid/grid.html','10');
+	//uexWindow.open(wnm, "0", 'grid/grid.html', "10", "", "", "1", "275");
 }
+
+
 /***end**/
 
 
@@ -64,6 +72,10 @@ function ueppscript(wn, pn, scr){
 
 function openwin(winName,url,anim){
 	uexWindow.open(winName, "0", url, anim, "", "", "4", "275");
+}
+
+function openwin16(winName,url,anim){
+	uexWindow.open(winName, "0", url, anim, "", "", "16", "275");
 }
 
 function closewin(anim){
@@ -259,11 +271,18 @@ function runbrowser(url)
 			uexWindow.toast('0','5',"复制成功啦!","1500");
 		}
 		if(data=="2"){
-			uexWeiXin.sendTextContent(1,url);
+			_baidu_share(url,"","");
 		}
 	}
-	var array = ['启动本地浏览器','复制链接','分享到...'];
+	var array = ['启动本地浏览器','复制链接','分享链接到...'];
 	uexWindow.actionSheet('', '取消', array);
+}
+
+
+function _baidu_share(url,content,pic_url){
+	setstorage('share','{"url":"'+url+'","content":"'+content+'","pic_url":"'+pic_url+'"}');
+	openUrl("../share.html","社会化分享");
+
 }
 
 function hyperlinkHandle(evt){

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no , initial-scale=1.0">
+        <title>百度社会化分享</title>
+
+        <link rel="stylesheet" href="css/ui-btn.css">
+        <link rel="stylesheet" href="css/ui-input.css">
+        <link rel="stylesheet" href="css/style.css">
+
+        <link rel="stylesheet" href="css/ui-base.css">
+
+        <script src="js/dis_control.js"></script>
+        <script src="js/zy_control.js"></script>
+        <style type="text/css">
+            body{
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body style="">
+         <div class="uinn2 ub-pc ub ">
+            <img id="picture" src="http://openapi.baidu.com/static/07081126/social-api/img/share/share.gif" class="uc-a" />
+         </div>
+         <div id="content" class="uinn2 ">
+            我分享了一个链接，快乐围观！
+         </div>
+
+        <div class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla" onclick="$$('share').click();">分享</div>
+        <button id="share" class="uhide"></button>
+        <script type="text/javascript" src="http://openapi.baidu.com/static/07081126/social-api/js/1.0/share.js">
+        </script>
+        <script type="text/javascript">
+        var params = getStorJson('share');
+        var url = params.url;
+        var pic_url = params.pic_url;
+        var content = params.content;
+        //alert(url);
+        if(isDefine(pic_url)){
+            $$("picture").setAttribute("src", pic_url);
+        }
+
+        if(isDefine(content)){
+           content="我通过\"微校园客户端\"分享了：【"+content+"】,快来围观！";
+            setHtml("content",content+"<br>来源："+url);
+           
+        }else{
+            content="我通过\"微校园客户端\"分享了一个链接，戳过来看撒";
+            setHtml("content",content+"<br>来源："+url);
+            
+        }
+
+        var config = {
+            "afterRender":function(){
+            },
+            "content":content,
+            "client_id":"P677RdW3BwuBU0oBw0XHM1xj",
+            "theme":"native",
+            "dom_id":"share",
+            "animate":false,
+            "pic_url":encodeURIComponent(pic_url),
+            "url":encodeURIComponent(url)
+        };
+        baidu.socShare.init(config);
+       
+         window.uexOnload = function(type){
+            if (!type) {
+                 $$("share").click();
+                 //$$("share").click();
+           }
+        }
+
+        </script>
+    </body>
+</html>

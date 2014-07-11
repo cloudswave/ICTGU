@@ -140,7 +140,7 @@
 			<div id="header6" class="uh ip-sta">
 				<div class="umh015"></div>
             	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
-	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">其他应用</h1>
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">应用列表</h1>
 					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="setting();">       
 			        	<div class="ulim">设置</div>             
 			        </a>
@@ -173,7 +173,17 @@
 			
 			<!--footer开始-->
             <div id="footer" class="uf c-m2 t-wh">
-				 <div class="ub c-wh c-m2 tab t-gra uba us b-gra uc-a" style="margin:.15em;" ontouchstart="zy_cc(this);">	
+
+				   <div class=" ub c-wh c-m2 tab t-gra uba us b-gra uc-a" style="margin:.15em;" ontouchstart="zy_cc(this);">	
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft6">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(6);" class="ub-f1 ub ub-ver tab-act" id="pt">
+				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+						<div class="uinn ulev-2 tx-c">应用</div>
+					</div>
+
+
+
+
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft1" checked="true">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(1);" class="ub-f1 ub ub-ver tab-act">
 				 		<div class="ub-f1 ub-img5 tp-forum">   
@@ -208,11 +218,7 @@
 					</div>
 
 
-				 	<input class="uhide" type="radio" name="tabSwitch" id="ft6">
-				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(6);" class="ub-f1 ub ub-ver tab-act" id="pt">
-				 		<div class="ub-f1 ub-img5 tp-portal"></div>
-						<div class="uinn ulev-2 tx-c">应用</div>
-					</div>
+
 
 
 				 </div>
@@ -243,6 +249,8 @@ window.uexOnload = function(type){
 
 
 		pages[1].ld = 1;
+
+		navSelected(6);
 		if(!isSML) getPortalLists(1);
 			
 		logs('main-->onload-->header width='+$$("header1").offsetWidth);

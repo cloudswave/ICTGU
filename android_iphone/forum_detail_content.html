@@ -93,8 +93,6 @@
 	<!--帖子内容-->
 	
 	<div class="uinn1" id="content"></div>
-
-
 	<div class="adcon uof uhide" id="adimg" style="height:5em; margin:.5em;">
 		<div class="ub ub-ac ub-pc" id="box1"></div>
 		<div class="recpic"><img src="images/recommend.png" style="height:2em;" /></div>
@@ -133,6 +131,7 @@ var totp = 1;
 var cnum = 0;
 var uid = getstorage('UID');
 var subject = '';
+var picture="";
 var ams = '';/*匿名发帖?*/
 var ucurl2 = '';
 
@@ -355,6 +354,7 @@ if(o.trade){
 
 
 		o.message=repPhoneNum(o.message);
+		picture=isDefine(o.img)?o.img:"";
 
 		
 		var author = o.author;
@@ -397,7 +397,7 @@ if(o.trade){
 		
 		
 
-		//alert(str2);
+		//alert(o.message);
 		setHtml('content', str2);
 		
 		var pic = ucurl+ auid;
@@ -879,6 +879,14 @@ function loadLink2(){
 	var url=serverurl+'forum.php?mod=viewthread&tid='+tid;
 	runbrowser(url);
 
+}
+
+function share_baidu(){
+
+	var url=serverurl+'forum.php?mod=viewthread&tid='+tid;
+	
+	var content=subject;
+    _baidu_share(url,content,picture);
 }
 
 
