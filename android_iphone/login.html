@@ -94,7 +94,7 @@ if(ost.regstatus!="1") removeNode('resg');
 window.uexOnload = function(type){
     if (!type) {
         //zy_con("content", "login_content.html", 0, $$("header").offsetHeight);
-		if(!isSML) openRegist();
+		//if(!isSML) openRegist();
     }
 	window.onorientationchange=window.onresize=function()
 	{
@@ -132,22 +132,17 @@ function backbtn(){
 	if (!flag) 
 		closewin();
 	else {
-		logs('backbtn()--------->flag='+flag);
-		if(isSML){
 			if(flag) uexWindow.closePopover('regist');
 			else openRegist();
-		}
-		else ueppscript('login', 'regist', 'movepop();');
 		flag = 0;
 	}
 }
 function regist(){
 	logs('regist()--------->flag='+flag);
+
 	if(!flag){
-		if(isSML) openRegist();
-		else setTimeout(function(){
-			ueppscript('login', 'regist', 'movepop();');
-		}, 100);
+		 openRegist();
+
 	}
 	else ueppscript('login', 'regist', 'register()');
 	flag = 1;
@@ -161,8 +156,7 @@ function openRegist(){
 	var f = int(s.fontSize);
 	var y = int(e.offsetHeight);
 	var x = w;
-	if(isSML) x = 0;
-	logs('openRegist()-->x='+x+', y='+y+', w='+w+', h='+h+', 1em='+f);
+	x = 0;
 	uexWindow.openPopover('regist',"0","login_content.html","",x,y,w,h,f,"0");
 }
 

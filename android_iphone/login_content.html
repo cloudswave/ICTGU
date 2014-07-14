@@ -27,9 +27,9 @@
 		<div class="uba b-gra c-wh uc-a">  
 			<div class="uc-t ubb ub b-gra t-bla ub-ac umh4 lis">   
 		   		<div class="ut-s rpass tx-r">帐号</div> 
-				<div class="ub-f1 tx-r t-gra umar-l">
-					<div class="c-wh uc-n b-gra uinput uinn4">    
-						<input placeholder="亲，起一个名字吧！" id="j_name" type="text" class="uc-n ulev-3">   
+				<div class="ub-f1 tx-r t-gra ulev-3 umar-l">
+					<div class="c-wh uc-n b-gra uinput uinn4">
+						<input placeholder="亲，起一个名字吧！" id="j_name" type="text" class="uc-n ulev-0" value="">   
 					</div>
 				</div> 
 		 	</div>     
@@ -37,7 +37,7 @@
 		 		<div class="ut-s rpass tx-r">密码</div> 
 				<div class="ub-f1 tx-r t-gra umar-l">
 					<div class="c-wh uc-n b-gra uinput uinn4">    
-						<input placeholder="请输入密码"  type="password" id="j_psw1" class="uc-n ulev-3">   
+						<input placeholder="请输入密码"  type="password" id="j_psw1" class="uc-n ulev-0" value="">   
 					</div>
 				</div> 
 		    </div> 
@@ -45,7 +45,7 @@
 		 		<div class="ut-s rpass tx-r">确认密码</div>
 				<div class="ub-f1 tx-r t-gra umar-l">
 					<div class="c-wh uc-n b-gra uinput uinn4">    
-						<input placeholder="请确认密码"  type="password" id="j_psw2" class="uc-n ulev-3">   
+						<input placeholder="请确认密码"  type="password" id="j_psw2" class="uc-n ulev-0">   
 					</div>
 				</div> 
 		    </div> 
@@ -53,7 +53,7 @@
 		 		<div class="ut-s rpass tx-r">Email</div>
 				<div class="ub-f1 tx-r t-gra umar-l">
 					<div class="c-wh uc-n b-gra uinput uinn4">    
-						<input placeholder="请输入您常用的邮箱地址" id="j_email" type="text" class="uc-n ulev-3">   
+						<input placeholder="请输入您常用的邮箱地址" id="j_email" type="text" class="uc-n ulev-0">   
 					</div>
 				</div> 
 		    </div> 
@@ -63,7 +63,7 @@
 		   		<div class="ut-s rpass tx-r">验证码</div>
 				<div class="ub-f1 tx-r t-gra umar-l">
 					<div class="c-wh uc-n b-gra uinput uinn4">    
-						<input placeholder="请在此输入验证码" id="j_seccode"  type="number" class="uc-n ulev-3">   
+						<input placeholder="请在此输入验证码" id="j_seccode"  type="number" class="uc-n ulev-0">   
 					</div>
 				</div> 
 		 	</div>     
@@ -73,6 +73,9 @@
 			<img class="sxpig" src="images/sx.png" style="width:1.5em; height:1.5em;" ontouchstart="zy_touch('sxpic1')" onclick="seccode();">
 		</div>
 	</div>
+
+
+
 </body>
 <script>
 zy_init();
@@ -93,6 +96,7 @@ window.uexOnload=function(type)
 	
 	var windWH = "&width="+int(window.innerWidth)+"&height="+int(window.innerHeight);
 	logs('longin_content--->uexOnload-->windWH='+windWH);
+
 }
 
 function register(){

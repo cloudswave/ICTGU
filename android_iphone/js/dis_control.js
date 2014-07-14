@@ -34,8 +34,9 @@ function openThread(tid, uid){
 function openUrl(url,title,wnm){
 	if (arguments.length == 2) wnm="webapp";
 	setstorage('params','{"url":"'+url+'", "title":"'+title+'"}');
-	openwin(wnm,'grid/grid.html','10');
-	//uexWindow.open(wnm, "0", 'grid/grid.html', "10", "", "", "1", "275");
+	var flag=wnm=="webapp"?"4":"0";
+	openwin(wnm,'grid/grid.html','10',flag);
+	//uexWindow.open(wnm, "0", 'grid/grid.html', "10", "", "", "0", "275");
 }
 
 
@@ -70,13 +71,11 @@ function ueppscript(wn, pn, scr){
 	uexWindow.evaluatePopoverScript(wn,pn,scr);
 }
 
-function openwin(winName,url,anim){
-	uexWindow.open(winName, "0", url, anim, "", "", "4", "275");
+function openwin(winName,url,anim,inFlag){
+	if(arguments.length==3) inFlag="4";
+	uexWindow.open(winName, "0", url, anim, "", "", inFlag, "250");
 }
 
-function openwin16(winName,url,anim){
-	uexWindow.open(winName, "0", url, anim, "", "", "16", "275");
-}
 
 function closewin(anim){
 	var a = '-1';

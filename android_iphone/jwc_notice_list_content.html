@@ -72,7 +72,7 @@ function loadList(pn, flag){
 	if(url){
 		updated = checkKey(url);
 		if(!updated) uexWindow.toast('1','5','更新中...',"");
-		var f = pn?'':'1';//flag标志是否刷新
+		var f = pn?'':'1';//flag标志是否缓存
 		$.getJSON(url, getJsonCallback, 'text', getJsonErr, 'GET', '', flag, f);
 	}
 }

@@ -264,7 +264,8 @@ window.uexOnload=function(t)
 		setPageBounce('', '');
 	
 
-
+    //uexEditDialog.open("1" , 0, 100, 720, 100, 16, "", "0", "提示", "", 10000);
+    // uexEditDialog.open("2" , 0, 15, 720, 100, 16, "", "0", "提示", "", "");
 
 	var data = getStorJson('forums');
 	var ct = zy_tmpl_count(data);
@@ -503,7 +504,7 @@ function submit(){
 				+ log + '&latitude=' + lat + '&device=' + mfr;
 
 
-				alert(url);
+				//alert(url);
 	}
 	else if(type=='reply'){
 		url = forum_url + '&mod=post&action=reply&tid=' + tid + '&pid=' + pid +  '&replysubmit=1&allownoticeauthor=1&message=' + msg2 +str+ '&special=1'+ '&longitude='
@@ -547,7 +548,7 @@ var details=getDetails(page);
 
 	//$.getJSON(url, submitCb, 'json', getJsonErr2, 'POST', '', '');
 	// 	//POST的第2个参数为需要post的数据
-	alert(details);
+	//alert(details);
 
 	AJAX.post(url,{
 		'subject':sub,
@@ -560,7 +561,7 @@ var details=getDetails(page);
 }
 function submitCb(json){
 	json=json.substring(3,json.length-1);
-	alert(json);
+	//alert(json);
 	json=JSON.parse(json);
 	isok = true;
 	var str = '发表失败';
@@ -692,8 +693,9 @@ function removeAtt(val){
 function inputMode(type){ //解决输入框遮盖问题
 
 	//alert($$("header").offsetHeight);
-
-    uescript("editor_trade","inputMode('"+type+"')");
+	if(page!="0"){
+      uescript("editor_trade","inputMode('"+type+"')");
+	}
   }
 
 
@@ -703,6 +705,9 @@ function switchPage(view){
     var ch = $$(pageName);
     if (ch && !ch.checked) 
         ch.checked = true;
+
+    // uexEditDialog.open("1" , 0, 0, 720, 100, 16, "", "0", "提示", "", "");
+    // uexEditDialog.open("2" , 0, 15, 720, 100, 16, "", "0", "提示", "", "");
     
 } 
 

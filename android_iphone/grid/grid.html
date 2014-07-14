@@ -1,125 +1,124 @@
 <!DOCTYPE html>
 <html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
-    <head>
-        <title></title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <link rel="stylesheet" href="../css/ui-box.css">
-		<link rel="stylesheet" href="../css/ui-base.css">
-		<link rel="stylesheet" href="../css/pro-header.css">
-		<link rel="stylesheet" href="../css/project/style.css">
-		<link rel="stylesheet" href="css/head1.css">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../css/ui-box.css">
+    <link rel="stylesheet" href="../css/ui-base.css">
+    <link rel="stylesheet" href="../css/pro-header.css">
+    <link rel="stylesheet" href="../css/project/style.css">
+    <link rel="stylesheet" href="css/head1.css">
 
-        <link rel="stylesheet" href="../css/ui-btn.css">
-        <link rel="stylesheet" href="../css/ui-input.css">
+    <link rel="stylesheet" href="../css/ui-btn.css">
+    <link rel="stylesheet" href="../css/ui-input.css">
 
+    <link rel="stylesheet" href="../css/style.css">
 
-        <link rel="stylesheet" href="../css/style.css">
-
-		<script src="../js/zy_control.js"></script>
-        <script src="../js/zy_click.js"></script>
-        <script src="../js/dis_control.js"></script>
-        <script src="../js/ajax_json.js"></script>
-    </head>
-    <body class="um-vp c-wh" ontouchstart>
-        <div id="page_0" class="up ub ub-ver" tabindex="0">
-            <!--header开始-->
-            <div id="header" class="uh t-wh ub c-blu">
-            	<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="closewin();">
- 					<div class="t-btn-a1 ub-img uwh-tBtn"></div>
-            	</div>
-                <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">0.0</h1>
-				<div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="runbrowser(url);">
- 					<div class="t-btn-infor ub-img uwh-tBtn"></div>
-            	</div>
+    <script src="../js/zy_control.js"></script>
+    <script src="../js/zy_click.js"></script>
+    <script src="../js/dis_control.js"></script>
+    <script src="../js/zy_json.js"></script>
+</head>
+<body class="um-vp c-wh" ontouchstart>
+    <div id="page_0" class="up ub ub-ver" tabindex="0">
+        <!--header开始-->
+        <div id="header" class="uh t-wh ub c-blu">
+            <div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="openwin('main','../main.html','10',0);">
+                <div class="t-btn-a1 ub-img uwh-tBtn"></div>
             </div>
-            <!--header结束--><!--content开始-->
-            <div id="content" class="ub-f1 tx-l t-bla c-gra1">
-                  <div style="" class="uinn18 ip-sta">
+            <h1 id="title" class="ut ub-f1 ulev-3 ut-s tx-c" tabindex="0">0.0</h1>
+            <div class="umw4 ub ub-ac ub-pc" ontouchstart="zy_touch()" onclick="runbrowser(url);">
+                <div class="t-btn-infor ub-img uwh-tBtn"></div>
+            </div>
+        </div>
+        <!--header结束-->
+        <!--content开始-->
+        <div id="content" class="ub-f1 tx-l t-bla c-gra1">
+            <div style="" class="uinn18 ip-sta">
 
-                    <div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-                        <input placeholder="地址" id="url" type="text" class="uc-n ulev0" value="http://baidu.com">
-                    </div>
+                <div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
+                    <input placeholder="地址" id="url" type="text" class="uc-n ulev0" value="http://baidu.com"></div>
 
                 </div>
-                    <div ontouchstart="zy_touch('btn-act')" onclick="goUrl();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
-                        访问
-                    </div>
-                    <div ontouchstart="zy_touch('btn-act')" onclick="uexScanner.open();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">
-                        扫描二维码
-                    </div>
+                <div ontouchstart="zy_touch('btn-act')" onclick="goUrl();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">访问</div>
+                <div ontouchstart="zy_touch('btn-act')" onclick="uexScanner.open();" class="btn uba b-gra uinn9 c-gra c-m7 uc-a t-bla">扫描二维码</div>
 
             </div>
-            <!--content结束-->
-		
-        </div>
-    </body>
-    <script>
-    	  zy_init();
-        var params = getStorJson('params');
-        var url = params.url;
-        var title = params.title;
-        var action = params.action;
-        window.uexOnload = function(type){
+            <!--content结束--> </div>
+        </body>
+        <script>
+          zy_init();
+          var params = getStorJson('params');
+          var url = params.url;
+          var title = params.title;
+          window.uexOnload = function(type){
             if (!type) {
-              alert(url);
-                if(isDefine(url)){
+                uexWindow.onKeyPressed=function(keyCode){
+                    if(keyCode==0)
+                      openwin('main','../main.html','10',0);
+              }
+              uexWindow.setReportKey(0,1);
+
+
+
+              if(isDefine(url)){
                   setHtml("title",title);
                   setValue("url",url);
-                  uexWindow.toast('1', '5', "加载中...", '1500');
+                  
+                  uexWindow.toast('1', '5', "正在加载...", '1500');
+                  setTimeout('zy_content("content", "'+url+'", 0, $$("header").offsetHeight,16);', 500);
+                  
 
-                  zy_content("content", url, 0, $$("header").offsetHeight,16);
+                    // $.getJSON(url, function(res){
+                    //     alert(res);
+                    //      uexWindow.closeToast();
+                    //      zy_content("content", res, 0, $$("header").offsetHeight,"16");
 
-                 // AJAX.get(url,function(res){
-                 //    //alert(res);
-                 //    //setHtml("content",res);
-                 //     zy_content("content", res, 0, $$("header").offsetHeight,4);
-                 //     uexWindow.closeToast();
-                 // },getJsonErr);
+                    // }, 'text', getJsonErr, 'GET', '','1');
+}               
 
-              	  
-                }
 
-                if(isDefine(action)){
-                    switch(action)
-                    {
-                     case "scanner":
+if(isDefine(action)){
+    switch(action)
+    {
+       case "scanner":
                          //uexScanner.open();
-                     break;
-                     
+                         break;
 
-                     default:
-                     break;
-                    }
-                }
 
+                         default:
+                         break;
+                     }
+                 }
+
+             }
+             window.onorientationchange=window.onresize=function()
+             {
+                zy_resize("content",0,$$("header").offsetHeight);               
             }
-			window.onorientationchange=window.onresize=function()
-			{
-				zy_resize("content",0,$$("header").offsetHeight);				
-			}
 
             if(window['uexScanner']){
-                        uexScanner.cbOpen = function (opCode, dataType, data) {
-                            try{
-                                var json = eval('('+data+')');
-                                url = json.code;
-                                zy_content("content", url, 0, $$("header").offsetHeight,16);
-                            }catch(e){
-                                uexWindow.toast('1', '5', "二维码错误...", '1500');
+                uexScanner.cbOpen = function (opCode, dataType, data) {
+                    try{
+                        var json = eval('('+data+')');
+                        url = json.code;
+                        zy_content("content", url, 0, $$("header").offsetHeight,16);
+                    }catch(e){
+                        uexWindow.toast('1', '5', "二维码错误...", '1500');
                                 //alert('二维码错误');
                             }
                         };
-             }
+                    }
 
 
 
-        }
+                }
 
-        function goUrl(){
-            uexWindow.toast('1', '5', "加载中...", '1500');
-            zy_content("content", getValue("url"), 0, $$("header").offsetHeight,16);
+                function goUrl(){
+                    uexWindow.toast('1', '5', "加载中...", '1500');
+                    zy_content("content", getValue("url"), 0, $$("header").offsetHeight,16);
 
-        }
-    </script>
-</html>
+                }
+            </script>
+            </html>

@@ -106,7 +106,8 @@ function addThread(){
 	if(clsid) cid = clsid;
 
 	var title=isDefine(params.title)?params.title:"";
-	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "clsid":"'+cid+'","page":"'+params.page+'","title":"'+title+'"}');
+	var page= isDefine(params.page)?params.page:"0";
+	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "clsid":"'+cid+'","page":"'+page+'","title":"'+title+'"}');
 	openwin('editor_trade','editor_trade.html','12');
 }
 
@@ -115,6 +116,7 @@ function transEnd(){}
 function showclass(){
 	var forums = null;
 	var data = getstorage('forums');
+
 	if(data) forums = JSON.parse(data);
 	else return;
 	var keyevt = getstorage('keyevt');
@@ -158,6 +160,7 @@ function showclass(){
 			
 			setHtml('pcats', res);
 			mySlide = new zySlide('pcats', 'H', endFun, 0, transEnd);
+
 		}
 		else{
 			logs('no portal open ~ ~ ~ ');

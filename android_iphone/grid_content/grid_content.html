@@ -112,8 +112,7 @@
 <script>
 zy_init();
 var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList";
-var data=getStorJson("apps");
-var isFirstRun=getstorage("isFirstRun");
+var data=getStorJson("appps");
 window.uexOnload=function(type)
 {
 	if(!type){
@@ -121,18 +120,16 @@ window.uexOnload=function(type)
 		setPageBounce(downcb, upcb);
 		//uexWindow.showBounceView("0", "rgba(255,255,255,0)", "0");
         //uexWindow.showBounceView("1", "rgba(255,255,255,0)", "0");
-        
+       
+       
 
 
-        if(!isDefine(data)){
+        if(!isDefine(data[0])){
         	toGetApps(0);
         }else{
         	loadList(data);
         }
-        if(!isDefine(isFirstRun)){
-        	uexWindow.toast('0','5','试一试下滑页面刷新更多出应用(⊙o⊙)…',"5000");
-        	setstorage("isFirstRun","1");
-        }
+
         
        //go2new5("jwc_score_list","jwc_score_list.html",'{"view":"score"}',"local");
 
@@ -149,6 +146,7 @@ function upcb(){
 
 function toGetApps(f){
 	//uexWindow.toast('1','5','更新中...',"");
+	uexWindow.toast('0','5','经常试试下滑页面刷新更多应用(⊙o⊙)…',2000);
 	$.getJSON(appsList_url, function(json){
 
 		//alert(json);
