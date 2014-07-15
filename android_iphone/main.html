@@ -50,9 +50,9 @@
 				        </a>
 					</div>
 	                <h1 class="ut ulev0 ut-s tx-c" id="ttl1">Discuz</h1>
-					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right();">       
+<!-- 					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right();">       
 			        	<div class="ulim" id="btnr">登录</div>             
-			        </a>
+			        </a> -->
 				</div>
 				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
 					<input class="uhide" type="radio" name="menus" checked="true" id="menu1">
@@ -140,7 +140,20 @@
 			<div id="header6" class="uh ip-sta">
 				<div class="umh015"></div>
             	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
-	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">应用列表</h1>
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">交易</h1>
+					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="navSelected(5);">       
+			        	<div class="ulim">个人中心</div>             
+			        </a>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+
+
+			<input class="uhide" type="radio" name="headers" id="iheader7">
+			<div id="header7" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">菜单</h1>
 					<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="setting();">       
 			        	<div class="ulim">设置</div>             
 			        </a>
@@ -148,6 +161,34 @@
 				<div style="height:1px;"></div>
             </div>
 
+			<input class="uhide" type="radio" name="headers" id="iheader8">
+			<div id="header8" class="uh ip-sta">
+				<div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id='titp'>宜昌大学生兼职</h1>
+	                <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right();">       
+			        	<div class="ulim" id="btnr">登录</div>             
+			        </a>
+				</div>
+				<div class="c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6 uof">
+					<div class="ub-fh ub" id="pcats_class">
+						<div class="ub-fh ub ub-ac ub-pc">
+							<input class="uhide" type="radio" checked="true">
+							<div class="ub-f1 tx-c dis-sta ub-con"><div class="m-maxh uof">全部</div></div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+							<div class="ub-f1 tx-c ub-con">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+				<div style="height:1px;"></div>
+            </div>
+
+
+			<input class="uhide" type="radio" name="headers" id="iheader9">
+			<div id="header9">
+
+            </div>            
             <!--header结束-->
 			
 			<!--content开始-->
@@ -169,22 +210,59 @@
 
 		    <input class="uhide" type="radio" name="contents" id="icontent6">
 			<div id="content6" class="ub-f1 tx-l t-bla ip-sta"> </div>
+
+		    <input class="uhide" type="radio" name="contents" id="icontent7">
+			<div id="content7" class="ub-f1 tx-l t-bla ip-sta"> </div>
+
+
+		    <input class="uhide" type="radio" name="contents" id="icontent8">
+			<div id="content8" class="ub-f1 tx-l t-bla ip-sta"> </div>
+
+
+		    <input class="uhide" type="radio" name="contents" id="icontent9">
+			<div id="content9" class="ub-f1 tx-l t-bla ip-sta"> </div>
             <!--content结束-->
 			
 			<!--footer开始-->
             <div id="footer" class="uf c-m2 t-wh">
 
-				   <div class=" ub c-wh c-m2 tab t-gra uba us b-gra uc-a" style="margin:.15em;" ontouchstart="zy_cc(this);">	
+				   <div class=" ub c-wh c-m2 tab t-gra uba us b-gra uc-a" style="margin:.15em;" ontouchstart="zy_cc(this);">
+
+
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft6">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(6);" class="ub-f1 ub ub-ver tab-act" id="pt">
 				 		<div class="ub-f1 ub-img5 tp-portal"></div>
-						<div class="uinn ulev-2 tx-c">应用</div>
+						<div class="uinn ulev-2 tx-c">交易</div>
+					</div>
+
+
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft8">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(8);" class="ub-f1 ub ub-ver tab-act" id="pt">
+				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+						<div class="uinn ulev-2 tx-c">兼职</div>
+					</div>
+	
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft7">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(7);" class="ub-f1 ub ub-ver tab-act" id="pt">
+				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+						<div class="uinn ulev-2 tx-c">菜单</div>
 					</div>
 
 
 
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft9">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(9);" class="ub-f1 ub ub-ver tab-act" id="pt">
+				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+						<div class="uinn ulev-2 tx-c">课表</div>
+					</div>
 
-				 	<input class="uhide" type="radio" name="tabSwitch" id="ft1" checked="true">
+				 	<input class="uhide" type="radio" name="tabSwitch" id="ft4">
+				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(4);" class="ub-f1 ub ub-ver tab-act">
+				 		<div class="ub-f1 ub-img5 tp-fans"></div>
+						<div class="uinn ulev-2 tx-c">好友</div>
+					</div>
+
+<!-- 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft1" checked="true">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(1);" class="ub-f1 ub ub-ver tab-act">
 				 		<div class="ub-f1 ub-img5 tp-forum">   
 				 		</div>
@@ -215,7 +293,7 @@
 				 			<div class="ub-img5 tximg t-wh tx-c ulev-2 umar-t uhide" id="moren" style="position:absolute; right:.9em;top:-.6em;"><span id="moretxt">&nbsp;</span></div>    
 				 		</div>
 						<div class="uinn ulev-2 tx-c">更多</div>
-					</div>
+					</div> -->
 
 
 
@@ -235,6 +313,8 @@ var pages = {curid:1, preid:1};
 var uid = getstorage('UID');
 var uid1st = uid;
 var mySlide = null;
+var fid=45;
+var cid=4;
 
 if(uid) setHtml('btnr', '<img src="images/sbtn.png" class="sbtn" />');
 pages[1] = {ld:0, x:0};
@@ -252,9 +332,9 @@ window.uexOnload = function(type){
 
 		navSelected(6);
 
-		if(!isSML) getPortalLists(1);
+		//if(!isSML) getPortalLists(1);
 			
-		logs('main-->onload-->header width='+$$("header1").offsetWidth);
+		//logs('main-->onload-->header width='+$$("header1").offsetWidth);
 
 
 		//openUrl("http://baidu.com","百度");
@@ -344,13 +424,19 @@ function btn_right(){
 	var e = $$('btnr');
 	//var wnm = 'editor_trade';
 	var wnm = 'editor';
-	if(e.innerText=='登录') wnm='login';
-	else{
-		setstorage('params','{"type":"thread", "wname":"main"}');
+	if(e.innerText=='登录') {
+		wnm='login';
+		var url = wnm + '.html';
+	    openwin(wnm, url, '12');
 	}
-	var url = wnm + '.html';
-	openwin(wnm, url, '12');
+	else{
+		addThread();
+	}
+	
 }
+
+
+
 function radioSelect(id){
 	var ret = 0;
 	var e = $$(id);
@@ -407,8 +493,15 @@ function navSelected(i){
 			getPortalLists('');
 		}
 		
-		var url = ['', 'main_forum.html', 'main_portal.html', 'main_msg.html', 'main_friend.html', 'main_more.html','grid_content/grid_content.html'];
+		var url = ['', 'main_forum.html', 'main_portal.html', 'main_msg.html', 'main_friend.html', 'main_more.html','grid_content/grid_content_exchange.html','grid_content/grid_content.html','forum_listct_content.html','jwc_course.html'];
 		setstorage('params','{"view":"me"}');
+
+		if(i==8){//兼职
+			setstorage('params', '{"fid":"'+fid+'", "view":"com", "update":""}');
+			showclass();
+		}
+
+
 		zy_con(idc, url[i], 0, osH);
 	}
 	else{
@@ -656,5 +749,140 @@ function clearTemp(){
 	}
 	else setstorage('myTime', ms);
 }
+
+
+
+
+/**********兼职分类*******/
+function loadListForum(update){
+	var url = forum_url;
+	$.getJSON(url, loadListForumCb, 'json', getJsonErr, 'POST', '', update, '1');
+}
+function loadListForumCb(json){
+	if(json){
+		if(parseInt(json.status) < 0)
+		{
+			uexWindow.toast('0','5',json.message,2000);
+			return;
+		}
+		
+		var catlist = json[0];
+		var forumlist = json[1];
+		
+		var forums = {};
+		for (var k1 in catlist) {
+			var obj = catlist[k1];
+			
+			if(obj.forumscount==0) continue;
+			else if(obj.forums.length==0) continue;
+			
+			for (var k2 in obj.forums) {
+				var val = obj.forums[k2];
+				var item = forumlist[val];
+				if(item){
+					var fname = item.name;
+					var fid = item.fid;
+					var hasCls = 0;
+					
+					forums[val] = {};
+					forums[val].name = fname;
+					forums[val].fid = fid;
+					var il = zy_tmpl_count(item.threadtypes.types);
+					if(item.threadtypes && item.threadtypes.types && il>0){
+						forums[val].cls = item.threadtypes.types;
+						forums[val].req = item.threadtypes.required;
+						hasCls = 1;
+					}
+						
+				}	
+			}
+
+		}
+		
+		var data = JSON.stringify(forums);
+		//alert(data);
+		setstorage('forums', data);
+		return forums;
+	}
+}
+
+
+function endFun(){}
+function transEnd(){}
+function showclass(){
+	var forums = null;
+	var data = getstorage('forums');
+
+	if(data) forums = JSON.parse(data);
+	else forums=loadListForum("");
+
+
+
+	var keyevt = getstorage('keyevt');
+	var cls = forums[45].cls;
+	if(cls){
+		catCount = zy_tmpl_count(cls);
+		logs('catCount = '+catCount);
+		
+		if(catCount>0){
+			var res = '';
+			for(var k in cls){
+				var sss1 = '';
+				var sss2 = '';
+				var sss3 = '<input class="uhide" type="radio" name="portal" id="'+k+'"><div class="ub-f1 tx-c dis-sta" ontouchstart="zy_touch(\'focuss\')" onclick="myclass(\'' + k + '\');">' + cls[k] + '</div>';
+				if((catIndex%4)==1) sss1 = '<div class="ub-fh ub ub-ac ub-pc">';
+				
+				if (catIndex == 1) {
+					str = '<input class="uhide" type="radio" name="portal" checked="true" id="0"><div class="ub-f1 tx-c dis-sta" ontouchstart="zy_touch(\'focuss\')" onclick="myclass(0);">全部</div>';
+					str += sss3;
+					catIndex ++;
+				}
+				else 
+					str = sss3;
+					
+				if((catIndex%4)==0) sss2 = '</div>';
+				
+				if(catIndex==(catCount+1)){
+					if(catCount>3){
+						var ac = (catCount+1)%4;
+						var ss = '<div class="ub-f1">&nbsp;</div>';
+						if(ac==1) sss2 = ss + ss + ss + '</div>';
+						else if(ac==2) sss2 = ss + ss + '</div>';
+						else if(ac==3) sss2 = ss + '</div>';
+					}
+					else sss2 = '</div>';
+				}
+				str = sss1 + str + sss2;
+				res += str;
+				catIndex ++;
+			}
+			
+			setHtml('pcats_class', res);
+			mySlide = new zySlide('pcats_class', 'H', endFun, 0, transEnd);
+
+		}
+		else{
+			logs('no portal open ~ ~ ~ ');
+		}
+	}
+}
+
+function myclass(id){
+	clsid = id;
+	var e = $$(id);
+	if(e && !e.checked){
+		e.checked = true;
+	}
+	
+	ueppscript('main', 'content8', 'myclass('+id+')');
+}
+
+function addThread(){
+	var title="求职";
+	var page= "common";
+	setstorage('params','{"type":"thread", "wname":"forum_listct", "fid":"'+fid+'", "clsid":"'+cid+'","page":"'+page+'","title":"'+title+'"}');
+	openwin('editor_trade','editor_trade.html','12');
+}
+/*********end*****/
 </script>
 </html>

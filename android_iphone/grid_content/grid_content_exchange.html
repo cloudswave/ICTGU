@@ -111,7 +111,7 @@
 </body>
 <script>
 zy_init();
-var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList&page=menu";
+var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList&page=exchange";
 var data=getStorJson("appps");
 window.uexOnload=function(type)
 {
@@ -161,6 +161,8 @@ function toGetApps(f){
 
 
 	}, 'text', getJsonErr, 'GET', '',f,true);
+
+	uescript("main","loadListForum('');");//更新论坛信息
 
 }
 
@@ -262,7 +264,7 @@ function go2new5(id){
 		//alert(getstorage("params"));
 		openwin(data[id].wnm,data[id].url,'10');
 	   }else{
-	   		eval(data[id].jscode);
+	   		//eval(data[id].jscode);
 	   }
 	}
 }
