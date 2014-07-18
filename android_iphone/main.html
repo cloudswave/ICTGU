@@ -523,11 +523,10 @@ var catCount2 = 0;
 var catStrL = 0;
 function endFun(){}
 function transEnd(){}
-function getPortalLists(f){
+function getPortalLists(f){ //门户 资讯
 	var url=portal_url + "&mod=index";
 	logs('getPortalLists()-->flag='+f);
 	$.getJSON(url, function(json){
-		logs('getPortalLists()-->json='+json);
 		if(json){
 			var list = json;
 			catCount = zy_tmpl_count(list);
@@ -609,7 +608,7 @@ function j2vCb(d,c)
 	 }
 	 return str;
 }
-function portalcat(i){
+function portalcat(i){//切换频道分类
 	var id = '' + i;
 	logs('portalcat()-->i='+i);
 	radioSelect(id);

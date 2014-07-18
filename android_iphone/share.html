@@ -21,7 +21,7 @@
     </head>
     <body style="">
          <div class="uinn2 ub-pc ub ">
-            <img id="picture" src="http://openapi.baidu.com/static/07081126/social-api/img/share/share.gif" class="uc-a" />
+            <img id="picture"  src="http://openapi.baidu.com/static/07081126/social-api/img/share/share.gif" class="uc-a" style="max-width:100%;max-height:100%;"/>
          </div>
          <div id="content" class="uinn2 ">
             我分享了一个链接，快乐围观！
@@ -42,12 +42,12 @@
         }
 
         if(isDefine(content)){
-           content="我通过\"微校园客户端\"分享了：【"+content+"】,快来围观！";
-            setHtml("content",content+"<br>来源："+url);
+           content="我通过\"校园汇客户端\"分享了：【"+content+"】,快来围观！";
+            setHtml("content",content+"<br>来源：<a href='"+url+"' >链接地址</a>");
            
         }else{
-            content="我通过\"微校园客户端\"分享了一个链接，戳过来看撒";
-            setHtml("content",content+"<br>来源："+url);
+            content="我通过\"校园汇客户端\"分享了一个链接，戳过来看撒";
+            setHtml("content",content+"<br>来源：<a href='"+url+"' >链接地址</a>");
             
         }
 

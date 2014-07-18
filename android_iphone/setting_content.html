@@ -47,6 +47,11 @@
 		</ul>
 	</div>
 	<ul class="uba b-gra c-wh uc-a uinn8">  
+		<li ontouchstart="zy_touch('us-i')" onclick='shareSoft();' class="uc-t ubb ub b-gra t-bla ub-ac lis">     
+	 		<div class="ub-img5 im22 morepic"></div>  
+	   		<div class="ub-f1 ut-s ulev0">分享软件</div>    
+	 		<div class="res8 lis-sw ub-img4"></div>   
+	 	</li>  
 	  	<li ontouchstart="zy_touch('us-i')" onclick="go2new5(5);" class="uc-t ubb ub b-gra t-bla ub-ac lis">     
 	 		<div class="ub-img5 im22 morepic"></div>  
 	   		<div class="ub-f1 ut-s ulev0">同步微博</div>    
@@ -143,6 +148,11 @@ function cleanCacheCb(opId,dataType,inData){
 }
 function errorCb(){
 	uexWindow.toast('0','5','手机信息功能不可用',2000);
+}
+
+function shareSoft(){
+	uexWindow.toast('0','5','正在分享,请稍后...',2000);
+	_baidu_share(soft_down_url,share_content,share_pic);
 }
 </script>
 </html>

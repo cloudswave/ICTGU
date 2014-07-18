@@ -31,7 +31,7 @@
 </body>
 <script>
 zy_init();
-var url  = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
+var jwc_score_url  = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
 var params = getStorJson('params');
 var view = params.view;
 var curpage = 1;
@@ -66,13 +66,13 @@ function upcb(){
 
 function loadList(pn, flag){
 
-	if(url){
-		updated = checkKey(url);
+	if(jwc_score_url){
+		updated = checkKey(jwc_score_url);
 		if(!updated) uexWindow.toast('1','5','更新中...',"");
 		var f = pn?'':'1';
 	
 		
-		$.getJSON(url, getJsonCallback, 'text', getJsonErr, 'GET', '', flag, f);
+		$.getJSON(jwc_score_url, getJsonCallback, 'text', getJsonErr, 'GET', '', flag, f);
 	}
 }
 function getJsonCallback(json){

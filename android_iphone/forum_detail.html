@@ -31,23 +31,23 @@
 					<div class="ulim">返回</div>       
 				</a>
 				<!--按钮结束-->
-                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">帖子正文</h1>
+                <h1 class="ut ulev0 ut-s tx-c" tabindex="0">详情</h1>
 
 				<a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="ueppscript(wnm,'content','loadLink2();');">       
-					<div class="ulim">*****</div>       
+					<div class="ulim">^_^</div>       
 				</a>
 
 				<div></div>
 			</div>
 			<div style="height:1px;"></div>
-			<div class="ub ub-ac ub-pc navbg us uc-a uinn6 uinn5 ulev-3">
+<!-- 			<div id="topmenu" class="ub ub-ac ub-pc navbg us uc-a uinn6 uinn5 ulev-3">
 				<input class="uhide" type="radio" name="menus" checked="true">
 				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(1);">默认</div>
 				<input class="uhide" type="radio" name="menus">
-				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(2);">只看楼主</div>
+				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(2);">发布者</div>
 				<input class="uhide" type="radio" name="menus">
 				<div class="ub-con ub-f1 tx-c t-gra3 navbtn uinn14 ulev-3" style="padding:.4em 0;" ontouchstart="zy_touch('navbtn-act')" onclick="menus2(3);">查看回复</div>
-			</div>
+			</div> -->
         </div>
         <!--header结束--><!--content开始-->
         <div id="content" class="ub-f1 tx-l t-bla">
@@ -181,6 +181,9 @@ function outFscr(c){
 	ueppscript(wnm, 'content', 'moveOutsc();');
 }
 
+function hideTop(){
+	$$("topmenu").className="uhide";
+}
 
 </script>
 </html>

@@ -62,13 +62,7 @@ window.uexOnload = function(type){
 	}
 }
 
-function inputMode(type){ //解决输入框遮盖问题
 
-	//alert($$("header").offsetHeight);
-
-    if(type==0) zy_resize("content", 0,$$("header").offsetHeight-400);
-    if(type==1) zy_resize("content",0,$$("header").offsetHeight);	
- }
 
 function submit(){
 	ueppscript('editor_trade', 'content', 'submit();');

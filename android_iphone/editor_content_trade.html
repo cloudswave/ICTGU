@@ -103,11 +103,11 @@
 			</div>
 
 			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-				<input placeholder="地址" type="text" class="uc-n ulev0" id="place" onfocus="myOnfocus(0);inputMode(0);"   onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
+				<input placeholder="地址" type="text" class="uc-n ulev0" id="place" onfocus="myOnfocus(0);"   onblur="myOnblur(0);" oninput="txtinput1(this);"> 
 			</div>
 
 			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);inputMode(0);" onblur="myOnblur(0);inputMode(1);" oninput="txtinput1(this);"> 
+				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
 			</div>
 		</div>
 
@@ -132,7 +132,7 @@
 
 
 			<div class="uinn16">
-				<textarea placeholder="添加详细描述"  onfocus="myOnfocus(1);inputMode(0);"  onblur="myOnfocus(0);inputMode(1);"  class="uc-n ulev0 umh11" id="txt2"  oninput="txtinput2(this);"></textarea>
+				<textarea placeholder="添加详细描述"  onfocus="myOnfocus(1);"  onblur="myOnfocus(0);"  class="uc-n ulev0 umh11" id="txt2"  oninput="txtinput2(this);"></textarea>
 			</div>
 			<div class="ub tab1 t-wh" id="menus">	
 				<div ontouchstart="zy_touch('tp-click')" onclick="getLogLat();" class="ub-f1 ub ub-ver tab-act">
@@ -423,7 +423,7 @@ function getFace(){
 	if(onFoc[0] || onFoc[1]) t = 500;
 	logs('getFace()----->t='+t);
 
-	setTimeout("uescript('editor_trade', 'opneFace()');inputMode(0);", t);
+	setTimeout("uescript('editor_trade', 'opneFace()');", t);
 	
 }
 
@@ -690,13 +690,7 @@ function removeAtt(val){
 }
 
 
-function inputMode(type){ //解决输入框遮盖问题
 
-	//alert($$("header").offsetHeight);
-	if(page!="0"){
-      uescript("editor_trade","inputMode('"+type+"')");
-	}
-  }
 
 
 

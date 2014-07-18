@@ -193,6 +193,9 @@ function loadListForumCb(json){
 		}
 		
 		var o = json;
+
+		//alert(o.message);
+
 		if(o.back=='1' && o.msg){
 			myConfirm(o.msg, 'forum_detail');
 			return;
@@ -300,8 +303,6 @@ function loadListForumCb(json){
 var trade_info="";
 
 if(o.trade){
-
-
 			var trade = o.trade;
 			var transport="线下交易";
 			var ts = '&nbsp;';
@@ -347,6 +348,7 @@ if(o.trade){
 			var pic = trade.attachurl;
 			if(simgid=='false') pic = 'images/imgno.png';
 			dis_imgcache('aapic',pic,pic,imgLoadSucSrc2,imgLoadErrSrc,null,'',1);
+
 				
 		}
 
