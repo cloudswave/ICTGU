@@ -7,7 +7,7 @@ var ip = "xlantek.com/weicam/source/plugin/zywx/rpc";
 var serverurl="http://"+ip.replace('/source/plugin/zywx/rpc','/');
 var guc="http://"+ip.replace('source/plugin/zywx/rpc','uc_server')+"/avatar.php?&size=middle&uid=";
 
-var appname = "易站长插件";
+var appname = "校园汇";
 
 var login_url	= "http://"+ip+"/member.php?jsoncallback=?";
 var search_url  = "http://"+ip+"/search.php?jsoncallback=?";
@@ -27,7 +27,7 @@ var share_pic="http://iclouds.qiniudn.com/pic%E6%A0%A1%E5%9B%AD%E6%B1%87.png";
 
 
 var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
-var login_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
+var jwc_login_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
 var course_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
 var score_url = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
 var checklogin_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";

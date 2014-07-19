@@ -113,9 +113,8 @@ function go2new5(i){
 	}
 }
 function inviteFriend(){
-	var msg = 'HI，我正在玩论坛手机客户端，功能棒极了！支持拍照+微博互动，还有超赞定位服务可以帮您找到附近的好友呢！下载：';
-	var appid = getstorage('appid');
-	msg = msg + 'http://app.tx100.com/'+appid+'/index.html';
+	var msg = 'HI，我正在玩'+appname+'客户端，功能棒极了！支持拍照+微博互动，还有超赞定位服务可以帮您找到附近的好友呢！下载：';
+	msg = msg + soft_down_url;
 	uexSMS.open('', msg);
 }
 function cleanCache(){
