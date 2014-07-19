@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="../css/project/style.css">
 	<link rel="stylesheet" href="css/myAccount.css">
 
-
+    <script src="../js/config.js"></script>
 	<script src="../js/zy_control.js"></script>
 	<script src="../js/dis_control.js"></script>
     <script src="../js/zy_click.js"></script>
     <script type="text/javascript" src="../js/dis_control.js"></script>
     <script type="text/javascript" src="../js/zy_json.js"></script>
      <script type="text/javascript" src="../js/zy_tmpl.js"></script>
+     <script type="text/javascript" src="common.js"></script>
 </head>
 <body class="um-vp c-gra1" ontouchstart>
 <div class="ub ub-ver">
@@ -111,19 +112,13 @@
 </body>
 <script>
 zy_init();
-var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList&page=exchange";
-var data=getStorJson("appps");
+
+var data=getStorJson("apps2");
 window.uexOnload=function(type)
 {
 	if(!type){
 		//uexWindow.setBounce("1");
 		setPageBounce(downcb, upcb);
-		//uexWindow.showBounceView("0", "rgba(255,255,255,0)", "0");
-        //uexWindow.showBounceView("1", "rgba(255,255,255,0)", "0");
-       
-       
-
-
         if(!isDefine(data[0])){
         	toGetApps(0);
         }else{
@@ -136,24 +131,22 @@ window.uexOnload=function(type)
     }
 }
 
-function downcb(){
-
-	toGetApps(0);
-}
-function upcb(){
-  resetBV('1');
-}
-
+var cacheIcons=getStorJson("cacheIcons2");
 function toGetApps(f){
 	//uexWindow.toast('1','5','更新中...',"");
 	uexWindow.toast('0','5','经常试试下滑页面刷新更多应用(⊙o⊙)…',2000);
-	$.getJSON(appsList_url, function(json){
+	$.getJSON(appsList2_url, function(json){
 
 		//alert(json);
 		json=JSON.parse(json);
-		setStorJson("apps",json.data);
+		setStorJson("apps2",json.data);
 		data=json.data;
 		loadList(json.data);
+
+		imgcache();
+
+		setStorJson("cacheIcons2",cacheIcons);
+
 		uexWindow.closeToast();
 
 	    resetBV('0');
@@ -166,108 +159,6 @@ function toGetApps(f){
 
 }
 
-function loadList(data){
-
-	var list = data;
-	var temp_list;
-	var length = zy_tmpl_count(list);
-
-	var tmpl=' <div class="ub-f1 ub ub-ver ub-ac ub-pc" onclick="go2new5(${id});">'+
-   				'<div class="ub-img uwh-acc2 ${icon} umar-at1"></div>'+
-				'<div class="ulev-1 umar-t-acc1">${name}</div>'+
-   			   ' </div>';
-
-   	 var htmlStr="";
-   	 var tem="";
-
-	for(var i=0;i<=length/4-1;i++){
-		 temp_list=list.slice(i*4,i*4+4);
-		 tem = zy_tmpl(tmpl,temp_list,temp_list.length,null);
-		 tem='<div class="ub t-bla">'+tem+'</div>';
-		 htmlStr+=tem;
-		// alert(htmlStr);
-
-	}
-
-    //alert(list.length);
-    var temp_list=list.slice(length-length%4);
-	if(temp_list.length>0){
-    		tem = zy_tmpl(tmpl,temp_list,temp_list.length,null);
-		 	for (var j = 4-temp_list.length; j >=1; j--) {
-		 		tem+='<div class="ub-f1 ub ub-ver ub-ac ub-pc" >'+
-   				'<div class="ub-img uwh-acc2  umar-at1"></div>'+
-				'<div class="ulev-1 umar-t-acc1"></div>'+
-   			   ' </div>';
-   			}
-
-   			tem='<div class="ub t-bla">'+tem+'</div>';
-   			htmlStr+=tem;
-	 }
-
-	setHtml("content",htmlStr);
-
-
-}
-
-
-
-
-//var params='{"view":"score"}';
-function go2new5(id){	
-	// switch(i)
-	// {
-	// 	case 1:
-	// 		wnm = 'jwc_course';
-	// 		url = 'jwc_course.html';
-	// 	break;
-	// 	case 2:
-	// 		wnm = 'jwc_score_list';
-	// 		url = 'jwc_score_list.html';
-	// 		params.view="score";
-	// 	break;
-	// 	case 3:
-	// 		wnm = 'jwc_notice_list';
-	// 		url = 'jwc_notice_list.html';
-	// 	break;
-
-	// 	case 4:
-	// 		wnm = 'jwc_evaluation';
-	// 		url = 'jwc_login.html';
-	// 		params.view="evaluation";
-	// 	break;
-
-	// 	case 5:
-	// 		wnm = 'forumct';
-	// 		url = 'forum_listct.html';
-	// 		params.fid="2";
-	// 	break;
-
-	// 	case 9:
-	// 		alert('9');
-	// 		//openwin("main","main.html");
-	// 		uescript("main","navSelected(3)");
-	// 	break;
-
-	// 	default:
-	// 	break;
-	// }
-	
-	//alert(data[id].url);
-
-	if(data[id].url){
-      if(data[id].type=="webapp"){
-			uexWindow.toast('1', '5', "加载中...", '1500');
-			openUrl(data[id].url,data[id].name,data[id].wnm);
-			
-	  }else if(data[id].type=="local"){
-		setstorage('params',data[id].params);
-		//alert(getstorage("params"));
-		openwin(data[id].wnm,data[id].url,'10');
-	   }else{
-	   		//eval(data[id].jscode);
-	   }
-	}
-}
 
 </script>
 </html>

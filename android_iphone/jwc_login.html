@@ -237,13 +237,7 @@
         var ccW = $$("content").offsetHeight;
         var hasLogin = false;
         
-        var surl = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=getcheckimage";
-        var login_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=login_json";
-        var course_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=course&callback=json";
-		var score_url = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
-        var checklogin_url = "http://xlanlab.com/index.php?app=jwc&mod=Index&act=checkhaslogin";
-		var loginout_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=logout";
-        var evaluation_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=evaluation";
+
         
         
         
@@ -363,7 +357,8 @@
                     setStorJson('course', ret.data);
                     setstorage('course_time', '{"year":' + $$('year').value + ',"term":' + $$('term').value + '}');
                     uexWindow.toast('0', '5', '数据导入成功', 2000);
-					uescript('jwc_course', 'window.uexOnload();');//更新窗口数据
+                    ueppscript("main",'content9',"window.uexOnload();");
+					uescript('main', 'navSelected(9);');//更新窗口数据
                     closewin();
                     //alert(JSON.stringify(ret.data)); //将JSON对象转化为JSON字符
                 }
@@ -414,7 +409,7 @@
         
         
         function switchPage(view){
-           // alert(view);
+           //alert(view);
 			var pageName=view+"Page";
             switch (view) {
                 case "course":

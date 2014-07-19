@@ -229,6 +229,7 @@ function imgLoadErr(id){
 function imgLoadSuc(id, src){
 	var e = $$(id);
 	if(e && e.style) e.style.cssText = "background-image: url("+src+")";
+
 }
 function imgLoadErrSrc(id){
 	var e = $$(id);

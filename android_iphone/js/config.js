@@ -36,3 +36,6 @@ var evaluation_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=evaluatio
 var notice_url="http://xlanlab.com/index.php?app=jwc&mod=Index&act=jwtzDetail";
 var jwtz_url  = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=jwtz';
 var jwc_score_url  = 'http://xlanlab.com/index.php?app=jwc&mod=Index&act=score&callback=json';
+
+var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList&page=menu";
+var appsList2_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList&page=exchange";

@@ -186,7 +186,33 @@
 
 
 			<input class="uhide" type="radio" name="headers" id="iheader9">
-			<div id="header9">
+			<div id="header9" class="uh ip-sta">
+
+                <div class="umh015"></div>
+            	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6">
+	                <h1 class="ut ulev0 ut-s tx-c" tabindex="0" id="c_ttl1">我的课表</h1>
+				    <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="btn_right_import();">       
+			        	<div class="ulim">更新导入</div>
+			        </a>
+				</div>
+				<div class="ub ub-ac ub-pc c-gra1 c-m2 uinn5 t-gra1 ulev-1 uc-a uba us b-gra uinn6">
+					<input class="uhide" type="radio" name="menus" checked="true" id="c_menu1">
+					<div class="ub-con ub-f1 tx-c dis-sta ut-s" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(1);">一</div>
+					<input class="uhide" type="radio" name="menus" id="c_menu2">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(2);">二</div>
+					<input class="uhide" type="radio" name="menus" id="c_menu3">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(3);">三</div>
+					<input class="uhide" type="radio" name="menus" id="c_menu4">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(4);">四</div>
+					<input class="uhide" type="radio" name="menus" id="c_menu5">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(5);">五</div>
+					<input class="uhide" type="radio" name="menus" id="c_menu6">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(6);">六</div>
+					<input class="uhide" type="radio" name="menus" id="c_menu0">
+					<div class="ub-con ub-f1 tx-c dis-sta" ontouchstart="zy_touch('focuss')" onclick="menuSelected2(0);">天</div>
+				</div>
+				<div style="height:1px;"></div>
+
 
             </div>            
             <!--header结束-->
@@ -231,20 +257,20 @@
 
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft6">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(6);" class="ub-f1 ub ub-ver tab-act" id="pt">
-				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+				 		<div class="ub-f1 ub-img5 tp-exchange"></div>
 						<div class="uinn ulev-2 tx-c">交易</div>
 					</div>
 
 
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft8">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(8);" class="ub-f1 ub ub-ver tab-act" id="pt">
-				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+				 		<div class="ub-f1 ub-img5 tp-parttime"></div>
 						<div class="uinn ulev-2 tx-c">兼职</div>
 					</div>
 	
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft7">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(7);" class="ub-f1 ub ub-ver tab-act" id="pt">
-				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+				 		<div class="ub-f1 ub-img5 tp-menu"></div>
 						<div class="uinn ulev-2 tx-c">菜单</div>
 					</div>
 
@@ -252,13 +278,13 @@
 
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft9">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(9);" class="ub-f1 ub ub-ver tab-act" id="pt">
-				 		<div class="ub-f1 ub-img5 tp-portal"></div>
+				 		<div class="ub-f1 ub-img5 tp-course"></div>
 						<div class="uinn ulev-2 tx-c">课表</div>
 					</div>
 
 				 	<input class="uhide" type="radio" name="tabSwitch" id="ft4">
 				 	<div ontouchstart="zy_touch('fos')" onclick="navSelected(4);" class="ub-f1 ub ub-ver tab-act">
-				 		<div class="ub-f1 ub-img5 tp-fans"></div>
+				 		<div class="ub-f1 ub-img5 tp-friends"></div>
 						<div class="uinn ulev-2 tx-c">好友</div>
 					</div>
 
@@ -501,8 +527,29 @@ function navSelected(i){
 			showclass();
 		}
 
-
 		zy_con(idc, url[i], 0, osH);
+
+		if(i==9){//课表
+			var time=getStorJson('course_time');
+			var t=time.year?time.year:""+"_";
+			switch(time.term) {
+			case 1:
+			    t+="春季学期";
+				break;
+			case 3:
+			    t+="秋季学期";
+				break;		
+			default: 
+				t+="当前学期";
+		   }
+
+			 $$("c_ttl1").innerHTML="我的课表_"+t;
+
+			var day=new Date().getDay();
+			//alert(day);
+		     menuSelected2(day);//切换到当天 
+		}
+
 	}
 	else{
 		uexWindow.setPopoverFrame(idc, 0, pages[i].y, pages[i].width, pages[i].height);
@@ -867,6 +914,7 @@ function showclass(){
 }
 
 function myclass(id){
+	//alert(id);
 	clsid = id;
 	var e = $$(id);
 	if(e && !e.checked){
@@ -883,5 +931,21 @@ function addThread(){
 	openwin('editor_trade','editor_trade.html','12');
 }
 /*********end*****/
+
+
+
+/***课表**/
+function btn_right_import(){
+	//setStorJson('course',"0");
+	//alert(getStorJson('course'));
+
+	  var str = '{"view":"course"}';
+	  if(str) setstorage('params', str);
+	   openwin('jwc_login','jwc_login.html','10');
+}
+function menuSelected2(i){
+	ueppscript('main', "content9", 'pageSwitch('+i+')');
+	radioSelect('c_menu'+i);
+}
 </script>
 </html>

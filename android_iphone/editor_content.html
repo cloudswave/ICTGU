@@ -39,7 +39,7 @@
 	<div>
 		<div class="c-gra us uc-n" id="type">  
 		  	<div ontouchstart="zy_touch('btn-act')" onclick="addType();" class="ub ubb b-gra c-m7 t-bla ub-ac lis">     
-		 		<div class="ub-f1 ut-s ulev0 t-gra5">请选择发帖版块</div>    
+		 		<div class="ub-f1 ut-s ulev0 t-gra5">请选择版块</div>    
 		  		<div class="res8 lis-sw ub-img4"></div>   
 		 	</div>     
 		</div>
@@ -462,17 +462,17 @@ function submitCb(json){
 		else/*(type=='thread' || type=='reply' || type=='portal' || type=='record')*/{
 			if (json.tid){
 				if(json.status == '1') str = '此帖需要通过审核才能发表';
-				else str = '发帖成功';
+				else str = '发布成功';
 			}
 			else if (json.pid) {
-				str = '回帖成功';
+				str = '回复成功';
 				if(pid) str = '回复成功';
 			}
 			else if(json.cid) str = '回复成功';	
 			else if(json.newdoid) str = '发表成功';
 			else {
 				if (json.message)  str = json.message;
-				else str = '发帖失败';
+				else str = '发布失败';
 				succ = false;
 			}
 		}

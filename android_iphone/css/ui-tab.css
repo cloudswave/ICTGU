@@ -74,6 +74,39 @@ input[type="radio"] + div>div.tp-more{
 input[type="radio"]:checked + div>div.tp-more{
 	background: url(res-apple/talk-act.png) 50% 50% no-repeat;
 }
+
+input[type="radio"] + div>div.tp-exchange{
+	background: url(res-apple/exchange.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-exchange{
+	background: url(res-apple/exchange-act.png) 50% 50% no-repeat;
+}
+
+input[type="radio"] + div>div.tp-parttime{
+	background: url(res-apple/parttime.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-parttime{
+	background: url(res-apple/parttime-act.png) 50% 50% no-repeat;
+}
+
+input[type="radio"] + div>div.tp-course{
+	background: url(res-apple/course.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-course{
+	background: url(res-apple/course-act.png) 50% 50% no-repeat;
+}
+
+input[type="radio"] + div>div.tp-friends{
+	background: url(res-apple/friends.png) 50% 50% no-repeat;
+}
+
+input[type="radio"]:checked + div>div.tp-friends{
+	background: url(res-apple/friends-act.png) 50% 50% no-repeat;
+}
+
 .fos .tp-more{
 	background: url(res-apple/talk-act.png) 50% 50% no-repeat !important;
 }

@@ -9,49 +9,20 @@
     <link rel="stylesheet" href="../css/project/style.css">
 	<link rel="stylesheet" href="css/myAccount.css">
 
-
+	<script src="../js/config.js"></script>
 	<script src="../js/zy_control.js"></script>
 	<script src="../js/dis_control.js"></script>
+	<script src="../js/zy_icache.js"></script>
     <script src="../js/zy_click.js"></script>
     <script type="text/javascript" src="../js/dis_control.js"></script>
     <script type="text/javascript" src="../js/zy_json.js"></script>
      <script type="text/javascript" src="../js/zy_tmpl.js"></script>
+      <script type="text/javascript" src="common.js"></script>
 </head>
-<body class="um-vp c-gra1" ontouchstart>
+<body class="um-vp c-gra1 " ontouchstart style="background-color:white;">
 <div class="ub ub-ver">
-<!-- 	<div class="ub-img1 accban uh-acc1 ub-fh ub ub-ver">
-		<div class="uinn-a1 ub ub-f1">
-			<div class="uwh-acc1 uc-a1 uba b-wh-acc1 us-acc1 accuser mar-ar1"></div>
-			<div class="ub-f1 ub ub-ver">
-				<div class="ub ">
-           			<div class="umar-ar3 t-wh ulev-app1">贾克斯</div>
-					<div class="c-org uc-a1 uinn3 ulev-2 t-wh">V<span class="ulev-2">2</span>会员</div>
-           		</div>
-				<div class="ulev-4 t-wh umar-t">积分</div>
-				<div class="ulev-4 t-wh umar-t">金牌用户</div>
-			</div>
-		</div>
-		<div class="ub c-bla-50 ubb ubt b-wh-acc1 uinn-acc1 ub-ae t-wh">
-			<div class="ub ub-ver ub-f1 ulev-4 ub-pc ubr b-gra-acc2 us-acc2 uinn-acc2">
-				<div class="  tx-c ub-f1">优惠券</div>
-				<div class="ub-ae ufm1 tx-c">(0)</div>
-			</div>
-			<div class="ub ub-ver ulev-4 ub-f1 ub-pc ubr b-gra-acc2 us-acc2 uinn-acc2">
-				<div class="  tx-c ub-f1">礼品卡</div>
-				<div class="ub-ae ufm1 tx-c">(0)</div>
-			</div>
-			<div class="ub ub-ver ulev-4 ub-f1 ub-pc ubr b-gra-acc2 us-acc2 uinn-acc2">
-				<div class="  tx-c ub-f1">积分</div>
-				<div class="ub-ae  ufm1 tx-c">(0)</div>
-			</div>
-			<div class="ub ub-ver ub-f1 ub-pc ulev-4 uinn-acc2">
-				<div class="  tx-c ub-f1">金豆</div>
-				<div class="ub-ae  ufm1 tx-c">(0)</div>
-			</div>
-		</div>
-	</div> -->
    <div class="ub-f1 ub ub-ver" id="content">
- <!--   		<div class="ub t-bla">
+   		<!-- <div class="ub t-bla">
    			<div class="ub-f1 ub ub-ver ub-ac ub-pc" onclick="go2new5(1);">
    				<div class="ub-img uwh-acc2 accIcon1 umar-at1"></div>
 				<div class="ulev-1 umar-t-acc1">课表查询</div>
@@ -111,11 +82,15 @@
 </body>
 <script>
 zy_init();
-var appsList_url="http://xlanlab.com/index.php?app=custom&mod=Index&act=appsList&page=menu";
-var data=getStorJson("appps");
+
+var data=getStorJson("apps");
+
 window.uexOnload=function(type)
 {
 	if(!type){
+
+		zy_initcache(function(){
+		});
 		//uexWindow.setBounce("1");
 		setPageBounce(downcb, upcb);
 		//uexWindow.showBounceView("0", "rgba(255,255,255,0)", "0");
@@ -136,14 +111,8 @@ window.uexOnload=function(type)
     }
 }
 
-function downcb(){
 
-	toGetApps(0);
-}
-function upcb(){
-  resetBV('1');
-}
-
+var cacheIcons=getStorJson("cacheIcons");
 function toGetApps(f){
 	//uexWindow.toast('1','5','更新中...',"");
 	uexWindow.toast('0','5','经常试试下滑页面刷新更多应用(⊙o⊙)…',2000);
@@ -154,6 +123,11 @@ function toGetApps(f){
 		setStorJson("apps",json.data);
 		data=json.data;
 		loadList(json.data);
+
+		imgcache();
+
+		setStorJson("cacheIcons",cacheIcons);
+		
 		uexWindow.closeToast();
 
 	    resetBV('0');
@@ -164,108 +138,11 @@ function toGetApps(f){
 
 }
 
-function loadList(data){
-
-	var list = data;
-	var temp_list;
-	var length = zy_tmpl_count(list);
-
-	var tmpl=' <div class="ub-f1 ub ub-ver ub-ac ub-pc" onclick="go2new5(${id});">'+
-   				'<div class="ub-img uwh-acc2 ${icon} umar-at1"></div>'+
-				'<div class="ulev-1 umar-t-acc1">${name}</div>'+
-   			   ' </div>';
-
-   	 var htmlStr="";
-   	 var tem="";
-
-	for(var i=0;i<=length/4-1;i++){
-		 temp_list=list.slice(i*4,i*4+4);
-		 tem = zy_tmpl(tmpl,temp_list,temp_list.length,null);
-		 tem='<div class="ub t-bla">'+tem+'</div>';
-		 htmlStr+=tem;
-		// alert(htmlStr);
-
-	}
-
-    //alert(list.length);
-    var temp_list=list.slice(length-length%4);
-	if(temp_list.length>0){
-    		tem = zy_tmpl(tmpl,temp_list,temp_list.length,null);
-		 	for (var j = 4-temp_list.length; j >=1; j--) {
-		 		tem+='<div class="ub-f1 ub ub-ver ub-ac ub-pc" >'+
-   				'<div class="ub-img uwh-acc2  umar-at1"></div>'+
-				'<div class="ulev-1 umar-t-acc1"></div>'+
-   			   ' </div>';
-   			}
-
-   			tem='<div class="ub t-bla">'+tem+'</div>';
-   			htmlStr+=tem;
-	 }
-
-	setHtml("content",htmlStr);
-
-
-}
 
 
 
 
-//var params='{"view":"score"}';
-function go2new5(id){	
-	// switch(i)
-	// {
-	// 	case 1:
-	// 		wnm = 'jwc_course';
-	// 		url = 'jwc_course.html';
-	// 	break;
-	// 	case 2:
-	// 		wnm = 'jwc_score_list';
-	// 		url = 'jwc_score_list.html';
-	// 		params.view="score";
-	// 	break;
-	// 	case 3:
-	// 		wnm = 'jwc_notice_list';
-	// 		url = 'jwc_notice_list.html';
-	// 	break;
 
-	// 	case 4:
-	// 		wnm = 'jwc_evaluation';
-	// 		url = 'jwc_login.html';
-	// 		params.view="evaluation";
-	// 	break;
-
-	// 	case 5:
-	// 		wnm = 'forumct';
-	// 		url = 'forum_listct.html';
-	// 		params.fid="2";
-	// 	break;
-
-	// 	case 9:
-	// 		alert('9');
-	// 		//openwin("main","main.html");
-	// 		uescript("main","navSelected(3)");
-	// 	break;
-
-	// 	default:
-	// 	break;
-	// }
-	
-	//alert(data[id].url);
-
-	if(data[id].url){
-      if(data[id].type=="webapp"){
-			uexWindow.toast('1', '5', "加载中...", '1500');
-			openUrl(data[id].url,data[id].name,data[id].wnm);
-			
-	  }else if(data[id].type=="local"){
-		setstorage('params',data[id].params);
-		//alert(getstorage("params"));
-		openwin(data[id].wnm,data[id].url,'10');
-	   }else{
-	   		eval(data[id].jscode);
-	   }
-	}
-}
 
 </script>
 </html>
