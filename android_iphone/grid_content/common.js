@@ -84,6 +84,8 @@ function tmpleCb(a, b){
 		    imgurl = a['bgImg'];
 		    if(imgurl){
 				icons["img"+a['id']]=imgurl;
+				return "background-image: url("+imgurl+")";
+
 			}
 			return "";
 			break;
@@ -94,7 +96,7 @@ function tmpleCb(a, b){
 
 function imgcache(){
 	for(index in icons){
-	    zy_imgcache(index, index, icons[index],imgLoadSuc2, imgLoadErr,null,'png');
+	    zy_imgcache(index, index, icons[index],imgLoadSuc2, imgLoadErr2,null,'png');
 
 
 	}
@@ -106,4 +108,9 @@ function imgLoadSuc2(id, src){
 	if(e && e.style) e.style.cssText = "background-image: url("+src+")";
 	cacheIcons[id]=src;
 
+}
+
+function imgLoadErr2(id){
+	var e = $$(id);
+	if(e && e.style) e.style.cssText = "background-image: url(../images/imgno.png)";
 }

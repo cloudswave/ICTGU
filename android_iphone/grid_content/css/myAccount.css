@@ -1,3 +1,7 @@
+body{
+	background-image:url(myImg/bg.jpg) ;
+	background-size: 100% 100%;
+}
 .accban{
 	background-image:url(myImg/accban.png);
 }

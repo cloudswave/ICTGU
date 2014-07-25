@@ -361,7 +361,9 @@ if(o.trade){
 		
 		var author = o.author;
 		if(ams=='1') author='匿名';
-		var str2 = '<div class="b-gra uc-n" ontouchstart="zy_touch(\'\')" onclick="showLZ(\''+o.authorid+'\',\''+author+'\');">'    	  
+		var str2="";
+		if(isDefine(params.show_author)){
+			str2+='<div class="b-gra uc-n" ontouchstart="zy_touch(\'\')" onclick="showLZ(\''+o.authorid+'\',\''+author+'\');">'    	  
 						+'<div class="ub b-gra t-bla ub-ac lis"> '	 
 					   		+'<div class="lis-th2 ub-img5 uc-a1 us">'
 				     			+'<img src="images/mylogo.gif" class="inforpic" id="'+tid+'"/>'
@@ -378,8 +380,10 @@ if(o.trade){
 					 		   +'</div>'
 					 		+'</div>' 
 						+'</div>'
-					+'</div>'
-					+'<div class="ubll"></div>'
+					+'</div>';
+		}
+
+		  str2 += '<div class="ubll"></div>'
 					+'<div class="b-gra uof"  style="position:relative; padding:.5em;">'
 						//+'<img src="images/line.png" class="uh" style="position:absolute; top:0em; left:0; height:.2em;"/>'
 						+activity

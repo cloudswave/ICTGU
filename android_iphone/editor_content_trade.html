@@ -48,8 +48,8 @@
 
 	</style>
   </head>
-<body class="um-vp" ontouchstart="zy_cc(this);">
-	<div>
+<body class="um-vp"  ontouchstart>
+	<div id="allContent">
 		<div class="c-gra us uc-n" id="type">  
 		  	<div ontouchstart="zy_touch('btn-act')" onclick="addType();" class="ub ubb b-gra c-m7 t-bla ub-ac lis">     
 		 		<div class="ub-f1 ut-s ulev0 t-gra5">请选择版块</div>    
@@ -58,7 +58,7 @@
 		</div>
 		<div class="c-wh uc-n b-gra2 ubb uinput" id="sub"> 
 			<div class="uinn16">
-				<input placeholder="添加标题（限40字）" type="text" class="uc-n ulev0" id="txt1" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+				<input placeholder="添加标题（限40字）" type="text" class="uc-n ulev0" id="txt1" onfocus="myOnfocus(0);" onblur="myOnblur(0);" > 
 			</div>  
 		</div>
 
@@ -74,7 +74,7 @@
          <div style="" class="uinn18 ip-sta">
 		   <div class="c-wh uc-n b-gra2 ubb uinput" > 
 	       <div class="uinn16">
-				<input placeholder="物品名称" type="text" class="uc-n ulev0" id="name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+				<input placeholder="物品名称" type="text" class="uc-n ulev0" id="name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" > 
 			</div> 
 		  </div>
 
@@ -99,15 +99,15 @@
 			</div>
 
 			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-				<input placeholder="价格" type="text" class="uc-n ulev0" id="rice" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+				<input placeholder="价格" type="text" class="uc-n ulev0" id="rice" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput=> 
 			</div>
 
 			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-				<input placeholder="地址" type="text" class="uc-n ulev0" id="place" onfocus="myOnfocus(0);"   onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+				<input placeholder="地址" type="text" class="uc-n ulev0" id="place" onfocus="myOnfocus(0);"   onblur="myOnblur(0);" > 
 			</div>
 
 			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="phone"   onfocus="myOnfocus(0);" onblur="myOnblur(0);" > 
 			</div>
 		</div>
 
@@ -118,21 +118,21 @@
          <div style="" class="uinn18 ip-sta">
 		   <div class="c-wh uc-n b-gra2 ubb uinput" > 
 	       <div class="uinn16">
-				<input placeholder="联系人" type="text" class="uc-n ulev0" id="c_name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+				<input placeholder="联系人" type="text" class="uc-n ulev0" id="c_name" onfocus="myOnfocus(0);" onblur="myOnblur(0);" > 
 			</div> 
 		  </div>
 
 
-			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput">
-				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="c_phone"   onfocus="myOnfocus(0);" onblur="myOnblur(0);" oninput="txtinput1(this);"> 
+			<div class="uinn16 c-wh uc-n b-gra2 ubb uinput" >
+				<input placeholder="手机号码" type="text" class="uc-n ulev0" id="c_phone"   onfocus="myOnfocus(0);" onblur="myOnblur(0);" > 
 			</div>
 		</div>
 
 			<!-- //************* -->
 
 
-			<div class="uinn16">
-				<textarea placeholder="添加详细描述"  onfocus="myOnfocus(1);"  onblur="myOnfocus(0);"  class="uc-n ulev0 umh11" id="txt2"  oninput="txtinput2(this);"></textarea>
+			<div class="uinn16" onclick="scrollT();">
+				<textarea placeholder="添加详细描述"  onfocus="myOnfocus(1);"  onblur="myOnfocus(0);"  class="uc-n ulev0 umh11" id="txt2"  ></textarea>
 			</div>
 			<div class="ub tab1 t-wh" id="menus">	
 				<div ontouchstart="zy_touch('tp-click')" onclick="getLogLat();" class="ub-f1 ub ub-ver tab-act">
@@ -179,6 +179,7 @@
 			<div></div>
 		</div>
 	</div>
+	<div id="footH" style=""></div>
 </body>
 <script>
 zy_init();
@@ -261,7 +262,9 @@ window.uexOnload=function(t)
 {
 	logs("editor-->params: "+JSON.stringify(params));
 	//if(!(type=='breply' || type=='record' || type=='msg'))
-		setPageBounce('', '');
+		uexWindow.setBounce("1");
+		uexWindow.showBounceView("0", "rgba(255,255,255,0)", "0");
+        uexWindow.showBounceView("1", "rgba(255,255,255,0)", "0");
 	
 
     //uexEditDialog.open("1" , 0, 100, 720, 100, 16, "", "0", "提示", "", 10000);
@@ -434,13 +437,7 @@ function txtinput1(ts){
 	logs('txtinput1(ts)--->l='+l+', v='+v);
 */
 }
-function txtinput2(ts){
-/*
-	var v = ts.value;
-	var l = fucCheckLength(v);
-	logs('txtinput2(ts)--->l='+l+', v='+v);
-*/
-}
+
 
 function submit(){
 	var url = '';
@@ -729,6 +726,16 @@ function getDetails(page){
 	return details;
     
 } 
+
+
+function scrollT(){
+	$$("footH").style.height="60%";
+	//alert(document.body.scrollHeight);
+	window.scrollTo(0,$$("allContent").offsetHeight-document.body.clientHeight/2);
+	//$$("txt2").blur();
+	
+	
+}
 
 </script>
 </html>

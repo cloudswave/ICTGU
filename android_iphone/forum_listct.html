@@ -47,7 +47,7 @@
 	                	<span id="title">普通</span>
 						<img class="mswi" id="trans-pic" src="css/images/icons-18-white_down.png" style="width:.85em;" />	     
 					</h1>
-					<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="addThread();">
+					<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="addThread();" id="btn_add">
 						<div class="btn btn-r btn-n ub ub-ac">       
 				        	<div class="ulim">
 				        		<img src="images/sbtn.png" class="sbtn">
@@ -91,8 +91,13 @@ if(noPop) removeNode('trans-pic');
 
 window.uexOnload = function(type){
     if (!type) {
-		setstorage('params', '{"fid":"'+fid+'", "view":"com", "update":""}');
+    	var show_author=isDefine(params.show_author)?true:false;
+		setstorage('params', '{"fid":"'+fid+'", "view":"com", "update":"","show_author":'+show_author+'}');
         zy_con("content", "forum_listct_content.html", 0, $$("header").offsetHeight);
+        if(!isDefine(params.user_post)){
+        	$$("btn_add").className += " uhide"; 
+
+        }
 		showclass();
     }
 	window.onorientationchange=window.onresize=function()

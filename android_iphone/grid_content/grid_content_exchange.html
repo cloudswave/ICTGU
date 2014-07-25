@@ -12,6 +12,7 @@
     <script src="../js/config.js"></script>
 	<script src="../js/zy_control.js"></script>
 	<script src="../js/dis_control.js"></script>
+	<script src="../js/zy_icache.js"></script>
     <script src="../js/zy_click.js"></script>
     <script type="text/javascript" src="../js/dis_control.js"></script>
     <script type="text/javascript" src="../js/zy_json.js"></script>
@@ -117,7 +118,8 @@ var data=getStorJson("apps2");
 window.uexOnload=function(type)
 {
 	if(!type){
-		//uexWindow.setBounce("1");
+		zy_initcache(function(){
+		});
 		setPageBounce(downcb, upcb);
         if(!isDefine(data[0])){
         	toGetApps(0);
@@ -146,6 +148,7 @@ function toGetApps(f){
 		imgcache();
 
 		setStorJson("cacheIcons2",cacheIcons);
+		//alert(JSON.stringify(cacheIcons));
 
 		uexWindow.closeToast();
 

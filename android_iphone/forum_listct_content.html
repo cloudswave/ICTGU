@@ -279,7 +279,8 @@ function go2newlist(fid){
 	openwin('forum_list11', 'forum_listct.html', '10');
 }
 function go2new5(tid, uid){
-	setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'"}');
+	var show_author=isDefine(params.show_author)?true:false;
+	setstorage('params','{"tid":"'+tid+'", "uid":"'+uid+'","show_author":'+show_author+'}');
 	
 	//var o = getStorJson('params');
 	openwin('forum_detail','forum_detail.html','10');
