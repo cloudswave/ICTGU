@@ -187,6 +187,9 @@ function loadListForumCb(json){
 	if(json){
 		var ss = Int(json.status);
 		if (ss<0) {
+			 if(json.message==""){
+			 	json.message="抱歉，您没有权限查看，您可以联系管理员处理。";
+			 }
 			if(ss==-3) myConfirm(json.message, 'forum_detail');
 			else uexWindow.toast('0','5',json.message,2000);
 			return;
@@ -194,7 +197,7 @@ function loadListForumCb(json){
 		
 		var o = json;
 
-		//alert(o.message);
+
 
 		if(o.back=='1' && o.msg){
 			myConfirm(o.msg, 'forum_detail');
@@ -202,7 +205,7 @@ function loadListForumCb(json){
 		}
 		
 		if(!o.tid){
-			myConfirm('抱歉，指定的主题不存在或已被删除或正在被审核', 'forum_detail');
+			myConfirm('抱歉，您没有权限查看或帖子正在审核或已经删除，您可以联系管理员处理！', 'forum_detail');
 			return;
 		}	
 		
@@ -496,7 +499,7 @@ function loadListComCb(json){
 			var res = '<div class="uinn1">'+json.msg+'</div>';
 			setHtml('comlist', res);
 		}
-		else setHtml('comlist', '回帖列表加载有误，请刷新！');
+		else setHtml('comlist', '回复列表加载有误，请刷新！');
 	}
 	resetBV('0');
 }

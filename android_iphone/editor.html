@@ -39,10 +39,10 @@ var params = getStorJson('params');
 var type = params.type;
 var tts = '';
 
-if(type=='thread') tts='发帖';
+if(type=='thread') tts='发布';
 else if(type=='reply'){
-	tts='回帖';
-	if(params.pid) tts='帖子回复';
+	tts='回复';
+	if(params.pid) tts='内容回复';
 }
 else if(type=='portal') tts='文章评论';
 else if(type=='blog') tts='写日志';

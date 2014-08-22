@@ -119,7 +119,7 @@ function getJsonCallback(json){
        			cContent.removeChild(cContent.firstElementChild);
        		}
 			
-			var notes = '暂无版块内容';
+			var notes = '暂无内容';
 			if (json.back=='1' && json.message) notes = json.message;
 			
 			var node = createEle("div");
@@ -134,7 +134,7 @@ function getJsonCallback(json){
 			//if(cContent.children[0].children[0].id==list[0].tid) return;
 		}
 		
-		var tmpl = '<li class="ub ub-ac ub-pc umh6 uinn ubb b-gra" id="${tid}" ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});">'
+		var tmpl = '<li class="uc-n ubb ub b-gra t-bla ub-ac lis" id="${tid}" ontouchstart="zy_touch(\'onbg\')" onclick="go2new5(${tid}, ${authorid});">'
 					+'<div class="ub-f1 ub ub-ver">'
 						+'<div class="t-bla ulev0 ut-s">${subject}</div>'
 						+'<div class="t-gra1 ulev-1 ub-f1 umar-t ulh">'

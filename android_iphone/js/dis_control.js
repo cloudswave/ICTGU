@@ -285,6 +285,14 @@ function _baidu_share(url,content,pic_url){
 
 }
 
+
+function _show_content(title,url,content,pic_url){
+	setstorage("content",content);
+	setstorage('share','{"url":"'+url+'","content":"三大校园App","pic_url":"'+pic_url+'","flag":"1"}');
+	openUrl("../share.html",title);
+
+}
+
 function hyperlinkHandle(evt){
 	evt.preventDefault();	
 

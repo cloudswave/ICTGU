@@ -47,11 +47,6 @@
 		</ul>
 	</div>
 	<ul class="uba b-gra c-wh uc-a uinn8">  
-		<li ontouchstart="zy_touch('us-i')" onclick='shareSoft();' class="uc-t ubb ub b-gra t-bla ub-ac lis">     
-	 		<div class="ub-img5 im22 morepic"></div>  
-	   		<div class="ub-f1 ut-s ulev0">分享软件</div>    
-	 		<div class="res8 lis-sw ub-img4"></div>   
-	 	</li>  
 	  	<li ontouchstart="zy_touch('us-i')" onclick="go2new5(5);" class="uc-t ubb ub b-gra t-bla ub-ac lis">     
 	 		<div class="ub-img5 im22 morepic"></div>  
 	   		<div class="ub-f1 ut-s ulev0">同步微博</div>    
@@ -62,14 +57,24 @@
 	 		<div class="ub-f1 ut-s ulev0">推荐好友</div>   
 	  		<div class="res8 lis-sw ub-img4"></div>   
 	 	</li>     
-		<li ontouchstart="zy_touch('us-i')" onclick="cleanCache();"  class="uc-b ub  t-bla ub-ac lis">    
+		<li ontouchstart="zy_touch('us-i')" onclick="cleanCache();"  class="uc-t ubb ub b-gra t-bla ub-ac lis">    
 	  		<div class="ub-img5 im24 morepic"></div>     
 	 		<div class="ub-f1 ut-s ulev0">清除缓存</div>   
 	 		<div class="res8 lis-sw ub-img4"></div>
 	    </li> 
-	    <li ontouchstart="zy_touch('us-i')" onclick="checkWidgetUpdate();"  class="uc-b ub  t-bla ub-ac lis">    
+	    <li ontouchstart="zy_touch('us-i')" onclick="checkWidgetUpdate();"  class="uc-t ubb ub b-gra t-bla ub-ac lis">    
 	  		<div class="ub-img5 im22 morepic"></div>   
 	 		<div class="ub-f1 ut-s ulev0">检查更新</div>   
+	 		<div class="res8 lis-sw ub-img4"></div>
+	    </li> 
+		<li ontouchstart="zy_touch('us-i')" onclick='shareSoft();' class="uc-t ubb ub b-gra t-bla ub-ac lis">     
+	 		<div class="ub-img5 im22 morepic"></div>  
+	   		<div class="ub-f1 ut-s ulev0">分享软件</div>    
+	 		<div class="res8 lis-sw ub-img4"></div>   
+	 	</li>  
+	    <li ontouchstart="zy_touch('us-i')" onclick="about();"  class="uc-t ubb ub b-gra t-bla ub-ac lis">    
+	  		<div class="ub-img5 im22 morepic"></div>   
+	 		<div class="ub-f1 ut-s ulev0">关于软件</div>   
 	 		<div class="res8 lis-sw ub-img4"></div>
 	    </li>    
 	</ul>
@@ -153,5 +158,23 @@ function shareSoft(){
 	uexWindow.toast('0','5','正在分享,请稍后...',2000);
 	_baidu_share(soft_down_url,share_content,share_pic);
 }
+
+
+function about(){
+    var u = forum_url + "&mod=ajax&action=getpost&tid=" + 44;
+    uexWindow.toast('0','5','正在加载,请稍后...',2000);
+     $.getJSON(u, loadListForumCb, 'json', getJsonErr, 'POST', '', "true", '1');
+
+	
+}
+
+function loadListForumCb(json){
+    if(json){
+    	var share_url= serverurl+'forum.php?mod=viewthread&tid='+44;
+        _show_content("关于软件",share_url,repPhoneNum(json.message),"");
+    }
+
+}
+
 </script>
 </html>

@@ -13,6 +13,7 @@
 
         <script src="js/dis_control.js"></script>
         <script src="js/zy_control.js"></script>
+        <script src="js/config.js"></script>
         <style type="text/css">
             body{
                 font-size: 20px;
@@ -36,17 +37,24 @@
         var url = params.url;
         var pic_url = params.pic_url;
         var content = params.content;
-        //alert(url);
+        var flag = params.flag;//直接查看内容
+
         if(isDefine(pic_url)){
             $$("picture").setAttribute("src", pic_url);
         }
 
         if(isDefine(content)){
-           content="我通过\"校园汇客户端\"分享了：【"+content+"】,快来围观！";
-            setHtml("content",content+"<br>来源：<a href='"+url+"' >链接地址</a>");
+            if(isDefine(flag)){
+                setHtml("content",getstorage("content"));
+                content="我通过\"三大校园汇客户端\"分享了：【"+content+"】,快来围观！";
+
+            }else{
+                content="我通过\"三大校园汇客户端\"分享了：【"+content+"】,快来围观！";
+                setHtml("content",content+"<br>来源：<a href='"+url+"' >链接地址</a>");
+            }
            
         }else{
-            content="我通过\"校园汇客户端\"分享了一个链接，戳过来看撒";
+            content="我通过\"三大校园汇客户端\"分享了一个链接，戳过来看撒";
             setHtml("content",content+"<br>来源：<a href='"+url+"' >链接地址</a>");
             
         }
@@ -66,7 +74,10 @@
        
          window.uexOnload = function(type){
             if (!type) {
-                 $$("share").click();
+                 uescript("webapp","setUrl(\'"+url+"\');");
+                 if(!isDefine(flag)){
+                   $$("share").click();
+                 }
                  //$$("share").click();
            }
         }

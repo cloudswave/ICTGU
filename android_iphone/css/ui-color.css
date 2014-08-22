@@ -124,7 +124,8 @@ background-size: 0.44em 100%
 	background-color:#E6E6E6;
 }
 .c-gra1{
-	background-color:#DFDFDF;
+	__background-color:#DFDFDF;
+	background-color:rgb(119, 166, 248);
 }
 .c-gra2{
 	background-color:#8F8F8F;

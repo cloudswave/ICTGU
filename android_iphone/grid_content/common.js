@@ -35,7 +35,7 @@ function loadList(data){
     //alert(list.length);
     var temp_list=list.slice(length-length%col);
 	if(temp_list.length>0){
-    		tem = zy_tmpl(tmpl,temp_list,temp_list.length,null);
+    		tem = zy_tmpl(tmpl,temp_list,temp_list.length,tmpleCb);
 		 	for (var j = col-temp_list.length; j >=1; j--) {
 		 		tem+='<div class="ub-f1 ub ub-ver ub-ac ub-pc" >'+
    				'<div class="ub-img uwh-acc2  umar-at1"></div>'+
@@ -73,17 +73,19 @@ function go2new5(id){
 
 
 var icons=[];
+var pics_path=[]
 function tmpleCb(a, b){
 	switch(b[1]){
 		case "bgImg":
-			var imgurl=cacheIcons["img"+a['id']];//从缓存里读取图标
+			var imgurl=cacheIcons[a['imgname']];//从缓存里读取图标
 			if(isDefine(imgurl)){
 				return "background-image: url("+imgurl+")";
 			}
 
 		    imgurl = a['bgImg'];
 		    if(imgurl){
-				icons["img"+a['id']]=imgurl;
+				icons["img"+a['id']]=a['imgname'];
+				pics_path["img"+a['id']]=a["bgImg"];
 				return "background-image: url("+imgurl+")";
 
 			}
@@ -96,7 +98,7 @@ function tmpleCb(a, b){
 
 function imgcache(){
 	for(index in icons){
-	    zy_imgcache(index, index, icons[index],imgLoadSuc2, imgLoadErr2,null,'png');
+	    zy_imgcache(index, icons[index], pics_path[index],imgLoadSuc2, imgLoadErr2,null,'png');
 
 
 	}
@@ -106,7 +108,7 @@ function imgcache(){
 function imgLoadSuc2(id, src){
 	var e = $$(id);
 	if(e && e.style) e.style.cssText = "background-image: url("+src+")";
-	cacheIcons[id]=src;
+	cacheIcons[icons[id]]=src;
 
 }
 

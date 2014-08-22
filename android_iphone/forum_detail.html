@@ -27,8 +27,8 @@
         	<div class="umh015"></div>
         	<div class="c-blu3 c-m2 t-wh uc-a uba us b-gra uinn6" id="hd1">
         		<!--按钮开始-->
-				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="closewin();">       
-					<div class="ulim">返回</div>       
+				<a class="btn btn-l btn-a ub ub-ac" ontouchstart="zy_touch('btn-act1')" >       
+					<div class="ulim" onclick="closewin();">返回</div>       
 				</a>
 				<!--按钮结束-->
                 <h1 class="ut ulev0 ut-s tx-c" tabindex="0">详情</h1>
@@ -67,7 +67,6 @@ window.uexOnload = function(type){
 			setstorage('headerHeight', hh);
 			my_con("content", "forum_detail_content.html", 0, hh);
 		}, 500);
-		
 		//setTimeout('setNavDiv();', 200);
     }
 	window.onorientationchange=window.onresize=function()

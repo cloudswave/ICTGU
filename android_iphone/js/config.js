@@ -22,7 +22,7 @@ var newest_url =	"http://"+ip+"/newest.php?jsoncallback=?";
 var uc_url =		"http://"+ip+"/uc.php?jsoncallback=?";
 
 var soft_down_url = "http://iclouds.qiniudn.com/apk%E6%A0%A1%E5%9B%AD%E6%B1%87.apk";
-var share_content="校园汇App，便捷校园生活！";
+var share_content="三大校园App，便捷校园生活！";
 var share_pic="http://iclouds.qiniudn.com/pic%E6%A0%A1%E5%9B%AD%E6%B1%87.png";
 
 

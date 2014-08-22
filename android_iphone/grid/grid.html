@@ -57,7 +57,7 @@
                 uexWindow.onKeyPressed=function(keyCode){
                     if(keyCode==0)
                       openwin('main','../main.html','10',0);
-              }
+                }
               uexWindow.setReportKey(0,1);
 
 
@@ -76,27 +76,27 @@
                     //      zy_content("content", res, 0, $$("header").offsetHeight,"16");
 
                     // }, 'text', getJsonErr, 'GET', '','1');
-}               
+              }               
 
 
-if(isDefine(action)){
-    switch(action)
-    {
-       case "scanner":
-                         //uexScanner.open();
-                         break;
+            if(isDefine(action)){
+            switch(action)
+            {
+               case "scanner":
+                                 //uexScanner.open();
+                           break;
 
 
-                         default:
-                         break;
-                     }
-                 }
+                           default:
+                           break;
+                       }
+               }
 
-             }
+          }
              window.onorientationchange=window.onresize=function()
              {
                 zy_resize("content",0,$$("header").offsetHeight);               
-            }
+             }
 
             if(window['uexScanner']){
                 uexScanner.cbOpen = function (opCode, dataType, data) {
@@ -109,16 +109,20 @@ if(isDefine(action)){
                                 //alert('二维码错误');
                             }
                         };
-                    }
+             }
 
 
+}
 
-                }
+  function goUrl(){
+      uexWindow.toast('1', '5', "加载中...", '1500');
+      zy_content("content", getValue("url"), 0, $$("header").offsetHeight,16);
 
-                function goUrl(){
-                    uexWindow.toast('1', '5', "加载中...", '1500');
-                    zy_content("content", getValue("url"), 0, $$("header").offsetHeight,16);
+  }
 
-                }
-            </script>
-            </html>
+
+  function setUrl(u){
+    url=u;
+  }
+</script>
+</html>

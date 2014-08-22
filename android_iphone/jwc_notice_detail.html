@@ -17,7 +17,8 @@
 	<script src="js/zy_click.js"></script>
 	<script src="js/zy_anim.js"></script>
 	<script src="js/dis_control.js"></script>
-	  <script src="js/zy_json.js"></script>
+	<script src="js/zy_json.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
 	<script>
 	</script>
 </head>
@@ -55,7 +56,6 @@ window.uexOnload = function(type){
     if (!type) {
 		
 		var url=notice_url+"&newsUrl="+newsUrl;
-
        //uexWindow.toast('1', '5', "获取数据中", '');
         updated = checkKey(url);
 		if(!updated) uexWindow.toast('1','5','更新中...',"");
@@ -65,7 +65,7 @@ window.uexOnload = function(type){
                  var result = JSON.parse(result);
 		//alert(result.info);
                 if (result.status == 1) {
-					var tmpl="<a href='"+newsUrl+"' style='float:right;margin:25px;'>查看原文</a></br>";
+					var tmpl="<a href='javascript:loadLink(\""+newsUrl+"\");' style='float:right;margin:25px;'>查看原文</a></br>";
 					
 					
 					setHtml('content',tmpl+result.data.content);
@@ -76,7 +76,7 @@ window.uexOnload = function(type){
                 else {
                     uexWindow.toast('0', '5', '获取数据失败', 2000);
                 }
-		 }, 'text', getJsonErr, 'GET', '', '',1);//0不缓存
+		 }, 'text', getJsonErr, 'GET', '', true,1);//0不缓存
 
     }
 	

@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/zy_control.js"></script>
 	<script src="js/zy_click.js"></script>
+	<script src="js/zy_anim.js"></script>
 	<script src="js/dis_control.js"></script>
 	<script>
 	</script>
@@ -28,11 +29,11 @@
 						</div>
 					</div>
 	                <h1 class="ub-f1 ut ulev0 ut-s tx-c" tabindex="0" id="title">&nbsp;</h1>
-						 <a class="btn btn-r btn-n ub ub-ac" ontouchstart="zy_touch('btn-act1')" onclick="reflash();">
-                         <div class="ulim">
-                            加载更多
-                         </div>
-                    </a>
+					<div class="umw4" ontouchstart="zy_touch('btn-act1')" onclick="reflash();">
+						<div class="btn btn-r btn-n ub ub-ac" id="af">       
+				        	<div class="ulim">加载更多</div>             
+				        </div>
+					</div>
 				</div>
 				<div style="height:1px;"></div>
             </div>
@@ -63,5 +64,7 @@ window.uexOnload = function(type){
 function reflash(){
 	ueppscript('jwc_notice_list','content',"reflash();");
 }
+
+
 </script>
 </html>

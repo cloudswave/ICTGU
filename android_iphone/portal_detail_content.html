@@ -391,5 +391,19 @@ function moveOutsc(){
 	disShowAnim('0', dy);
 }
 
+function share_baidu(){
+
+	var url=serverurl+'portal.php?&mod=view&aid=' + aid;
+	
+	var content=subject;
+    _baidu_share(url,content,"");
+}
+
+function loadLink2(){
+	var url=serverurl+'portal.php?&mod=view&aid=' + aid;
+	runbrowser(url);
+
+}
+
 </script>
 </html>
