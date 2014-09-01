@@ -21,6 +21,7 @@
 	<script src="js/dis_control.js"></script>
 	<script src="js/zy_slide.js"></script>
 	<script src="js/config.js"></script>
+	<script src="js/checkUpdate.js"></script>
 	<script>
 	</script>
 	<style>
@@ -362,7 +363,7 @@ window.uexOnload = function(type){
 			
 		//logs('main-->onload-->header width='+$$("header1").offsetWidth);
 
-
+        checkWidgetUpdate();
 		//openUrl("http://baidu.com","百度");
 	}
 	window.onorientationchange = window.onresize = function(){
@@ -698,10 +699,9 @@ function logoutSuccess(){
 	uid = '';
 	setHtml('btnr', '登录');
 	//zy_anim_push('acc','uhide');
-	var ret = radioSelect('menu1');
-	if(ret) ueppscript('main', 'content1', 'pageSwitch(1)');
+
 	
-	navSelected(1);
+	navSelected(7);
 	logoutData();
 	if(timid) clearTimeout(timid);
 }

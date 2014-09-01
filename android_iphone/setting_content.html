@@ -62,7 +62,7 @@
 	 		<div class="ub-f1 ut-s ulev0">清除缓存</div>   
 	 		<div class="res8 lis-sw ub-img4"></div>
 	    </li> 
-	    <li ontouchstart="zy_touch('us-i')" onclick="checkWidgetUpdate();"  class="uc-t ubb ub b-gra t-bla ub-ac lis">    
+	    <li ontouchstart="zy_touch('us-i')" onclick="toCheckUpdate();"  class="uc-t ubb ub b-gra t-bla ub-ac lis">    
 	  		<div class="ub-img5 im22 morepic"></div>   
 	 		<div class="ub-f1 ut-s ulev0">检查更新</div>   
 	 		<div class="res8 lis-sw ub-img4"></div>
@@ -141,7 +141,7 @@ function cleanCacheCb(opId,dataType,inData){
 		uexFileMgr.deleteFileByPath("wgt://data/icache");
 		
 		uescript('main', 'logoutSuccess();');
-		setTimeout("uescript('setting', 'closewin()');", 1500);
+		//setTimeout("uescript('setting', 'closewin()');", 1500);
 		
 		var d = new Date();
 		var ms = d.getTime();
@@ -173,6 +173,12 @@ function loadListForumCb(json){
     	var share_url= serverurl+'forum.php?mod=viewthread&tid='+44;
         _show_content("关于软件",share_url,repPhoneNum(json.message),"");
     }
+
+}
+
+function toCheckUpdate(){
+	uescript('setting', 'closewin()');
+    uescript('main', 'checkWidgetUpdate();');
 
 }
 

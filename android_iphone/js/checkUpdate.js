@@ -9,7 +9,7 @@ function checkWidgetUpdate(){
 	uexDownloaderMgr.onStatus = function(opId,fileSize, percent, status){
 		if(status == 0){
 			var str = '下载进度：'+percent+'%';
-			if(fileSize==-1) str = '下载中，请稍候...';
+			if(fileSize==-1) str = '下载中，下载完毕后将自动安装,请稍候...';
 			uexWindow.toast('1','5', str,'');
 		}else if (status == 1){
 			uexWindow.closeToast();
@@ -26,6 +26,8 @@ function checkWidgetUpdate(){
 		if(data == 0){
 			logs('updateurl='+updateurl);
 			uexDownloaderMgr.download('14', updateurl, filepath2, '0');
+
+
 		}
 		else{
 			uexWindow.toast('0','5','下载失败','2000');
@@ -53,13 +55,19 @@ function checkWidgetUpdate(){
 			savePath = obj.name;
 			var mycars=['稍后', '更新'];
 			uexWindow.confirm('', '当前有新版本，是否更新?', mycars);		
-		}else if(obj.result == 1){
+		}else {
+			if(obj.result == 1){
 			tips = "Current version is the newest";
-		}else if(obj.result == 2){
+
+		   }else if(obj.result == 2){
 			tips = "Unknow error";
-		}else if(obj.result == 3){
+		  }else if(obj.result == 3){
 			tips = "Params error";
-		}
+		  }
+		  uexWindow.toast('0','5','已经是最新版0.0','2000');
+	   }
+
+		
 		logs('cbCheckUpdate()-->tips='+tips);
 	}
 	uexFileMgr.cbIsFileExistByPath = function(opCode,dataType,data){

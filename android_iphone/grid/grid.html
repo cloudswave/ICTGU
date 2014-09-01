@@ -56,7 +56,8 @@
             if (!type) {
                 uexWindow.onKeyPressed=function(keyCode){
                     if(keyCode==0)
-                      openwin('main','../main.html','10',0);
+                      uexWindow.toast('1', '5', "正在加载...", '1500');
+                      setTimeout('zy_content("content", "'+url+'", 0, $$("header").offsetHeight,16);', 500);
                 }
               uexWindow.setReportKey(0,1);
 
